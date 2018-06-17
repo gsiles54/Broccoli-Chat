@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 
 import javax.swing.JList;
@@ -38,7 +39,7 @@ public class GUI_Lobby extends JFrame {
 	private JPanel contentPane;
 
 	private JList<String> listaClientesConectados;
-
+	private DefaultListModel<String> modelListaCliente;
 	EntradaSalida entradaSalida;
 	private JTextPane chatLobby=null;
 	private JTextField chatTextBoxLobby;
@@ -141,7 +142,8 @@ public class GUI_Lobby extends JFrame {
 		scrollPane_1.setBounds(0, 0, 179, 637);
 		panel.add(scrollPane_1);
 		
-		setListaClientesConectados(new JList<String>());
+		modelListaCliente = new DefaultListModel<>();
+		setListaClientesConectados(new JList<String>(modelListaCliente));
 		scrollPane_1.setViewportView(getListaClientesConectados());
 		
 		JPanel panel_1 = new JPanel();
@@ -201,13 +203,13 @@ public class GUI_Lobby extends JFrame {
 		this.chatBox=set;
 	}
 
-	public JList<String> getListaClientesConectados() {
+	public synchronized JList<String> getListaClientesConectados() {
 		return listaClientesConectados;
 	}
 
 	public void setListaClientesConectados(JList<String> listaClientesConectados) {
 		this.listaClientesConectados = listaClientesConectados;
-		listaClientesConectados.setFont(new Font("Source Sans Pro Semibold", Font.PLAIN, 16));
-		listaClientesConectados.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		this.listaClientesConectados.setFont(new Font("Source Sans Pro Semibold", Font.PLAIN, 16));
+		this.listaClientesConectados.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	}
 }

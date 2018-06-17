@@ -10,6 +10,7 @@ import com.vista.GUI_Lobby;
 public class HiloOutputLobby implements Runnable{
 	
 	Cliente cliente;
+
 	GUI_Lobby lobbyGui;
 	
 	EntradaSalida entradaSalida;
@@ -50,5 +51,7 @@ public class HiloOutputLobby implements Runnable{
 			}
 		}
 	}
-
+	public Cliente getCliente() {
+		return cliente;
+	}
 }

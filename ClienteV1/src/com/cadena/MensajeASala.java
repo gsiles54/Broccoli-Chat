@@ -13,7 +13,8 @@ public class MensajeASala extends ChainCliente{
 			cl.imprimirMsj(msj);
 		}
 		else {
-			System.out.println("MensajeASala: agregar manejador siguiente");
+			System.out.println("Agregas mas manejadores");
+			
 		}
 	}
 

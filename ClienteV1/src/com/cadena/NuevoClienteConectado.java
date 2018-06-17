@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 
+
 import com.mensajes.Comandos;
 import com.mensajes.Mensaje;
 import com.salas.Sala;
@@ -38,4 +39,6 @@ public class NuevoClienteConectado extends ChainCliente {
 			siguiente.manejarPeticion(mensaje);
 		}
 	}
+	
+
 }

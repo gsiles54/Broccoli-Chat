@@ -2,10 +2,13 @@ package com.servidor;
 
 import java.util.ArrayList;
 
+import com.Chain.AgregarClienteASala;
 import com.Chain.Chain;
+import com.Chain.ClienteNuevo;
 import com.Chain.CrearSala;
 import com.Chain.DesconectarCliente;
 import com.Chain.EnviarMsjASala;
+import com.Chain.InvitarUsuario;
 import com.cliente.Cliente;
 import com.logs.LoggerCliente;
 import com.mensajes.Comandos;
@@ -53,9 +56,16 @@ public class ControladorServidor {
 		CrearSala cs = new CrearSala(salas, clientesEnLobby);
 		DesconectarCliente dc = new DesconectarCliente(salas, clientesEnLobby);
 		EnviarMsjASala msj = new EnviarMsjASala(clientesEnLobby, salas);
-
+		InvitarUsuario invitar = new InvitarUsuario();
+		AgregarClienteASala  agregarClienteASala = new AgregarClienteASala();
+		
+		//ClienteNuevo clieNue = new ClienteNuevo();
+		
+		
 		cs.enlazarSiguiente(dc);
-		dc.enlazarSiguiente(msj);
+		dc.enlazarSiguiente(agregarClienteASala);
+		agregarClienteASala.enlazarSiguiente(msj);
+		msj.enlazarSiguiente(invitar);
 		return cs;
 	}
 
@@ -110,10 +120,11 @@ public class ControladorServidor {
 		for (Cliente yaConectados : clientesEnLobby) {
 			if (!elNuevoEntrante.equals(yaConectados)) {
 				yaConectados.enviarMensaje(new Mensaje(Comandos.ClienteNuevo, elNuevoEntrante.getNombre()));
-			} // c.enviarMensaje(mensaje);
+			}
 		}
 		
 		for (Cliente c : clientesEnLobby) {
+			
 				elNuevoEntrante.enviarMensaje(new Mensaje(Comandos.ClienteNuevo, c.getNombre()));
 		}
 		LoggerCliente.enviarLog("Se envio a todos el nuevo usuario.");

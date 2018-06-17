@@ -37,10 +37,12 @@ public class Sala {
 		this.esPrivada = esPrivada;
 	}
 	
-	public void meterCliente(String cliente) {
+	public boolean meterCliente(String cliente) {
 		if(!clientesEnSala.contains(cliente)) {
 			clientesEnSala.add(cliente);
+			return true;
 		}
+		return false;
 	}
 	
 	public void sacarCliente(String cliente) {
@@ -53,7 +55,9 @@ public class Sala {
 	
 		return salaID;
 	}
-	
+	public boolean esPrivada() {
+		return esPrivada;
+	}
 	
 	public GUI_Sala getSalaGui() {
 		return salaGUI;

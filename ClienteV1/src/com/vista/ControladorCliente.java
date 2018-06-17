@@ -11,8 +11,10 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
 import com.Cliente.EntradaSalida;
+import com.cadena.AgregarASala;
 import com.cadena.ChainCliente;
 import com.cadena.CrearSala;
+import com.cadena.Invitacion;
 import com.cadena.MensajeASala;
 import com.cadena.NuevoClienteConectado;
 import com.mensajes.Comandos;
@@ -90,9 +92,14 @@ public class ControladorCliente implements Runnable{
 		CrearSala cs = new CrearSala();
 		MensajeASala msj = new MensajeASala();
 		NuevoClienteConectado ncc= new NuevoClienteConectado(lobbyGui, modeloListaClientes,copiaClientesEnLobby);
-
+		Invitacion invitacion = new Invitacion();
+		AgregarASala agregarASala = new AgregarASala();
+		
+		
+		ncc.enlazarSiguiente(invitacion);
+		invitacion.enlazarSiguiente(agregarASala);
+		agregarASala.enlazarSiguiente(cs);
 		cs.enlazarSiguiente(msj);
-		ncc.enlazarSiguiente(cs);
 		return ncc;
 	}
 	

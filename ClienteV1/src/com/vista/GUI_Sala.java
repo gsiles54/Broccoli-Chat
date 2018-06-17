@@ -1,6 +1,7 @@
 package com.vista;
 
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
@@ -9,12 +10,20 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import com.salas.Sala;
+
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
+import javax.swing.ListModel;
+import javax.swing.ListSelectionModel;
 import javax.swing.JTextField;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JList;
+import javax.swing.JLabel;
 
 public class GUI_Sala extends JFrame {
 
@@ -23,15 +32,32 @@ public class GUI_Sala extends JFrame {
 	private JTextField chatTextBoxSala;
 	private boolean chatBox=false;
 	private JTextPane chatSala;
+	private GUI_Lobby guiLobby;
+	JList<String> list;
+	DefaultListModel<String> modelList;
+	private String nombreSala;
+	private Integer salaID;
+	JLabel labelSalaID;
+	private boolean salaPrivada;
+	private Sala sala;
 	
-
-
+	public void setTitleSala(String nombre) {
+		this.nombreSala=nombre;
+		this.setTitle(nombre);
+	}
+	public void setSalaID(Integer salaID) {
+		this.salaID=salaID;
+		labelSalaID.setText("Sala ID : "+salaID);
+	}
+	public void setSala(Sala sala) {
+		this.sala=sala;
+	}
 	public GUI_Sala()  {
-		setTitle("Sala @Nombre");
+		
 		setResizable(true);
 		getContentPane().setLayout(null);
 		setBounds(100, 100, 804, 616);
-		
+		guiLobby=GUI_Lobby.guiLobby;
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 61, 472, 210);
 		getContentPane().add(scrollPane);
@@ -56,10 +82,21 @@ public class GUI_Sala extends JFrame {
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(492, 61, 113, 244);
 		getContentPane().add(scrollPane_1);
+		modelList = new DefaultListModel<String>();
+		list = new JList<>(modelList);
+		
+		list.setFont(new Font("Source Sans Pro Semibold", Font.PLAIN, 16));
+		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		
+		scrollPane_1.setViewportView(list);
 		
 		JTextPane textPane_1 = new JTextPane();
 		textPane_1.setBounds(492, 61, 111, 242);
 		getContentPane().add(textPane_1);
+		
+		labelSalaID= new JLabel();
+		labelSalaID.setBounds(624, 11, 106, 14);
+		getContentPane().add(labelSalaID);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -74,6 +111,12 @@ public class GUI_Sala extends JFrame {
 		menuBar.add(mnAbout);
 		
 		JMenuItem mntmInvitarUsuario = new JMenuItem("Invitar Usuario");
+		mntmInvitarUsuario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new GUI_Invitar(sala);
+				
+			}
+		});
 		mnAbout.add(mntmInvitarUsuario);
 	}
 
@@ -138,5 +181,11 @@ public class GUI_Sala extends JFrame {
 	public JTextPane getChatSala() {
 		return chatSala;
 	}
-
+	public void agregarCliente(String nombre) {
+		
+		modelList.addElement(nombre);
+	}
+	public void quitarCliente(String nombre) {
+		
+	}
 }

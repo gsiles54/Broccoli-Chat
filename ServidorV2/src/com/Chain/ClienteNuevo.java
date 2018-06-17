@@ -1,5 +1,6 @@
 package com.Chain;
 
+import com.cliente.Cliente;
 import com.mensajes.Comandos;
 import com.mensajes.Mensaje;
 import com.sala.Sala;
@@ -18,12 +19,12 @@ public class ClienteNuevo extends Chain{
 				for (Sala s : salas) {
 						if (s.getSalaID().equals(-1))
 							s.enviarMensaje(mensaje);
+							//aTodos_ClienteConectado(mensaje);
 					}
 		}
 		else
 		{	
-			System.out.println("Ultimo eslabon. El comando era: "+mensaje.getComando());
-			System.out.println("Agregar mas manejadores");
+			siguiente.manejarPeticion(mensaje);
 		}
 	}
 

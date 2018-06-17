@@ -33,8 +33,7 @@ public class EnviarMsjASala extends Chain{
 		}
 		else
 		{	
-			System.out.println("Ultimo eslabon. El comando era: "+mensaje.getComando());
-			System.out.println("Agregar mas manejadores");
+			siguiente.manejarPeticion(mensaje);
 		}
 	}
 }
