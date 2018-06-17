@@ -94,5 +94,8 @@ public class Sala {
 	public void setSalaID(Integer salaID) {
 		this.salaID = salaID;
 	}
+	public ArrayList<Cliente> getClientesEnSala() {
+		return clientesEnSala;
+	}
 	
 }

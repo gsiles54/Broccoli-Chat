@@ -41,9 +41,9 @@ public class CrearSala extends Chain{
 			if(esPrivada==false) {
 					
 					if(esPrivada) {
-						cliente.enviarMensaje(new Mensaje(Comandos.SalaPrivCreadaExitosamente,nuevaSala.getSalaID()));
+						cliente.enviarMensaje(new Mensaje(Comandos.SalaPrivCreadaExitosamente,nombre+";"+nuevaSala.getSalaID()));
 					}else {
-						cliente.enviarMensaje(new Mensaje(Comandos.SalaPubCreadaExitosamente,nuevaSala.getSalaID()));
+						cliente.enviarMensaje(new Mensaje(Comandos.SalaPubCreadaExitosamente,nombre+";"+nuevaSala.getSalaID()));
 					}
 					
 					

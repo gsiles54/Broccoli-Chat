@@ -16,5 +16,11 @@ public class Comandos {
 	public static final String SalaNoCreadaNombreDuplicado="NombreSalaDuplicado";
 	public static final String CrearSalaPublica = "CrearSalaPublica";
 	public static final String CrearSalaPrivada="CrearSalaPrivada";
-
+	public static final String InvitarUsuarioSalaPrivada="InvitarUsuarioSalaPrivada";
+	public static final String InvitarUsuarioSalaPublica="InvitarUsuarioSalaPublica";
+	public static final String InvitacionASalaPublica="InvitacionASalaPublica";
+	public static final String InvitacionASalaPrivada="InvitacionASalaPrivada";
+	public static final String InvitacionASalaPublicaAceptada="InvitacionASalaPublicaAceptada";
+	public static final String InvitacionASalaPrivadaAceptada="InvitacionASalaPrivadaAceptada";
+	public static final String InvitacionRechazada="InvitacionRechazada";
 }
