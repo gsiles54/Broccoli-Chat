@@ -25,7 +25,6 @@ public class HiloLoginHandler implements Runnable {
 	boolean running;
 	ClientOutputHandler salida;
 	ClientInputHandler entrada;
-	//Socket socket;
 	String userName;
 	String password;
 	ControladorServidor controlador;
@@ -33,7 +32,6 @@ public class HiloLoginHandler implements Runnable {
 	public HiloLoginHandler(Socket _socket) throws IOException {
 		salida = new ClientOutputHandler(_socket);
 		entrada = new ClientInputHandler(_socket);
-		//this.socket=_socket;
 		
 		controlador = ControladorServidor.getInstance();
 	}
@@ -59,10 +57,7 @@ public class HiloLoginHandler implements Runnable {
 					clienteNuevo.iniciarEscucha();
 					clienteNuevo.iniciarRespuesta();
 					
-				} catch (Exception e) {
-					e.printStackTrace();
-					System.out.println("Los datos del usuario eran:" + usuarioRecibido + passwordRecibido);
-				}
+				} catch (Exception e) {e.printStackTrace();}
 			}
 			
 

@@ -80,6 +80,7 @@ public class ControladorCliente implements Runnable{
 	
 	public void setCliente(String nombre) {
 	   cliente = nombre; // LOBBY
+	   lobbyGui.setTitle("Broccoli Chat. Cliente: "+cliente);
 		
 		
 	}
@@ -89,32 +90,29 @@ public class ControladorCliente implements Runnable{
 	}
 
 	private ChainCliente ensamblarChain() {
-		CrearSala cs = new CrearSala();
-		MensajeASala msj = new MensajeASala();
-		NuevoClienteConectado ncc= new NuevoClienteConectado(lobbyGui, modeloListaClientes,copiaClientesEnLobby);
+		CrearSala crearSala = new CrearSala();
+		MensajeASala mensajeASala = new MensajeASala();
+		NuevoClienteConectado nuevoClienteConectado= new NuevoClienteConectado(lobbyGui, modeloListaClientes,copiaClientesEnLobby);
 		Invitacion invitacion = new Invitacion();
 		AgregarASala agregarASala = new AgregarASala();
 		
 		
-		ncc.enlazarSiguiente(invitacion);
+		nuevoClienteConectado.enlazarSiguiente(invitacion);
 		invitacion.enlazarSiguiente(agregarASala);
-		agregarASala.enlazarSiguiente(cs);
-		cs.enlazarSiguiente(msj);
-		return ncc;
+		agregarASala.enlazarSiguiente(crearSala);
+		crearSala.enlazarSiguiente(mensajeASala);
+		return nuevoClienteConectado;
 	}
 	
 	@Override
 	public void run() {
 		
 		while(true) {
-				
-				try {
-					Mensaje mensajeRecibido = entradaSalida.recibirMensaje();
-					System.out.println(mensajeRecibido.getComando()+" | "+mensajeRecibido.getInformacion());
-					manejarMensaje(mensajeRecibido);
-				} catch (ClassNotFoundException | IOException e) {
-					e.printStackTrace();
-				}
+			if(entradaSalida!=null && entradaSalida.entradaSalidaAbierta()) {
+			Mensaje mensajeRecibido = entradaSalida.recibirMensaje();
+			manejarMensaje(mensajeRecibido);
+			}
+
 
 		}
 		
@@ -197,8 +195,6 @@ public class ControladorCliente implements Runnable{
 
 	private boolean esParaEsteCliente(Mensaje mensaje) {
 		String[] array = mensaje.getInformacion().split(" : ");
-		
-		// TODO Auto-generated method stub
 		return array[0].equals('\n'+cliente);
 	}
 

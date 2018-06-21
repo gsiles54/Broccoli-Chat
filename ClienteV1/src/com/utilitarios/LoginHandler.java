@@ -54,27 +54,19 @@ public class LoginHandler implements Runnable {
 
 	@Override
 	public void run() {
-		System.out.println("Login Handler Thread Running");
 		boolean flag=true;
-		System.out.println("entrando al bucle");
 		StyledDocument sd;
 			while(flag) {
 				//System.out.println(""); //VAYA A SABER UNO, SI SACO ESTO NO ANDA
 				if(loginGui.isBoton()) {
 					loginGui.setBoton(false);
 					enviarUserPass();
-					try {
 						
 						Mensaje resultadoLogin=entradaSalida.recibirMensaje();
 						
 						int fueExitoso= Integer.parseInt(new String(resultadoLogin.getInformacion()));
-						if(fueExitoso==0) {
-							
-							System.out.println("Credenciales incorrectas, intentelo nuevamente");
-						}else {
-							System.out.println("Credeciales verificadas exitosamente.. Logueandose al sistema.");
-							loginGui.setVisible(false);
-							
+						if(fueExitoso!=0) {
+							ocultarVentanaLogin();
 							
 							//******
 							
@@ -97,17 +89,23 @@ public class LoginHandler implements Runnable {
 							hiloOutput.start();
 							lobbyGui.setVisible(true);
 							sd=lobbyGui.getChatLobby().getStyledDocument();
-							sd.insertString(sd.getLength(), "Credeciales verificadas exitosamente.. Logueandose al sistema.", null);
+							
+							try {
+								sd.insertString(sd.getLength(), "Bienvenido a la sala.", null);
+							} catch (BadLocationException e) {
+								e.printStackTrace();
+							}
 							flag=false;
 						}
-					} catch (IOException | ClassNotFoundException | BadLocationException e) {e.printStackTrace();} //INFORMAR GUI/LOG
+
 				
 					}
 				}
 			
-		
-		
-		System.out.println("Login Handler Thread Saliendo sin novedades.");
+	}
+
+	private void ocultarVentanaLogin() {
+		loginGui.setVisible(false);
 	}
 	public EntradaSalida getEntradaSalida() {
 		return entradaSalida;
