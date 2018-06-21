@@ -39,18 +39,20 @@ public class GUI_Lobby extends JFrame {
 	private JPanel contentPane;
 
 	private JList<String> listaClientesConectados;
-	private DefaultListModel<String> modelListaCliente;
+	private DefaultListModel<String> modeloListaCliente;
 	EntradaSalida entradaSalida;
 	private JTextPane chatLobby=null;
 	private JTextField chatTextBoxLobby;
 	private boolean chatBox=false;
 	static GUI_Lobby guiLobby;
+	private JScrollPane scrollPane_1;
 	
 	public GUI_Lobby(String _userName) {
 		setResizable(false);
 		
 		
 		configurarGUI();
+		configurarJListClientes();
 		
 		entradaSalida=EntradaSalida.getInstance();
 		
@@ -63,11 +65,13 @@ public class GUI_Lobby extends JFrame {
 				if(confirma==0) {
 				entradaSalida.escribirMensaje(new Mensaje(Comandos.LOGOUT, _userName));
 				entradaSalida.cerrarEntradaSalida();
-				dispose();
+				guiLobby.setVisible(false);
+				//dispose();
 				} 
 				
 			}
 		});
+		
 		
 		guiLobby=this;
 	}
@@ -121,14 +125,14 @@ public class GUI_Lobby extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(new Rectangle(0, 0, 500, 500));
 		scrollPane_1.setBounds(0, 0, 179, 637);
 		panel.add(scrollPane_1);
 		
-		modelListaCliente = new DefaultListModel<>();
-		setListaClientesConectados(new JList<String>(modelListaCliente));
-		scrollPane_1.setViewportView(getListaClientesConectados());
+		
+		
+	
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(575, 83, 212, 427);
@@ -164,8 +168,20 @@ public class GUI_Lobby extends JFrame {
 				setChatBox(true);
 			}
 		});
+		
+		
 		contentPane.add(chatTextBoxLobby);
 		chatTextBoxLobby.setColumns(10);
+	}
+
+
+
+	private void configurarJListClientes() {
+		modeloListaCliente = new DefaultListModel<>();
+		listaClientesConectados = new JList<String>(modeloListaCliente);
+		listaClientesConectados.setFont(new Font("Source Sans Pro Semibold", Font.PLAIN, 16));
+		listaClientesConectados.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		scrollPane_1.setViewportView(listaClientesConectados);
 	}
 
 	public synchronized JTextPane getChatLobby() {
@@ -191,9 +207,5 @@ public class GUI_Lobby extends JFrame {
 		return listaClientesConectados;
 	}
 
-	public void setListaClientesConectados(JList<String> listaClientesConectados) {
-		this.listaClientesConectados = listaClientesConectados;
-		this.listaClientesConectados.setFont(new Font("Source Sans Pro Semibold", Font.PLAIN, 16));
-		this.listaClientesConectados.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-	}
+
 }

@@ -70,8 +70,6 @@ public class HiloLoginHandler implements Runnable {
 		try {
 			
 			Mensaje mensajeRecibido = entrada.recibirMensaje();
-			System.out.println("Cantidad Caracteres recibidos " + mensajeRecibido.toString().length());
-			System.out.println(mensajeRecibido.toString());
 			
 			return mensajeRecibido.toString().split(" ");
 

@@ -23,6 +23,4 @@ public class Comandos {
 	public static final String InvitacionASalaPublicaAceptada="InvitacionASalaPublicaAceptada";
 	public static final String InvitacionASalaPrivadaAceptada="InvitacionASalaPrivadaAceptada";
 	public static final String InvitacionRechazada="InvitacionRechazada";
-	public static final String ClientesEnSala="ClientesEnSala";
-	
 }

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.net.SocketException;
 
 import com.mensajes.Mensaje;
 
@@ -46,7 +47,7 @@ public class EntradaSalida {
 	public Mensaje recibirMensaje() {
 		Mensaje devuelve=null;
 		try {
-			if(objectIn!=null)
+			if(objectIn!=null && !socket.isClosed())
 			devuelve= (Mensaje) objectIn.readObject();
 		} catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();
@@ -54,7 +55,7 @@ public class EntradaSalida {
 		return devuelve;
 	}
 	public boolean entradaSalidaAbierta() {
-		if (objectIn!=null && objectOut!=null)
+		if (objectIn!=null && objectOut!=null && !socket.isClosed())
 			return true;
 		else
 			return false;
@@ -62,6 +63,7 @@ public class EntradaSalida {
 	
 	public void cerrarEntradaSalida() {
 		try {
+			socket.close();
 			objectIn.close();
 			objectOut.close();
 			objectIn=null;

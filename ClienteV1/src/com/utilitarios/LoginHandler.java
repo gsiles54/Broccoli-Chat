@@ -55,7 +55,7 @@ public class LoginHandler implements Runnable {
 	@Override
 	public void run() {
 		boolean flag=true;
-		StyledDocument sd;
+		StyledDocument styledDocument;
 			while(flag) {
 				//System.out.println(""); //VAYA A SABER UNO, SI SACO ESTO NO ANDA
 				if(loginGui.isBoton()) {
@@ -88,10 +88,10 @@ public class LoginHandler implements Runnable {
 							hiloOutput = new Thread(output);
 							hiloOutput.start();
 							lobbyGui.setVisible(true);
-							sd=lobbyGui.getChatLobby().getStyledDocument();
+							styledDocument=lobbyGui.getChatLobby().getStyledDocument();
 							
 							try {
-								sd.insertString(sd.getLength(), "Bienvenido a la sala.", null);
+								styledDocument.insertString(styledDocument.getLength(), "Bienvenido a la sala.", null);
 							} catch (BadLocationException e) {
 								e.printStackTrace();
 							}

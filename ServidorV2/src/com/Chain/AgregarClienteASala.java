@@ -1,22 +1,29 @@
 package com.Chain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.cliente.Cliente;
+import com.logs.LoggerCliente;
 import com.mensajes.Comandos;
 import com.mensajes.Mensaje;
 import com.sala.Sala;
-import com.servidor.ControladorServidor;
 
 public class AgregarClienteASala extends Chain{
+	
+	ArrayList<Sala> salas;
+	ArrayList<Cliente> clientesEnLobby;
+	
+	public AgregarClienteASala(ArrayList<Sala> salas,ArrayList<Cliente> clientesEnLobby) {
+		this.salas=salas;
+		this.clientesEnLobby=clientesEnLobby;
+	}
 
 	@Override
 	public void manejarPeticion(Mensaje mensaje) {
-		// TODO Auto-generated method stub
+
 		if (mensaje.getComando().equals(Comandos.InvitacionASalaPublicaAceptada)||mensaje.getComando().equals(Comandos.InvitacionASalaPrivadaAceptada)) {
-			cs = ControladorServidor.getInstance();
-			salas = cs.getSalas();
-			clientesEnLobby = cs.getClientesEnLobby();
+
 			boolean existeSala=false;
 			String[] valores = mensaje.getInformacion().split(";");
 			String nombreCliente = valores[0];
@@ -52,14 +59,11 @@ public class AgregarClienteASala extends Chain{
 				infoNueva.deleteCharAt(infoNueva.length()-1);
 				salaModificada.enviarMensaje(new Mensaje(mensaje.getComando(),infoNueva.toString()));
 			}else {
-				//informar error
+				LoggerCliente.enviarLog("Problema en Servidor:AgregarCLiente");
 			}
 			
 		}
-		else
-		{	
-			siguiente.manejarPeticion(mensaje);
-		}
+		else{siguiente.manejarPeticion(mensaje);}
 	}
 
 }

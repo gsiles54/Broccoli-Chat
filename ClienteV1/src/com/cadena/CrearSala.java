@@ -1,45 +1,45 @@
 package com.cadena;
 
 
+import java.util.ArrayList;
+
 import com.mensajes.Comandos;
 import com.mensajes.Mensaje;
 import com.salas.HiloOutputSala;
 import com.salas.Sala;
-import com.vista.ControladorCliente;
 import com.vista.GUI_Sala;
 
 public class CrearSala extends ChainCliente{
 	
+	String nombreCliente;
+	ArrayList<Sala> copiaSalasDisponibles;
 	
-	public CrearSala() {
-		
+	public CrearSala(String nombreCliente, ArrayList<Sala> copiaSalasDisponibles) {
+		this.nombreCliente=nombreCliente;
+		this.copiaSalasDisponibles=copiaSalasDisponibles;
 	}
 
 	@Override
-	public void manejarPeticion(Mensaje p) {
+	public void manejarPeticion(Mensaje mensaje) {
 		
-		if(p.getComando().equals(Comandos.SalaPrivCreadaExitosamente)||p.getComando().equals(Comandos.SalaPubCreadaExitosamente)) {
-			cl = ControladorCliente.getInstance();
+		if(mensaje.getComando().equals(Comandos.SalaPrivCreadaExitosamente)||mensaje.getComando().equals(Comandos.SalaPubCreadaExitosamente)) {
 			GUI_Sala guiSala = new GUI_Sala();
-			String valores [] = p.getInformacion().split(";");
+			String valores [] = mensaje.getInformacion().split(";");
 			String nombre = valores[0];
 			Integer idSala = Integer.valueOf(valores[1]);
 
 			guiSala.setVisible(true);
-			guiSala.agregarCliente(cl.getCliente());
-			boolean esPrivada = p.getComando().equals(Comandos.SalaPrivCreadaExitosamente)?true:false;
+			guiSala.agregarCliente(nombreCliente);
+			boolean esPrivada = mensaje.getComando().equals(Comandos.SalaPrivCreadaExitosamente)?true:false;
 			Sala nuevaSala = new Sala(idSala,nombre,esPrivada,guiSala);
-			cl.agregarSala(nuevaSala);
+			copiaSalasDisponibles.add(nuevaSala);
 			guiSala.setSala(nuevaSala);
-			nuevaSala.meterCliente(cl.getCliente());
-			HiloOutputSala hiloSala = new HiloOutputSala(cl.getCliente(),guiSala,nuevaSala);
+			nuevaSala.meterCliente(nombreCliente);
+			HiloOutputSala hiloSala = new HiloOutputSala(nombreCliente,guiSala,nuevaSala);
 			Thread thSala = new Thread(hiloSala);
 			thSala.start();
 		}
-		else {
-		
-			siguiente.manejarPeticion(p);
-		}
+		else {siguiente.manejarPeticion(mensaje);}
 	}
 
 }
