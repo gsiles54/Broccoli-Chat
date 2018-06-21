@@ -43,9 +43,33 @@ public class EntradaSalida {
 		}
 	}
 	
-	public Mensaje recibirMensaje() throws ClassNotFoundException, IOException {
-		return (Mensaje) objectIn.readObject();
+	public Mensaje recibirMensaje() {
+		Mensaje devuelve=null;
+		try {
+			if(objectIn!=null)
+			devuelve= (Mensaje) objectIn.readObject();
+		} catch (ClassNotFoundException | IOException e) {
+			e.printStackTrace();
+		}
+		return devuelve;
 	}
+	public boolean entradaSalidaAbierta() {
+		if (objectIn!=null && objectOut!=null)
+			return true;
+		else
+			return false;
+	}
+	
+	public void cerrarEntradaSalida() {
+		try {
+			objectIn.close();
+			objectOut.close();
+			objectIn=null;
+			objectOut=null;
+	} catch (IOException e) {
+		e.printStackTrace();
+	} 
+		}
 
 	
 }

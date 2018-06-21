@@ -57,11 +57,12 @@ public class GUI_Lobby extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent arg0) {
-				// HACER QUE CONFIRME SI DESEA SALIR O NO, en vez de cerrar de una.
+
 				int confirma=JOptionPane.showConfirmDialog(null,
 				        "Realmente desea Salir?", "Realmente desea Salir?", JOptionPane.YES_NO_OPTION);
 				if(confirma==0) {
 				entradaSalida.escribirMensaje(new Mensaje(Comandos.LOGOUT, _userName));
+				entradaSalida.cerrarEntradaSalida();
 				dispose();
 				} 
 				
@@ -69,24 +70,7 @@ public class GUI_Lobby extends JFrame {
 		});
 		
 		guiLobby=this;
-		System.out.println("En lobby gui nombre es "+_userName);
-
 	}
-
-	void ponerClienteNuevoEnLista(String entrante) {
-		
-	}
-	void sacarClienteDeLista(String saliente) {
-		
-	}
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
