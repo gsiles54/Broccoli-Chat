@@ -13,6 +13,9 @@ import com.sala.Sala;
 public class DesconectarCliente extends Chain{
 
 	
+	private ArrayList<Cliente> clientesEnLobby;
+	private ArrayList<Sala> salas;
+
 	public DesconectarCliente(ArrayList<Sala> _salas,  ArrayList<Cliente> _clientesEnLobby) {
 		salas=_salas;
 		clientesEnLobby=_clientesEnLobby;

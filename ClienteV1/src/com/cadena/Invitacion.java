@@ -9,9 +9,8 @@ public class Invitacion extends ChainCliente{
 
 	@Override
 	public void manejarPeticion(Mensaje msj) {
-		// TODO Auto-generated method stub
+
 		if(msj.getComando().equals(Comandos.InvitacionASalaPrivada)||msj.getComando().equals(Comandos.InvitacionASalaPublica)) {
-			cl = ControladorCliente.getInstance();
 			String[] valores = msj.getInformacion().split(";");
 			String nombreUsuario = valores[0];
 			String nombreSala = valores[1];
@@ -19,9 +18,7 @@ public class Invitacion extends ChainCliente{
 			boolean esPrivada = msj.getComando().equals(Comandos.InvitacionASalaPrivada)?true:false;
 			new GUI_Invitacion(nombreUsuario,nombreSala,idSala,esPrivada);
 		}
-		else {
-			siguiente.manejarPeticion(msj);
-		}
+		else {siguiente.manejarPeticion(msj);}
 	}
 
 }

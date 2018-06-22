@@ -11,6 +11,9 @@ import com.servidor.ControladorServidor;
 
 public class CrearSala extends Chain{
 
+	private ArrayList<Cliente> clientesEnLobby;
+	private ArrayList<Sala> salas;
+
 	public CrearSala(ArrayList<Sala> _salas,  ArrayList<Cliente> _clientesEnLobby) {
 		salas=_salas;
 		clientesEnLobby=_clientesEnLobby;
@@ -22,10 +25,10 @@ public class CrearSala extends Chain{
 		if (mensaje.getComando().equals(Comandos.CrearSalaPublica)||mensaje.getComando().equals(Comandos.CrearSalaPrivada))
 		{           
 			boolean esPrivada = mensaje.getComando().equals(Comandos.CrearSalaPublica)?false:true;
-			String nombre = mensaje.getInformacion();
+			String nombreSala = mensaje.getInformacion();
 			Cliente cliente = getClientePorNombre(mensaje.getEmisor());
-			if(salaYaExistente(nombre)) {
-				LoggerCliente.enviarLog("Se intenta crear una sala de nombre repetido: "+nombre);
+			if(nombreSalaYaExistente(nombreSala)) {
+				LoggerCliente.enviarLog("Se intenta crear una sala de nombre repetido: "+nombreSala);
 				if(cliente!=null) {
 						String error="Nombre de sala ya existente, elija otro nombre.";
 						cliente.enviarMensaje(new Mensaje(Comandos.SalaNoCreadaNombreDuplicado,error));
@@ -33,32 +36,25 @@ public class CrearSala extends Chain{
 				return;
 			}
 
-			Sala nuevaSala=new Sala(nombre,esPrivada);
+			Sala nuevaSala=new Sala(nombreSala,esPrivada);
 			
 			nuevaSala.meterCliente(cliente);
 			salas.add(nuevaSala);
-			
-			if(esPrivada==false) {
+								
+			if(esPrivada) 
+				cliente.enviarMensaje(new Mensaje(Comandos.SalaPrivCreadaExitosamente,nombreSala+";"+nuevaSala.getSalaID()));
+			else 
+				cliente.enviarMensaje(new Mensaje(Comandos.SalaPubCreadaExitosamente,nombreSala+";"+nuevaSala.getSalaID()));
 					
-					if(esPrivada) {
-						cliente.enviarMensaje(new Mensaje(Comandos.SalaPrivCreadaExitosamente,nombre+";"+nuevaSala.getSalaID()));
-					}else {
-						cliente.enviarMensaje(new Mensaje(Comandos.SalaPubCreadaExitosamente,nombre+";"+nuevaSala.getSalaID()));
-					}
-					
-					
-			}
-			LoggerCliente.enviarLog("Sala creada Exitosamente: "+nombre);
+			LoggerCliente.enviarLog("Sala creada Exitosamente: "+nombreSala);
 		}
-		else
-		{
-			siguiente.manejarPeticion(mensaje);
-		}
+		
+		else{siguiente.manejarPeticion(mensaje);}
 	}
 	
-	private boolean salaYaExistente(String nombre) {
+	private boolean nombreSalaYaExistente(String nombre) {
 		for(Sala s: salas) {
-			if(s.getSalaID().equals(nombre))
+			if(s.getNombre().equals(nombre))
 				return true;
 		}
 		return false;

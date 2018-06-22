@@ -31,7 +31,6 @@ public class ControladorServidor {
 	private ArrayList<Cliente> clientesEnLobby; // Todos los clientes conectados al chat estan aca. esten o no chateando.
 	private ArrayList<Sala> salas;
 
-
 	protected ControladorServidor() {
 		
 		clientesEnLobby = new ArrayList<Cliente>();
@@ -53,37 +52,22 @@ public class ControladorServidor {
 	}
 
 	private Chain ensamblarChain() {
-		CrearSala cs = new CrearSala(salas, clientesEnLobby);
-		DesconectarCliente dc = new DesconectarCliente(salas, clientesEnLobby);
-		EnviarMsjASala msj = new EnviarMsjASala(clientesEnLobby, salas);
-		InvitarUsuario invitar = new InvitarUsuario();
-		AgregarClienteASala  agregarClienteASala = new AgregarClienteASala();
-		
-		//ClienteNuevo clieNue = new ClienteNuevo();
-		
-		
-		cs.enlazarSiguiente(dc);
-		dc.enlazarSiguiente(agregarClienteASala);
-		agregarClienteASala.enlazarSiguiente(msj);
-		msj.enlazarSiguiente(invitar);
-		return cs;
+		AgregarClienteASala  agregarClienteASala = new AgregarClienteASala(salas,clientesEnLobby);
+		//ClienteNuevo clienteNuevo=new ClienteNuevo(salas);
+		CrearSala crearSala = new CrearSala(salas, clientesEnLobby);
+		DesconectarCliente desconectarCliente = new DesconectarCliente(salas, clientesEnLobby);
+		EnviarMsjASala enviarMensaje = new EnviarMsjASala(salas);
+		InvitarUsuario invitarUsuario = new InvitarUsuario(clientesEnLobby);
+	
+		agregarClienteASala.enlazarSiguiente(crearSala);
+		//clienteNuevo.enlazarSiguiente(crearSala);
+		crearSala.enlazarSiguiente(desconectarCliente);
+		desconectarCliente.enlazarSiguiente(enviarMensaje);
+		enviarMensaje.enlazarSiguiente(invitarUsuario);
+		return agregarClienteASala;
 	}
 
 
-
-
-
-	private Cliente getCliente(String nombre) {
-		for (Cliente c : clientesEnLobby) {
-			if (c.getNombre().equals(nombre))
-				return c;
-		}
-		return null;
-	}
-
-	public synchronized void cerrarSala(String nombreSala) {
-		aTodos_SalaCerrada(nombreSala);
-	}
 
 	public synchronized void meterEnLobby(Cliente entrante) {
 		if (clientesEnLobby.contains(entrante)) {
@@ -108,10 +92,6 @@ public class ControladorServidor {
 
 	}
 
-	private synchronized void entrarASalaPublica(Cliente entrante, String nombreSala) {
-		aSala_ClienteEntro(entrante, nombreSala);
-	}
-
 	// ----------------- EVENTOS A TODOS----------------------
 	private void aTodos_ClienteConectado(Cliente elNuevoEntrante) {
 
@@ -119,7 +99,7 @@ public class ControladorServidor {
 
 		for (Cliente yaConectados : clientesEnLobby) {
 			if (!elNuevoEntrante.equals(yaConectados)) {
-				yaConectados.enviarMensaje(new Mensaje(Comandos.ClienteNuevo, elNuevoEntrante.getNombre()));
+				yaConectados.enviarMensaje(mensaje);
 			}
 		}
 		
@@ -129,36 +109,4 @@ public class ControladorServidor {
 		}
 		LoggerCliente.enviarLog("Se envio a todos el nuevo usuario.");
 	}
-
-	private void aTodos_SalaCreada() {
-		LoggerCliente.enviarLog("IMPLEMENTAR Controlador.aTodos_SalaCreada");
-	}
-
-	private void aTodos_SalaCerrada(String nombreSala) {
-		LoggerCliente.enviarLog("IMPLEMENTAR Controlador.aTodos_SalaCerrada");
-	}
-
-
-	private synchronized void aTodos_enviarMensaje(Mensaje mensaje, Cliente emisor) {
-		for (Cliente c : clientesEnLobby) {
-			c.enviarMensaje(mensaje);
-		}
-	}
-
-	// --------------EVENTOS A SALA------------------------------
-	private void aSala_ClienteEntro(Cliente entrante, String sala) {
-		LoggerCliente.enviarLog("IMPLEMENTAR Controlador.aSala_ClienteEntro");
-	}
-
-	public synchronized ArrayList<Cliente> getClientesEnLobby() {
-		return clientesEnLobby;
-	}
-	
-	public synchronized ArrayList<Sala> getSalas() {
-		return salas;
-	}
-
-	
-
-	
 }

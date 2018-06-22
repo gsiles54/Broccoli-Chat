@@ -10,29 +10,23 @@ import com.servidor.ControladorServidor;
 
 /*Si el mensaje es un simple texto dirigido a la sala, llama al metodo que 
  * manda el mensaje a la sala que corresponda*/
-public class EnviarMsjASala extends Chain{
+public class EnviarMsjASala extends Chain {
 
-	
-	
-	public EnviarMsjASala(ArrayList<Cliente> _clientesEnLobby,ArrayList<Sala> _salas) {
-		clientesEnLobby=_clientesEnLobby;
-		 salas=_salas;
+	private ArrayList<Sala> salas;
+
+	public EnviarMsjASala(ArrayList<Sala> _salas) {
+		salas = _salas;
 	}
-	
+
 	@Override
 	public void manejarPeticion(Mensaje mensaje) {
-		
-		           
+
 		if (mensaje.getComando().equals(Comandos.MensajeASala)) {
-			cs=ControladorServidor.getInstance();
-				salas=cs.getSalas();
-				for (Sala s : salas) {
-						if (s.getSalaID().equals(mensaje.getSalaID()))
-							s.enviarMensaje(mensaje);
-					}
-		}
-		else
-		{	
+			for (Sala s : salas) {
+				if (s.getSalaID().equals(mensaje.getSalaID()))
+					s.enviarMensaje(mensaje);
+			}
+		} else {
 			siguiente.manejarPeticion(mensaje);
 		}
 	}

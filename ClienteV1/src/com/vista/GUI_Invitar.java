@@ -28,7 +28,10 @@ public class GUI_Invitar extends JFrame{
 	private JPanel contentPane;
 	private EntradaSalida entradaSalida;
 	private String nombreSala;
-	public GUI_Invitar(Sala sala) {
+	
+	public GUI_Invitar(Sala sala,DefaultListModel<String> modeloListaClientes) {
+		
+	
 		this.nombreSala=sala.getNombre();
 		setBounds(new Rectangle(150, 250, 400, 300));
 		contentPane = new JPanel();
@@ -38,15 +41,15 @@ public class GUI_Invitar extends JFrame{
 		scrollPane.setBounds(21, 23, 163, 202);
 		entradaSalida = EntradaSalida.getInstance();
 	
-	    modelList = new DefaultListModel<>();
-		listaUsuarios = new JList<>(modelList);
-		listaUsuarios.setFont(new Font("Source Sans Pro Semibold", Font.PLAIN, 16));
-		listaUsuarios.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		listaUsuarios.setBounds(new Rectangle(0, 0, 163, 202));
+	    modelList = modeloListaClientes;
+	    this.listaUsuarios = new JList<>(modelList);
+	    this.listaUsuarios.setFont(new Font("Source Sans Pro Semibold", Font.PLAIN, 16));
+	    this.listaUsuarios.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+	    this.listaUsuarios.setBounds(new Rectangle(0, 0, 163, 202));
 		
-		agregarUsuariosLobby();
-		scrollPane.add(listaUsuarios);
-		scrollPane.setViewportView(listaUsuarios);
+	
+		scrollPane.add(this.listaUsuarios);
+		scrollPane.setViewportView(this.listaUsuarios);
 	
 		contentPane.add(scrollPane);
 		
@@ -83,8 +86,5 @@ public class GUI_Invitar extends JFrame{
 		
 	}
 	
-	public void agregarUsuariosLobby() {
-		GUI_Lobby guiLobby = GUI_Lobby.guiLobby;
-		listaUsuarios=guiLobby.getListaClientesConectados();
-	}
+
 }

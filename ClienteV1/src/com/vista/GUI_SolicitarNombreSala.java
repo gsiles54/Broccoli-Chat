@@ -22,12 +22,11 @@ import java.awt.Color;
 
 public class GUI_SolicitarNombreSala extends JFrame {
 
+	private static final long serialVersionUID = -8813928769226398569L;
 	private JPanel contentPane;
 	private JTextField tfNombreSala;
 
-	/**
-	 * Launch the application.
-	 */
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -41,9 +40,6 @@ public class GUI_SolicitarNombreSala extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public GUI_SolicitarNombreSala() {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -88,18 +84,20 @@ public class GUI_SolicitarNombreSala extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String nombreSala=tfNombreSala.getText();
 				boolean esPrivada=chckbxHacerlaPrivada.isSelected();
+				
+				
 				EntradaSalida entradaSalida = EntradaSalida.getInstance();
-				ControladorCliente cl = ControladorCliente.getInstance();
+				ControladorCliente controladorCliente = ControladorCliente.getInstance();
 				if(nombreSala==null || nombreSala.isEmpty()) {
 					labelWarning.setText("");
 					labelWarning.setText("Ingrese un nombre a la sala.");
 				}else {
 					Mensaje mensajeCrearSala;
 					if(esPrivada) {
-						 mensajeCrearSala= new Mensaje(Comandos.CrearSalaPrivada,nombreSala,cl.cliente);
+						 mensajeCrearSala= new Mensaje(Comandos.CrearSalaPrivada,nombreSala,controladorCliente.nombreCliente);
 					
 					}else {
-					 mensajeCrearSala= new Mensaje(Comandos.CrearSalaPublica,nombreSala,cl.cliente);
+					 mensajeCrearSala= new Mensaje(Comandos.CrearSalaPublica,nombreSala,controladorCliente.nombreCliente);
 						
 					}
 					entradaSalida.escribirMensaje(mensajeCrearSala);

@@ -32,32 +32,24 @@ public class GUI_Sala extends JFrame {
 	private JTextField chatTextBoxSala;
 	private boolean chatBox=false;
 	private JTextPane chatSala;
-	private GUI_Lobby guiLobby;
+
 	JList<String> list;
-	DefaultListModel<String> modelList;
+	DefaultListModel<String> modeloClientesEnSala;
+	DefaultListModel<String> modeloClientesEnLobby;
 	private String nombreSala;
 	private Integer salaID;
 	JLabel labelSalaID;
 	private boolean salaPrivada;
 	private Sala sala;
 	
-	public void setTitleSala(String nombre) {
-		this.nombreSala=nombre;
-		this.setTitle(nombre);
-	}
-	public void setSalaID(Integer salaID) {
-		this.salaID=salaID;
-		labelSalaID.setText("Sala ID : "+salaID);
-	}
-	public void setSala(Sala sala) {
-		this.sala=sala;
-	}
-	public GUI_Sala()  {
+
+	public GUI_Sala(DefaultListModel<String> modeloListaClientes)  {
 		
+		this.modeloClientesEnLobby = modeloListaClientes;
 		setResizable(true);
 		getContentPane().setLayout(null);
 		setBounds(100, 100, 804, 616);
-		guiLobby=GUI_Lobby.guiLobby;
+	
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 61, 472, 210);
 		getContentPane().add(scrollPane);
@@ -82,8 +74,8 @@ public class GUI_Sala extends JFrame {
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(492, 61, 113, 244);
 		getContentPane().add(scrollPane_1);
-		modelList = new DefaultListModel<String>();
-		list = new JList<>(modelList);
+		modeloClientesEnSala = new DefaultListModel<String>();
+		list = new JList<>(modeloClientesEnSala);
 		
 		list.setFont(new Font("Source Sans Pro Semibold", Font.PLAIN, 16));
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -113,7 +105,7 @@ public class GUI_Sala extends JFrame {
 		JMenuItem mntmInvitarUsuario = new JMenuItem("Invitar Usuario");
 		mntmInvitarUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new GUI_Invitar(sala);
+				new GUI_Invitar(sala, modeloClientesEnLobby);
 				
 			}
 		});
@@ -183,9 +175,24 @@ public class GUI_Sala extends JFrame {
 	}
 	public void agregarCliente(String nombre) {
 		
-		modelList.addElement(nombre);
+		modeloClientesEnSala.addElement(nombre);
 	}
+	/**
+	 * 
+	 * @param nombre
+	 */
 	public void quitarCliente(String nombre) {
 		
+	}
+	public void setTitleSala(String nombre) {
+		this.nombreSala=nombre;
+		this.setTitle(nombre);
+	}
+	public void setSalaID(Integer salaID) {
+		this.salaID=salaID;
+		labelSalaID.setText("Sala ID : "+salaID);
+	}
+	public void setSala(Sala sala) {
+		this.sala=sala;
 	}
 }

@@ -12,7 +12,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class GUI_Invitacion extends JFrame{
+	
 	EntradaSalida entradaSalida;
+	
 	public GUI_Invitacion(String nombreUsuario, String nombreSala, String idSala,boolean esPrivada) {
 		getContentPane().setLayout(null);
 		

@@ -20,7 +20,7 @@ public class ClienteNuevo extends Chain{
 		if (mensaje.getComando().equals(Comandos.ClienteNuevo)) {
 				for (Sala s : salas) {
 						if (s.getSalaID().equals(-1))
-							s.enviarMensaje(mensaje);
+							s.enviarMensaje(mensaje); //Cortar el loop cuando encuentra sala -1. 
 					}
 		}
 		else{siguiente.manejarPeticion(mensaje);}

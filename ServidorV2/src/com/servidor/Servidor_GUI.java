@@ -81,7 +81,7 @@ public class Servidor_GUI extends JFrame {
 		setTitle("Server Status Broccoli Chat UNLAM");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 489, 525);
+		setBounds(100, 100, 482, 396);
 
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -108,43 +108,19 @@ public class Servidor_GUI extends JFrame {
 		botonIniciarServidor.setForeground(Color.BLUE);
 		botonIniciarServidor.setBackground(SystemColor.activeCaption);
 		botonIniciarServidor.setFont(new Font("Tahoma", Font.BOLD, 16));
-		botonIniciarServidor.setBounds(103, 163, 277, 90);
+		botonIniciarServidor.setBounds(10, 11, 453, 134);
 		contentPane.add(botonIniciarServidor);
 
 		jTextAreaLogs = new JTextArea();
 		jTextAreaLogs.setBackground(Color.PINK);
 		jTextAreaLogs.setEditable(false);
-		jTextAreaLogs.setBounds(10, 299, 453, 163);
+		jTextAreaLogs.setBounds(10, 171, 453, 163);
 		contentPane.add(jTextAreaLogs);
 
 		JLabel lblLogs = new JLabel("Logs");
 		lblLogs.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblLogs.setBounds(10, 248, 51, 40);
+		lblLogs.setBounds(10, 143, 51, 27);
 		contentPane.add(lblLogs);
-
-		JLabel lblEstadoDelServidor = new JLabel("Estado del Servidor:");
-		lblEstadoDelServidor.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblEstadoDelServidor.setForeground(Color.BLUE);
-		lblEstadoDelServidor.setBounds(150, 62, 177, 14);
-		contentPane.add(lblEstadoDelServidor);
-
-		JLabel lblClientesConectados = new JLabel("Clientes Conectados");
-		lblClientesConectados.setForeground(Color.BLUE);
-		lblClientesConectados.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblClientesConectados.setBounds(150, 109, 177, 14);
-		contentPane.add(lblClientesConectados);
-
-		JLabel lblSalasCreadas = new JLabel("Salas Creadas");
-		lblSalasCreadas.setForeground(Color.BLUE);
-		lblSalasCreadas.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblSalasCreadas.setBounds(150, 134, 177, 14);
-		contentPane.add(lblSalasCreadas);
-
-		JLabel lblEstadoBroccoliBot = new JLabel("Estado Broccoli Bot");
-		lblEstadoBroccoliBot.setForeground(Color.BLUE);
-		lblEstadoBroccoliBot.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblEstadoBroccoliBot.setBounds(150, 84, 177, 14);
-		contentPane.add(lblEstadoBroccoliBot);
 
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
