@@ -25,6 +25,9 @@ public class EnviarMsjASala extends Chain {
 			for (Sala s : salas) {
 				if (s.getSalaID().equals(mensaje.getSalaID()))
 					s.enviarMensaje(mensaje);
+					
+				
+					
 			}
 		} else {
 			siguiente.manejarPeticion(mensaje);

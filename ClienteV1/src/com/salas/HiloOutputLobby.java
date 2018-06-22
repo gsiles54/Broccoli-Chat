@@ -1,6 +1,6 @@
 package com.salas;
 
-
+import static com.Cliente.Cliente.nombreCliente;
 import com.Cliente.Cliente;
 import com.Cliente.EntradaSalida;
 import com.mensajes.Comandos;
@@ -8,15 +8,13 @@ import com.mensajes.Mensaje;
 import com.vista.GUI_Lobby;
 
 public class HiloOutputLobby implements Runnable{
-	
-	Cliente cliente;
 
 	GUI_Lobby lobbyGui;
 	
 	EntradaSalida entradaSalida;
 	
-	public HiloOutputLobby(Cliente cliente, GUI_Lobby lobby_Gui){
-		this.cliente=cliente;
+	public HiloOutputLobby(GUI_Lobby lobby_Gui){
+	
 		this.lobbyGui=lobby_Gui;
 		this.entradaSalida=EntradaSalida.getInstance();
 	}
@@ -43,7 +41,7 @@ public class HiloOutputLobby implements Runnable{
 				lobbyGui.setChatBox(false);
 				texto = new StringBuilder();
 				texto.append('\n');
-				texto.append(cliente.getNombre() + " : " );
+				texto.append(nombreCliente + " : " );
 				texto.append(lobbyGui.getChatTextBoxLobby().getText());
 		
 				entradaSalida.escribirMensaje(new Mensaje(Comandos.MensajeASala,texto.toString(),-1));
@@ -51,7 +49,5 @@ public class HiloOutputLobby implements Runnable{
 			}
 		}
 	}
-	public Cliente getCliente() {
-		return cliente;
-	}
+
 }

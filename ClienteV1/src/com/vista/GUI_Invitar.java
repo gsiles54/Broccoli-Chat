@@ -11,6 +11,7 @@ import com.Cliente.EntradaSalida;
 import com.mensajes.Comandos;
 import com.mensajes.Mensaje;
 import com.salas.Sala;
+import static com.Cliente.Cliente.nombreCliente;
 
 import java.awt.Font;
 import java.awt.Rectangle;
@@ -66,6 +67,8 @@ public class GUI_Invitar extends JFrame{
 					informacion.append(nombreSala);
 					informacion.append(';');
 					informacion.append(sala.getSalaID());
+					informacion.append(';');
+					informacion.append(nombreCliente);
 					if(sala.esPrivada()) {
 						entradaSalida.escribirMensaje(new Mensaje(Comandos.InvitarUsuarioSalaPrivada,informacion.toString()));
 				

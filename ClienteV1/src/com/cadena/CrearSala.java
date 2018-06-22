@@ -1,9 +1,10 @@
 package com.cadena;
 
+import static com.Cliente.Cliente.nombreCliente;
 
 import java.util.ArrayList;
-
 import javax.swing.DefaultListModel;
+
 
 import com.mensajes.Comandos;
 import com.mensajes.Mensaje;
@@ -13,12 +14,12 @@ import com.vista.GUI_Sala;
 
 public class CrearSala extends ChainCliente{
 	
-	String nombreCliente;
+
 	ArrayList<Sala> copiaSalasDisponibles;
 	DefaultListModel<String> modeloListaClientes;
 	
-	public CrearSala(String nombreCliente, ArrayList<Sala> copiaSalasDisponibles,DefaultListModel<String> modeloListaClientes) {
-		this.nombreCliente=nombreCliente;
+	public CrearSala( ArrayList<Sala> copiaSalasDisponibles,DefaultListModel<String> modeloListaClientes) {
+	
 		this.copiaSalasDisponibles=copiaSalasDisponibles;
 		this.modeloListaClientes = modeloListaClientes;
 	}
@@ -28,18 +29,21 @@ public class CrearSala extends ChainCliente{
 		
 		if(mensaje.getComando().equals(Comandos.SalaPrivCreadaExitosamente)||mensaje.getComando().equals(Comandos.SalaPubCreadaExitosamente)) {
 			GUI_Sala guiSala = new GUI_Sala(modeloListaClientes);
+			
 			String valores [] = mensaje.getInformacion().split(";");
 			String nombreSala = valores[0];
 			Integer idSala = Integer.valueOf(valores[1]);
-
+			
+			guiSala.setTitleSala(nombreSala);
 			guiSala.setVisible(true);
 			guiSala.agregarCliente(nombreCliente);
+			
 			boolean esPrivada = mensaje.getComando().equals(Comandos.SalaPrivCreadaExitosamente)?true:false;
 			Sala nuevaSala = new Sala(idSala,nombreSala,esPrivada,guiSala);
 			copiaSalasDisponibles.add(nuevaSala);
 			guiSala.setSala(nuevaSala);
 			nuevaSala.meterCliente(nombreCliente);
-			HiloOutputSala hiloSala = new HiloOutputSala(nombreCliente,guiSala,nuevaSala);
+			HiloOutputSala hiloSala = new HiloOutputSala(guiSala,nuevaSala);
 			Thread thSala = new Thread(hiloSala);
 			thSala.start();
 		}

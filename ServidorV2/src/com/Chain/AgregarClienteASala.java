@@ -53,8 +53,11 @@ public class AgregarClienteASala extends Chain{
 				infoNueva.append(";");
 				List<Cliente> listaClientes = salaModificada.getClientesEnSala();
 				for(Cliente clienteActual : listaClientes) {
-					infoNueva.append(clienteActual.getNombre());
-					infoNueva.append(";");
+					
+						infoNueva.append(clienteActual.getNombre());
+						infoNueva.append(";");
+					
+					
 				}
 				infoNueva.deleteCharAt(infoNueva.length()-1);
 				salaModificada.enviarMensaje(new Mensaje(mensaje.getComando(),infoNueva.toString()));

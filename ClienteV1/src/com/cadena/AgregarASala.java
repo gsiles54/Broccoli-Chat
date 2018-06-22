@@ -1,7 +1,7 @@
 package com.cadena;
 
 import java.util.ArrayList;
-
+import static com.Cliente.Cliente.nombreCliente;
 import javax.swing.DefaultListModel;
 
 import com.mensajes.Comandos;
@@ -13,13 +13,13 @@ import com.vista.GUI_Sala;
 public class AgregarASala extends ChainCliente{
 	
 	ArrayList<Sala> copiaSalasDisponibles;
-	String nombreCliente;
+
 	private DefaultListModel<String> modeloListaClientes;
 	
 	
-	public AgregarASala(ArrayList<Sala> copiaSalasDisponibles, String nombreCliente, DefaultListModel<String> modeloListaClientes) {
+	public AgregarASala(ArrayList<Sala> copiaSalasDisponibles, DefaultListModel<String> modeloListaClientes) {
 		this.copiaSalasDisponibles=copiaSalasDisponibles;
-		this.nombreCliente=nombreCliente;
+	
 		this.modeloListaClientes = modeloListaClientes;
 	}
 
@@ -31,12 +31,14 @@ public class AgregarASala extends ChainCliente{
 			String clienteNuevo = valores[0];
 			String idSala = valores[1];
 			String nombreSala = valores[2];
+			
 			boolean crearSala=true;
 			for(Sala salaActual : copiaSalasDisponibles) {
 				if(salaActual.getSalaID().equals(Integer.valueOf(idSala))) {
 					if(salaActual.meterCliente(clienteNuevo)) {
 						salaActual.getSalaGui().agregarCliente(clienteNuevo);
 						crearSala=false;
+						break;
 					}
 					
 				}
@@ -53,7 +55,7 @@ public class AgregarASala extends ChainCliente{
 				for(int i=3 ;i<valores.length;i++) {
 					guiSala.agregarCliente(valores[i]);
 				}
-				HiloOutputSala hiloSala = new HiloOutputSala(nombreCliente,guiSala,nuevaSala);
+				HiloOutputSala hiloSala = new HiloOutputSala(guiSala,nuevaSala);
 				Thread thSala = new Thread(hiloSala);
 				thSala.start();
 			

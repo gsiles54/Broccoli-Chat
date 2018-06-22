@@ -71,10 +71,10 @@ public class LoginHandler implements Runnable {
 							//******
 							
 							userName=loginGui.getUsername();
-							GUI_Lobby lobbyGui= new GUI_Lobby(userName);
+							cliente = new Cliente(userName);
+							GUI_Lobby lobbyGui= new GUI_Lobby();
 							
-							controladorCliente = ControladorCliente.getInstance();
-							controladorCliente.setCliente(userName);
+							controladorCliente = new ControladorCliente(lobbyGui);
 							Sala lobby= new Sala(-1,"Lobby",false);
 							lobby.meterCliente(userName);
 							
@@ -84,8 +84,8 @@ public class LoginHandler implements Runnable {
 
 							hiloControladorCliente = new Thread(controladorCliente);
 							hiloControladorCliente.start();
-							cliente = new Cliente(userName);
-							output= new HiloOutputLobby(cliente,lobbyGui);
+							
+							output= new HiloOutputLobby(lobbyGui);
 							hiloOutput = new Thread(output);
 							hiloOutput.start();
 							lobbyGui.setVisible(true);

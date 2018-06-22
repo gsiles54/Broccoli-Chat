@@ -43,7 +43,7 @@ public class Mensaje implements Serializable {
 		return informacion;
 	}
 	
-	public Integer getIDSala() {
+	public synchronized Integer getIDSala() {
 		return salaID;
 	}
 	
