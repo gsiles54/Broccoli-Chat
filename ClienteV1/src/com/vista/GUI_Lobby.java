@@ -1,5 +1,6 @@
 package com.vista;
 
+import static com.Cliente.Cliente.nombreCliente;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -44,10 +45,10 @@ public class GUI_Lobby extends JFrame {
 	private JTextPane chatLobby=null;
 	private JTextField chatTextBoxLobby;
 	private boolean chatBox=false;
-	static GUI_Lobby guiLobby;
+
 	private JScrollPane scrollPane_1;
 	
-	public GUI_Lobby(String _userName) {
+	public GUI_Lobby() {
 		setResizable(false);
 		
 		
@@ -63,24 +64,23 @@ public class GUI_Lobby extends JFrame {
 				int confirma=JOptionPane.showConfirmDialog(null,
 				        "Realmente desea Salir?", "Realmente desea Salir?", JOptionPane.YES_NO_OPTION);
 				if(confirma==0) {
-				entradaSalida.escribirMensaje(new Mensaje(Comandos.LOGOUT, _userName));
+				entradaSalida.escribirMensaje(new Mensaje(Comandos.LOGOUT, nombreCliente));
 				entradaSalida.cerrarEntradaSalida();
-				guiLobby.setVisible(false);
-				//dispose();
+				dispose();
 				} 
 				
 			}
 		});
 		
 		
-		guiLobby=this;
+		
 	}
 	
 	
 	
 	//------CONFIGURACIONES GUI---------------------
 	private void configurarGUI() {
-		setTitle("Broccoli Chat Lobby");
+		setTitle("Broccoli Chat Lobby: " + nombreCliente);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 804, 616);
 		JMenuBar menuBar = new JMenuBar();

@@ -4,26 +4,35 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import com.Cliente.EntradaSalida;
+import static com.Cliente.Cliente.nombreCliente;
 import com.mensajes.Comandos;
 import com.mensajes.Mensaje;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Dimension;
+import java.awt.Rectangle;
 
 public class GUI_Invitacion extends JFrame{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4924515329551136658L;
 	EntradaSalida entradaSalida;
 	
 	public GUI_Invitacion(String nombreUsuario, String nombreSala, String idSala,boolean esPrivada) {
+		setBounds(new Rectangle(100, 100, 400, 200));
+		setMinimumSize(new Dimension(400, 200));
 		getContentPane().setLayout(null);
 		
 		JLabel label = new JLabel(nombreUsuario +" te ha invitado a la sala "+ nombreSala + "("+idSala+")");
-		label.setBounds(24, 11, 284, 39);
+		label.setBounds(24, 11, 311, 39);
 		getContentPane().add(label);
 		entradaSalida = EntradaSalida.getInstance();
 		StringBuilder informacion = new StringBuilder();
-		informacion.append(ControladorCliente.getInstance().getCliente());
+		informacion.append(nombreCliente);
 		informacion.append(";");
 		informacion.append(idSala);
 		JButton btnNewButton = new JButton("Aceptar");
@@ -36,6 +45,7 @@ public class GUI_Invitacion extends JFrame{
 					mensaje = new Mensaje(Comandos.InvitacionASalaPublicaAceptada,informacion.toString());
 				}
 				entradaSalida.escribirMensaje(mensaje);
+				dispose();
 			}
 		});
 		btnNewButton.setBounds(55, 77, 89, 23);

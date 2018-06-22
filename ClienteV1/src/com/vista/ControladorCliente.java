@@ -1,8 +1,10 @@
 package com.vista;
 
-import java.io.IOException;
+import static com.Cliente.Cliente.nombreCliente;
+
+
 import java.util.ArrayList;
-import java.util.Scanner;
+
 
 import javax.swing.DefaultListModel;
 import javax.swing.text.BadLocationException;
@@ -17,7 +19,7 @@ import com.cadena.CrearSala;
 import com.cadena.Invitacion;
 import com.cadena.MensajeASala;
 import com.cadena.NuevoClienteConectado;
-import com.mensajes.Comandos;
+
 import com.mensajes.Mensaje;
 import com.salas.Sala;
 
@@ -42,15 +44,15 @@ public class ControladorCliente implements Runnable{
 	
 	EntradaSalida entradaSalida;
 	
+
+
 	GUI_Lobby lobbyGui;
-	String nombreCliente;
 
 
 
-	static ControladorCliente cc=null;
 	ChainCliente manejador=null;
 	
-	private ControladorCliente() {
+	public ControladorCliente(GUI_Lobby lobbyGui) {
 	
 		entradaSalida=EntradaSalida.getInstance();
 		
@@ -59,45 +61,29 @@ public class ControladorCliente implements Runnable{
 		
 		copiaClientesEnLobby= new ArrayList<> ();
 		copiaSalasDisponibles = new ArrayList<>();
-		
-		lobbyGui=GUI_Lobby.guiLobby;
-		
-		nombreCliente = lobbyGui.getName();
-		
-		
+
+		this.lobbyGui = lobbyGui;
 		lobbyGui.getListaClientesConectados().setModel(modeloListaClientes);
 
 		manejador = ensamblarChain();
 	}
 	
-	public static synchronized ControladorCliente getInstance() {
-		if(cc==null) {
-			cc = new ControladorCliente();
-			
-		}
-		return cc;
-	}
+
 	
 
 	
-	public void setCliente(String nombre) {
-	   nombreCliente = nombre; // LOBBY
-	   lobbyGui.setTitle("Broccoli Chat. Cliente: "+nombreCliente);
-		
-		
-	}
+
 	public synchronized void manejarMensaje(Mensaje mensaje) {
-		int t=0;
-		t=2;
+
 		manejador.manejarPeticion(mensaje);
 	}
 
 	private ChainCliente ensamblarChain() {
-		CrearSala crearSala = new CrearSala(nombreCliente,copiaSalasDisponibles, modeloListaClientes);
+		CrearSala crearSala = new CrearSala(copiaSalasDisponibles, modeloListaClientes);
 		MensajeASala mensajeASala = new MensajeASala(copiaSalasDisponibles, this);
 		NuevoClienteConectado nuevoClienteConectado= new NuevoClienteConectado(lobbyGui, modeloListaClientes,copiaClientesEnLobby);
 		Invitacion invitacion = new Invitacion();
-		AgregarASala agregarASala = new AgregarASala(copiaSalasDisponibles,nombreCliente, modeloListaClientes);
+		AgregarASala agregarASala = new AgregarASala(copiaSalasDisponibles, modeloListaClientes);
 		
 		
 		crearSala.enlazarSiguiente(mensajeASala);
@@ -123,7 +109,7 @@ public class ControladorCliente implements Runnable{
 		
 	}
 
-	public String getCliente() {return nombreCliente;}
+	
 
 
 	//no borrar
@@ -168,7 +154,7 @@ public class ControladorCliente implements Runnable{
 				sd.insertString(sd.getLength(), mensaje.getInformacion(), null);
 				sd.setParagraphAttributes(sd.getLength()+1, 1, center, false);
 			} catch (BadLocationException e) {
-				// TODO Auto-generated catch block
+			
 				e.printStackTrace();
 			}
 			

@@ -27,7 +27,7 @@ public class MensajeASala extends ChainCliente{
 
 	private void imprimirMsj(Mensaje mensaje) {
 		for(Sala s: copiaSalasDisponibles) {
-			if(mensaje.getIDSala().equals(-1)) {
+			if(mensaje.getIDSala().equals(-1)&&s.getSalaID().equals(mensaje.getIDSala())) {
 				controladorCliente.imprimirEnLobby(mensaje);
 			}else {
 				if(s.getSalaID().equals(mensaje.getIDSala()))

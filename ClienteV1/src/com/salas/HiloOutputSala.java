@@ -1,7 +1,7 @@
 package com.salas;
 
 
-import com.Cliente.Cliente;
+import static com.Cliente.Cliente.nombreCliente;
 import com.Cliente.EntradaSalida;
 import com.mensajes.Comandos;
 import com.mensajes.Mensaje;
@@ -9,12 +9,11 @@ import com.vista.GUI_Sala;
 
 public class HiloOutputSala implements Runnable{
 	GUI_Sala salaGUI;
-	String cliente;
+
 	EntradaSalida entradaSalida;
 	Sala sala;
-	public HiloOutputSala(String cliente,GUI_Sala _salaGUI,Sala sala) {
+	public HiloOutputSala(GUI_Sala _salaGUI,Sala sala) {
 		this.salaGUI=_salaGUI;
-		this.cliente=cliente;
 		this.sala=sala;
 		entradaSalida=EntradaSalida.getInstance();
 	}
@@ -28,7 +27,7 @@ public class HiloOutputSala implements Runnable{
 				salaGUI.setChatBox(false);
 				texto = new StringBuilder();
 				texto.append('\n');
-				texto.append(cliente + " : " );
+				texto.append(nombreCliente + " : " );
 				texto.append(salaGUI.getChatTextBoxSala().getText());
 				
 				entradaSalida.escribirMensaje(new Mensaje(Comandos.MensajeASala,texto.toString(),sala.getSalaID()));
