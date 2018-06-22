@@ -31,9 +31,6 @@ public class GUI_Login extends JFrame {
 	private JTextField usuario_textField;
 	private JPasswordField password_textField;
 	private JButton btnNewButton;
-	private Checkbox checkbox_2;
-	private Checkbox checkbox_1;
-	private Checkbox checkbox;
 	private JLabel lblEstado;
 	private String username;
 	private String password;
@@ -94,7 +91,7 @@ public class GUI_Login extends JFrame {
 		setResizable(false);
 		setTitle("Broccoli Chat UNLAM");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 315, 598);
+		setBounds(100, 100, 274, 359);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -117,7 +114,7 @@ public class GUI_Login extends JFrame {
 		
 		btnNewButton = new JButton("Iniciar Sesion");
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnNewButton.setBounds(43, 377, 202, 34);
+		btnNewButton.setBounds(21, 144, 229, 107);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//TO-DO VALIDACIONES BASICAS.
@@ -131,48 +128,24 @@ public class GUI_Login extends JFrame {
 		
 		usuario_textField = new JTextField();
 		usuario_textField.setText("");
-		usuario_textField.setBounds(58, 179, 131, 20);
+		usuario_textField.setBounds(58, 48, 131, 20);
 		contentPane.add(usuario_textField);
 		usuario_textField.setColumns(10);
 		
 		password_textField = new JPasswordField();
-		password_textField.setBounds(58, 234, 131, 20);
+		password_textField.setBounds(58, 103, 131, 20);
 		contentPane.add(password_textField);
 		
 		JLabel lblNewLabel = new JLabel("Usuario:");
-		lblNewLabel.setBounds(58, 154, 61, 14);
+		lblNewLabel.setBounds(58, 23, 61, 14);
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblPassword = new JLabel("Contraseña:");
-		lblPassword.setBounds(58, 210, 142, 14);
+		lblPassword.setBounds(58, 79, 142, 14);
 		contentPane.add(lblPassword);
 		
-		checkbox = new Checkbox("Recordar Usuario");
-		checkbox.setBounds(58, 273, 160, 22);
-		contentPane.add(checkbox);
-		
-		checkbox_1 = new Checkbox("Recordar Contraseña");
-		checkbox_1.setBounds(58, 301, 160, 22);
-		contentPane.add(checkbox_1);
-		
-		checkbox_2 = new Checkbox("Iniciar Sesion Automaticamente");
-		checkbox_2.setBounds(58, 329, 202, 22);
-		contentPane.add(checkbox_2);
-		
-		JLabel lblObtenerUnaCuenta = new JLabel("Obtener Una Cuenta Nueva");
-		lblObtenerUnaCuenta.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblObtenerUnaCuenta.setForeground(Color.BLUE);
-		lblObtenerUnaCuenta.setBounds(151, 483, 160, 14);
-		contentPane.add(lblObtenerUnaCuenta);
-		
-		JLabel lblEstadoDelServicio = new JLabel("Estado Del Servicio");
-		lblEstadoDelServicio.setForeground(Color.BLUE);
-		lblEstadoDelServicio.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblEstadoDelServicio.setBounds(10, 483, 131, 14);
-		contentPane.add(lblEstadoDelServicio);
-		
 		lblEstado = new JLabel("Estado:");
-		lblEstado.setBounds(43, 438, 202, 14);
+		lblEstado.setBounds(21, 281, 202, 14);
 		contentPane.add(lblEstado);
 		
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
