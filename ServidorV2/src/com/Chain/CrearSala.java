@@ -25,10 +25,10 @@ public class CrearSala extends Chain{
 		if (mensaje.getComando().equals(Comandos.CrearSalaPublica)||mensaje.getComando().equals(Comandos.CrearSalaPrivada))
 		{           
 			boolean esPrivada = mensaje.getComando().equals(Comandos.CrearSalaPublica)?false:true;
-			String nombre = mensaje.getInformacion();
+			String nombreSala = mensaje.getInformacion();
 			Cliente cliente = getClientePorNombre(mensaje.getEmisor());
-			if(nombreSalaYaExistente(nombre)) {
-				LoggerCliente.enviarLog("Se intenta crear una sala de nombre repetido: "+nombre);
+			if(nombreSalaYaExistente(nombreSala)) {
+				LoggerCliente.enviarLog("Se intenta crear una sala de nombre repetido: "+nombreSala);
 				if(cliente!=null) {
 						String error="Nombre de sala ya existente, elija otro nombre.";
 						cliente.enviarMensaje(new Mensaje(Comandos.SalaNoCreadaNombreDuplicado,error));
@@ -36,17 +36,17 @@ public class CrearSala extends Chain{
 				return;
 			}
 
-			Sala nuevaSala=new Sala(nombre,esPrivada);
+			Sala nuevaSala=new Sala(nombreSala,esPrivada);
 			
 			nuevaSala.meterCliente(cliente);
 			salas.add(nuevaSala);
 								
 			if(esPrivada) 
-				cliente.enviarMensaje(new Mensaje(Comandos.SalaPrivCreadaExitosamente,nombre+";"+nuevaSala.getSalaID()));
+				cliente.enviarMensaje(new Mensaje(Comandos.SalaPrivCreadaExitosamente,nombreSala+";"+nuevaSala.getSalaID()));
 			else 
-				cliente.enviarMensaje(new Mensaje(Comandos.SalaPubCreadaExitosamente,nombre+";"+nuevaSala.getSalaID()));
+				cliente.enviarMensaje(new Mensaje(Comandos.SalaPubCreadaExitosamente,nombreSala+";"+nuevaSala.getSalaID()));
 					
-			LoggerCliente.enviarLog("Sala creada Exitosamente: "+nombre);
+			LoggerCliente.enviarLog("Sala creada Exitosamente: "+nombreSala);
 		}
 		
 		else{siguiente.manejarPeticion(mensaje);}

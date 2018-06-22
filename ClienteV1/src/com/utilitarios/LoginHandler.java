@@ -72,11 +72,12 @@ public class LoginHandler implements Runnable {
 							
 							userName=loginGui.getUsername();
 							GUI_Lobby lobbyGui= new GUI_Lobby(userName);
-							controladorCliente= ControladorCliente.getInstance();
-						
+							
+							controladorCliente = ControladorCliente.getInstance();
+							controladorCliente.setCliente(userName);
 							Sala lobby= new Sala(-1,"Lobby",false);
 							lobby.meterCliente(userName);
-							controladorCliente.setCliente(userName);
+							
 							controladorCliente.getCopiaSalasDisponibles().add(lobby); 
 							
 							controladorCliente.getEntradaSalida().escribirMensaje(new Mensaje(Comandos.ClienteNuevo, userName));

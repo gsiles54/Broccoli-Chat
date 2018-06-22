@@ -2,6 +2,8 @@ package com.cadena;
 
 import java.util.ArrayList;
 
+import javax.swing.DefaultListModel;
+
 import com.mensajes.Comandos;
 import com.mensajes.Mensaje;
 import com.salas.HiloOutputSala;
@@ -12,11 +14,13 @@ public class AgregarASala extends ChainCliente{
 	
 	ArrayList<Sala> copiaSalasDisponibles;
 	String nombreCliente;
+	private DefaultListModel<String> modeloListaClientes;
 	
 	
-	public AgregarASala(ArrayList<Sala> copiaSalasDisponibles, String nombreCliente) {
+	public AgregarASala(ArrayList<Sala> copiaSalasDisponibles, String nombreCliente, DefaultListModel<String> modeloListaClientes) {
 		this.copiaSalasDisponibles=copiaSalasDisponibles;
 		this.nombreCliente=nombreCliente;
+		this.modeloListaClientes = modeloListaClientes;
 	}
 
 	@Override
@@ -41,7 +45,7 @@ public class AgregarASala extends ChainCliente{
 			if(crearSala) {
 				boolean esPrivada = mensaje.getComando().equals(Comandos.InvitacionASalaPublicaAceptada)?false:true;
 				
-				GUI_Sala guiSala = new GUI_Sala();
+				GUI_Sala guiSala = new GUI_Sala(modeloListaClientes);
 				Sala nuevaSala = new Sala(Integer.valueOf(idSala),nombreSala,esPrivada,guiSala);
 				copiaSalasDisponibles.add(nuevaSala);
 				guiSala.setTitleSala(nombreSala);

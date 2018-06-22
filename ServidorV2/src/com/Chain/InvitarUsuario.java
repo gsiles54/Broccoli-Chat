@@ -12,6 +12,10 @@ public class InvitarUsuario extends Chain{
 	
 	ArrayList<Cliente> clientesEnLobby;
 	
+	public InvitarUsuario(ArrayList<Cliente> clientesEnLobby) {
+		this.clientesEnLobby=clientesEnLobby;
+	}
+	
 	@Override
 	public void manejarPeticion(Mensaje mensaje) {
 

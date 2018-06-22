@@ -61,6 +61,10 @@ public class ControladorCliente implements Runnable{
 		copiaSalasDisponibles = new ArrayList<>();
 		
 		lobbyGui=GUI_Lobby.guiLobby;
+		
+		nombreCliente = lobbyGui.getName();
+		
+		
 		lobbyGui.getListaClientesConectados().setModel(modeloListaClientes);
 
 		manejador = ensamblarChain();
@@ -89,11 +93,11 @@ public class ControladorCliente implements Runnable{
 	}
 
 	private ChainCliente ensamblarChain() {
-		CrearSala crearSala = new CrearSala(nombreCliente,copiaSalasDisponibles);
+		CrearSala crearSala = new CrearSala(nombreCliente,copiaSalasDisponibles, modeloListaClientes);
 		MensajeASala mensajeASala = new MensajeASala(copiaSalasDisponibles, this);
 		NuevoClienteConectado nuevoClienteConectado= new NuevoClienteConectado(lobbyGui, modeloListaClientes,copiaClientesEnLobby);
 		Invitacion invitacion = new Invitacion();
-		AgregarASala agregarASala = new AgregarASala(copiaSalasDisponibles,nombreCliente);
+		AgregarASala agregarASala = new AgregarASala(copiaSalasDisponibles,nombreCliente, modeloListaClientes);
 		
 		
 		crearSala.enlazarSiguiente(mensajeASala);
