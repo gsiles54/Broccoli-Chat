@@ -46,6 +46,12 @@ public class HiloOutputLobby implements Runnable{
 		
 				entradaSalida.escribirMensaje(new Mensaje(Comandos.MensajeASala,texto.toString(),-1));
 				lobbyGui.getChatTextBoxLobby().setText("");
+				
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 	}

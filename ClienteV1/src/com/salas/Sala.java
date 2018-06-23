@@ -63,4 +63,37 @@ public class Sala {
 		return salaGUI;
 	}
 	
+	public int getCantidadConectados() {return clientesEnSala.size();}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((nombreSala == null) ? 0 : nombreSala.hashCode());
+		result = prime * result + ((salaID == null) ? 0 : salaID.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Sala other = (Sala) obj;
+		if (nombreSala == null) {
+			if (other.nombreSala != null)
+				return false;
+		} else if (!nombreSala.equals(other.nombreSala))
+			return false;
+		if (salaID == null) {
+			if (other.salaID != null)
+				return false;
+		} else if (!salaID.equals(other.salaID))
+			return false;
+		return true;
+	}
+	
+	
+	
 }

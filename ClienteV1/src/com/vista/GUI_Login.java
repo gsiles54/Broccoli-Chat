@@ -67,6 +67,7 @@ public class GUI_Login extends JFrame {
 	}
 
 	
+	@SuppressWarnings({ "resource", "finally" })
 	protected Socket actualizarLabelEstadoConexion() {
 		Socket socket=null;
 		try {
@@ -83,6 +84,7 @@ public class GUI_Login extends JFrame {
 		finally {
 			return socket;
 		}
+		
 	}
 	
 	private void crearRecursosGUI() {

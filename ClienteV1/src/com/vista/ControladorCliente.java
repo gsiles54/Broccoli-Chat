@@ -74,7 +74,7 @@ public class ControladorCliente implements Runnable {
 		NuevoClienteConectado nuevoClienteConectado = new NuevoClienteConectado(lobbyGui, modeloListaClientes,copiaClientesEnLobby);
 		Invitacion invitacion = new Invitacion();
 		AgregarASala agregarASala = new AgregarASala(copiaSalasDisponibles, modeloListaClientes);
-		ClienteSaliendo clienteSaliendo= new ClienteSaliendo();
+		ClienteSaliendo clienteSaliendo= new ClienteSaliendo(copiaClientesEnLobby,modeloListaClientes,copiaSalasDisponibles,modeloListaSalas,entradaSalida );
 
 		crearSala.enlazarSiguiente(mensajeASala);
 		mensajeASala.enlazarSiguiente(nuevoClienteConectado);
