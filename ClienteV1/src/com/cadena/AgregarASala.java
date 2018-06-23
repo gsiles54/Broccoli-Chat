@@ -27,6 +27,7 @@ public class AgregarASala extends ChainCliente{
 	public void manejarPeticion(Mensaje mensaje) {
 
 		if(mensaje.getComando().equals(Comandos.InvitacionASalaPublicaAceptada)||mensaje.getComando().equals(Comandos.InvitacionASalaPrivadaAceptada)) {
+		System.out.println("AgregarASala Recibio: " + mensaje.getComando());
 			String[] valores = mensaje.getInformacion().split(";");
 			String clienteNuevo = valores[0];
 			String idSala = valores[1];
@@ -62,7 +63,7 @@ public class AgregarASala extends ChainCliente{
 				guiSala.setVisible(true);
 			}
 		}
-		else {System.out.println("Agregar mas manejadores. AgregarASala fue ultimo eslabon, el comando fue: "+mensaje.getComando());;}
+		else {this.siguiente.manejarPeticion(mensaje);}
 	}
 
 }

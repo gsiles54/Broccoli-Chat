@@ -13,11 +13,11 @@ import javax.swing.text.StyledDocument;
 import com.Cliente.EntradaSalida;
 import com.cadena.AgregarASala;
 import com.cadena.ChainCliente;
+import com.cadena.ClienteSaliendo;
 import com.cadena.CrearSala;
 import com.cadena.Invitacion;
 import com.cadena.MensajeASala;
 import com.cadena.NuevoClienteConectado;
-
 import com.mensajes.Mensaje;
 import com.salas.Sala;
 
@@ -71,15 +71,16 @@ public class ControladorCliente implements Runnable {
 	private ChainCliente ensamblarChain() {
 		CrearSala crearSala = new CrearSala(copiaSalasDisponibles, modeloListaClientes);
 		MensajeASala mensajeASala = new MensajeASala(copiaSalasDisponibles, this);
-		NuevoClienteConectado nuevoClienteConectado = new NuevoClienteConectado(lobbyGui, modeloListaClientes,
-				copiaClientesEnLobby);
+		NuevoClienteConectado nuevoClienteConectado = new NuevoClienteConectado(lobbyGui, modeloListaClientes,copiaClientesEnLobby);
 		Invitacion invitacion = new Invitacion();
 		AgregarASala agregarASala = new AgregarASala(copiaSalasDisponibles, modeloListaClientes);
+		ClienteSaliendo clienteSaliendo= new ClienteSaliendo();
 
 		crearSala.enlazarSiguiente(mensajeASala);
 		mensajeASala.enlazarSiguiente(nuevoClienteConectado);
 		nuevoClienteConectado.enlazarSiguiente(invitacion);
 		invitacion.enlazarSiguiente(agregarASala);
+		agregarASala.enlazarSiguiente(clienteSaliendo);
 
 		return crearSala;
 	}

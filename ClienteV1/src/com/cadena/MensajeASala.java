@@ -19,7 +19,9 @@ public class MensajeASala extends ChainCliente{
 
 	@Override
 	public void manejarPeticion(Mensaje msj) {
+		
 		if(msj.getComando().equals(Comandos.MensajeASala)) {
+			System.out.println("MensajeASala Recibio: " + msj.getComando());
 			imprimirMsj(msj);
 		}
 		else {siguiente.manejarPeticion(msj);}

@@ -10,6 +10,6 @@ public abstract class ChainCliente {
 		siguiente=sig;
 	}
 	
-	public abstract void manejarPeticion(Mensaje msj);
+	public abstract void manejarPeticion(Mensaje mensaje);
 			
 }

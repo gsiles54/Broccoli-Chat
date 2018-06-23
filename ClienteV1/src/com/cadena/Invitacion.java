@@ -10,6 +10,7 @@ public class Invitacion extends ChainCliente{
 	public void manejarPeticion(Mensaje msj) {
 
 		if(msj.getComando().equals(Comandos.InvitacionASalaPrivada)||msj.getComando().equals(Comandos.InvitacionASalaPublica)) {
+			System.out.println("Invitacion Recibio: " + msj.getComando());
 			String[] valores = msj.getInformacion().split(";");
 			
 			String nombreSala = valores[1];

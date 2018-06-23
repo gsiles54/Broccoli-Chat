@@ -69,6 +69,10 @@ public class GUI_Lobby extends JFrame {
 				if(confirma==0) {
 				entradaSalida.escribirMensaje(new Mensaje(Comandos.LOGOUT, nombreCliente));
 				entradaSalida.cerrarEntradaSalida();
+				
+				//Mensaje mensaje= new Mensaje(Comandos.);
+				//EntradaSalida.getInstance().escribirMensaje(mensaje);
+				
 				dispose();
 				} 
 				

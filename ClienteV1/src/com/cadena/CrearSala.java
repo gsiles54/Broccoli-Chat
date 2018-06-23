@@ -28,6 +28,7 @@ public class CrearSala extends ChainCliente{
 	public void manejarPeticion(Mensaje mensaje) {
 		
 		if(mensaje.getComando().equals(Comandos.SalaPrivCreadaExitosamente)||mensaje.getComando().equals(Comandos.SalaPubCreadaExitosamente)) {
+			System.out.println("CrearSala Recibio: " + mensaje.getComando());
 			GUI_Sala guiSala = new GUI_Sala(modeloListaClientes);
 			
 			String valores [] = mensaje.getInformacion().split(";");
