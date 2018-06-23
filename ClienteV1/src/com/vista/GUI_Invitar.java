@@ -1,23 +1,27 @@
 package com.vista;
 
+import static com.Cliente.Cliente.nombreCliente;
+
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Rectangle;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.DefaultListModel;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingUtilities;
 
 import com.Cliente.EntradaSalida;
 import com.mensajes.Comandos;
 import com.mensajes.Mensaje;
 import com.salas.Sala;
-import static com.Cliente.Cliente.nombreCliente;
-
-import java.awt.Font;
-import java.awt.Rectangle;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class GUI_Invitar extends JFrame{
 	/**
@@ -33,7 +37,7 @@ public class GUI_Invitar extends JFrame{
 	public GUI_Invitar(Sala sala,DefaultListModel<String> modeloListaClientes) {
 		
 	
-		this.nombreSala=sala.getNombre();
+		this.nombreSala=sala.getNombreSala();
 		setBounds(new Rectangle(150, 250, 400, 300));
 		contentPane = new JPanel();
 		setContentPane(contentPane);
@@ -77,7 +81,12 @@ public class GUI_Invitar extends JFrame{
 						
 					}
 					}
+				JButton s=(JButton)arg0.getSource(); 
+				JFrame jf= (JFrame) SwingUtilities.getRoot(s);
+				jf.setVisible(false);
 			}
+			
+			
 		});
 		btnNewButton.setBounds(194, 23, 89, 23);
 		contentPane.add(btnNewButton);
@@ -85,6 +94,10 @@ public class GUI_Invitar extends JFrame{
 		JButton btnRefrescar = new JButton("Refrescar");
 		btnRefrescar.setBounds(194, 60, 89, 23);
 		contentPane.add(btnRefrescar);
+		
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
+		
 		this.setVisible(true);
 		
 	}

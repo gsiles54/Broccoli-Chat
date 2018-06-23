@@ -57,7 +57,6 @@ public class LoginHandler implements Runnable {
 		boolean flag=true;
 		StyledDocument styledDocument;
 			while(flag) {
-				//System.out.println(""); //VAYA A SABER UNO, SI SACO ESTO NO ANDA
 				if(loginGui.isBoton()) {
 					loginGui.setBoton(false);
 					enviarUserPass();
@@ -80,8 +79,6 @@ public class LoginHandler implements Runnable {
 							
 							controladorCliente.getCopiaSalasDisponibles().add(lobby); 
 							
-							controladorCliente.getEntradaSalida().escribirMensaje(new Mensaje(Comandos.ClienteNuevo, userName));
-
 							hiloControladorCliente = new Thread(controladorCliente);
 							hiloControladorCliente.start();
 							

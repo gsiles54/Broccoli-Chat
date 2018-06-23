@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Dimension;
 import java.awt.Rectangle;
+import java.awt.Toolkit;
 
 public class GUI_Invitacion extends JFrame{
 	
@@ -54,6 +55,10 @@ public class GUI_Invitacion extends JFrame{
 		JButton btnNewButton_1 = new JButton("Rechazar");
 		btnNewButton_1.setBounds(199, 77, 89, 23);
 		getContentPane().add(btnNewButton_1);
+		
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
+		
 		this.setVisible(true);
 	}
 }

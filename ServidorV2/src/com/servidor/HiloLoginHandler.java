@@ -1,16 +1,14 @@
 package com.servidor;
 
 import java.io.IOException;
-
 import java.net.Socket;
 
-import com.DB.Comandos;
 import com.DB.DAO_BaseDeDatos;
 import com.cliente.ClientInputHandler;
 import com.cliente.ClientOutputHandler;
 import com.cliente.Cliente;
 import com.logs.LoggerCliente;
-import com.mensajes.Formato;
+import com.mensajes.Comandos;
 import com.mensajes.Mensaje;
 
 /**
@@ -83,7 +81,6 @@ public class HiloLoginHandler implements Runnable {
 	}
 
 	private boolean validarUsuario(String usuario, String password) {
-		System.out.println(usuario + " " + password);
 		return DAO_BaseDeDatos.getInstance().validarUsuario(usuario, password);
 	}
 

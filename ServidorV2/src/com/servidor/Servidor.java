@@ -32,7 +32,7 @@ public class Servidor implements Runnable {
 	}
 
 	@Override
-	public void run() {// Recibe al nuevo cliente, osea crea el socket y lo envia al hilo loginHandler.
+	public void run() {// Crea el socket y lo envia al hilo loginHandler.
 		Socket nuevoSocket = null;
 		while (corriendo) {
 
@@ -41,16 +41,18 @@ public class Servidor implements Runnable {
 				Thread tNuevoLogin = new Thread(new HiloLoginHandler(nuevoSocket));
 				tNuevoLogin.start();
 				
+				
+				
 			} catch (IOException e) {
 				e.printStackTrace();
+				corriendo=false; //para que deje de correr y salga del hilo,
 			}
-		}
+		}	
 		try {
 			serverSocket.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
 		
 	}
 

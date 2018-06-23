@@ -27,7 +27,7 @@ public class GUI_SolicitarNombreSala extends JFrame {
 	private JTextField tfNombreSala;
 
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -39,7 +39,7 @@ public class GUI_SolicitarNombreSala extends JFrame {
 			}
 		});
 	}
-
+*/
 	public GUI_SolicitarNombreSala() {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -101,6 +101,7 @@ public class GUI_SolicitarNombreSala extends JFrame {
 						
 					}
 					entradaSalida.escribirMensaje(mensajeCrearSala);
+					dispose();
 				}
 				dispose();
 			}

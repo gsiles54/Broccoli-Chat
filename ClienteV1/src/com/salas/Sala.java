@@ -29,7 +29,7 @@ public class Sala {
 	}
 
 
-	public String getNombre() {
+	public String getNombreSala() {
 		return nombreSala;
 	}
 

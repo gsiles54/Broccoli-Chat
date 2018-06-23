@@ -7,6 +7,7 @@ import java.net.Socket;
 import java.net.SocketException;
 
 import com.mensajes.Mensaje;
+import com.vista.ControladorCliente;
 
 public class EntradaSalida {
 	Socket socket;
@@ -47,18 +48,14 @@ public class EntradaSalida {
 	public Mensaje recibirMensaje() {
 		Mensaje devuelve=null;
 		try {
-			if(objectIn!=null && !socket.isClosed())
 			devuelve= (Mensaje) objectIn.readObject();
 		} catch (ClassNotFoundException | IOException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		return devuelve;
 	}
 	public boolean entradaSalidaAbierta() {
-		if (objectIn!=null && objectOut!=null && !socket.isClosed())
-			return true;
-		else
-			return false;
+		return (objectIn!=null && objectOut!=null && !socket.isClosed());
 	}
 	
 	public void cerrarEntradaSalida() {

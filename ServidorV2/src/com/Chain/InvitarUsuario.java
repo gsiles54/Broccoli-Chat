@@ -18,8 +18,9 @@ public class InvitarUsuario extends Chain{
 	
 	@Override
 	public void manejarPeticion(Mensaje mensaje) {
-
-		if (mensaje.getComando().equals(Comandos.InvitarUsuarioSalaPrivada)||mensaje.getComando().equals(Comandos.InvitarUsuarioSalaPublica)) {
+		String comando=mensaje.getComando();
+		if (comando.equals(Comandos.InvitarUsuarioSalaPrivada)||comando.equals(Comandos.InvitarUsuarioSalaPublica)) {
+			System.out.println("InvitarUsuario Recibio: "+mensaje.getComando());
 			String[] valores = mensaje.getInformacion().split(";");
 			String nombre = valores[0];
 
@@ -38,8 +39,7 @@ public class InvitarUsuario extends Chain{
 		}
 		else
 		{	
-			System.out.println("Ultimo eslabon. InvitarUSUARIO. El comando era: "+mensaje.getComando());
-			System.out.println("Agregar mas manejadores");
+			System.out.println("Servidor: Ultimo eslabon. InvitarUSUARIO. El comando era: "+mensaje.getComando());
 		}
 	}
 

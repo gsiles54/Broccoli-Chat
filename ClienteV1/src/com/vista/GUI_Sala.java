@@ -48,7 +48,7 @@ public class GUI_Sala extends JFrame {
 		this.modeloClientesEnLobby = modeloListaClientes;
 		setResizable(true);
 		getContentPane().setLayout(null);
-		setBounds(100, 100, 804, 616);
+		setBounds(100, 100, 631, 373);
 	
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 61, 472, 210);
@@ -89,6 +89,10 @@ public class GUI_Sala extends JFrame {
 		labelSalaID= new JLabel();
 		labelSalaID.setBounds(624, 11, 106, 14);
 		getContentPane().add(labelSalaID);
+		
+		JLabel lblUsuarios = new JLabel("Usuarios: ");
+		lblUsuarios.setBounds(492, 39, 78, 14);
+		getContentPane().add(lblUsuarios);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);

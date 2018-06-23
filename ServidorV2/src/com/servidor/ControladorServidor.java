@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import com.Chain.AgregarClienteASala;
 import com.Chain.Chain;
-import com.Chain.ClienteNuevo;
 import com.Chain.CrearSala;
 import com.Chain.DesconectarCliente;
 import com.Chain.EnviarMsjASala;
@@ -84,7 +83,6 @@ public class ControladorServidor {
 			}
 		}
 
-		entrante.getEntrada().setCliente(entrante);
 		entrante.getSalida().setCliente(entrante);
 		
 		aTodos_ClienteConectado(entrante);
@@ -92,7 +90,7 @@ public class ControladorServidor {
 
 	}
 
-	// ----------------- EVENTOS A TODOS----------------------
+
 	private void aTodos_ClienteConectado(Cliente elNuevoEntrante) {
 
 		Mensaje mensaje = new Mensaje(Comandos.ClienteNuevo, elNuevoEntrante.getNombre());

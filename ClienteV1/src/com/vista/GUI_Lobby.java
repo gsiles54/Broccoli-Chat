@@ -2,6 +2,7 @@ package com.vista;
 
 import static com.Cliente.Cliente.nombreCliente;
 import java.awt.Rectangle;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -29,6 +30,8 @@ import com.mensajes.Mensaje;
 
 import javax.swing.JTextPane;
 import javax.swing.ListSelectionModel;
+
+import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -172,6 +175,9 @@ public class GUI_Lobby extends JFrame {
 		
 		contentPane.add(chatTextBoxLobby);
 		chatTextBoxLobby.setColumns(10);
+		
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
 	}
 
 

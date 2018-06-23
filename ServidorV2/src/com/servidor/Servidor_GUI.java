@@ -64,7 +64,7 @@ public class Servidor_GUI extends JFrame {
 			}
 
 			private void iniciarServidorChat() throws IOException {
-				servidor = new Servidor(1234, jTextAreaLogs); // Separado en 3 lineas para mejor entendimiento
+				servidor = new Servidor(1234, jTextAreaLogs);
 				Thread tServidor = new Thread(servidor);
 				tServidor.start();
 			}
