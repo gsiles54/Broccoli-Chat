@@ -22,8 +22,9 @@ public class CrearSala extends Chain{
 
 	@Override
 	public void manejarPeticion(Mensaje mensaje) {
-		if (mensaje.getComando().equals(Comandos.CrearSalaPublica)||mensaje.getComando().equals(Comandos.CrearSalaPrivada))
-		{           
+		if (mensaje.getComando().equals(Comandos.CrearSalaPublica)||mensaje.getComando().equals(Comandos.CrearSalaPrivada)){
+			
+			System.out.println("CrearSala Recibio: "+mensaje.getComando());
 			boolean esPrivada = mensaje.getComando().equals(Comandos.CrearSalaPublica)?false:true;
 			String nombreSala = mensaje.getInformacion();
 			Cliente cliente = getClientePorNombre(mensaje.getEmisor());

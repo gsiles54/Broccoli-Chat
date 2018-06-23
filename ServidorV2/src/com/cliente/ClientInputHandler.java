@@ -24,7 +24,6 @@ public class ClientInputHandler implements Runnable {
 	boolean conectado=true;
 	ObjectInputStream objectIn;
 	Socket socket;
-	Cliente cliente; //Si un Cliente sabe del socket, y el Socket sabe del Cliente, algo raro hay. shhhhhhhhhhhhhhhhhhhhhhh
 	
 	public ClientInputHandler(Socket socket) throws IOException {
 	
@@ -35,16 +34,13 @@ public class ClientInputHandler implements Runnable {
 	@Override
 	public void run() {
 		
-		ControladorServidor cs = ControladorServidor.getInstance();
+		ControladorServidor controladorServidor = ControladorServidor.getInstance();
 		while (conectado) {
 
 				try {
-					mensaje= recibirMensaje();
-					if(mensaje!=null) {
-						System.out.println(mensaje.getComando()+" "+mensaje.getInformacion());
-						cs.manejarMensaje(mensaje);
-					}
-					
+						mensaje= recibirMensaje();
+						controladorServidor.manejarMensaje(mensaje);
+						
 				} catch (ClassNotFoundException | IOException e) {System.out.println("CIH cerrado"); conectado=false;}
 
 		}
@@ -54,7 +50,5 @@ public class ClientInputHandler implements Runnable {
 		return (Mensaje) objectIn.readObject();
 	}
 	
-	public void setCliente(Cliente cliente) {
-		this.cliente=cliente;
-	}
+
 }

@@ -20,8 +20,8 @@ public class EnviarMsjASala extends Chain {
 
 	@Override
 	public void manejarPeticion(Mensaje mensaje) {
-
 		if (mensaje.getComando().equals(Comandos.MensajeASala)) {
+			System.out.println("EnviarMsjASala Recibio: "+mensaje.getComando());
 			for (Sala s : salas) {
 				if (s.getSalaID().equals(mensaje.getSalaID()))
 					s.enviarMensaje(mensaje);

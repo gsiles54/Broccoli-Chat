@@ -16,7 +16,6 @@ public class Sala {
 	ArrayList<Cliente> clientesEnSala;
 	String nombre; //se lo puede usar como hashTag.
 	boolean esPrivada=false; //Todas las salas son publicas por defecto
-	Asistente asist;
 	private static final AtomicInteger salaIDGenerator = new AtomicInteger(100);
 	private Integer salaID;
 	
@@ -91,9 +90,6 @@ public class Sala {
 		return salaID;
 	}
 
-	public void setSalaID(Integer salaID) {
-		this.salaID = salaID;
-	}
 	public ArrayList<Cliente> getClientesEnSala() {
 		return clientesEnSala;
 	}
