@@ -30,7 +30,7 @@ import com.salas.Sala;
  */
 public class ControladorCliente implements Runnable {
 	
-	private final boolean corriendo=true;
+	private boolean corriendo=true;
 	
 	// Solo se usa para mostrar clientes en el lobby o cuando quiero agregar gente a
 	// una conversacion.
@@ -89,12 +89,10 @@ public class ControladorCliente implements Runnable {
 	public void run() {
 		try {
 			while (corriendo) {
-				if (entradaSalida != null && entradaSalida.entradaSalidaAbierta()) {
 					Mensaje mensajeRecibido = entradaSalida.recibirMensaje();
 					manejarMensaje(mensajeRecibido);
-				}
 			}
-		} catch (Exception s) {}
+		} catch (Exception s) {corriendo=false;}
 
 	}
 
