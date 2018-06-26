@@ -13,11 +13,11 @@ import javax.swing.text.StyledDocument;
 import com.Cliente.EntradaSalida;
 import com.cadena.AgregarASala;
 import com.cadena.ChainCliente;
+import com.cadena.ClienteSaliendo;
 import com.cadena.CrearSala;
 import com.cadena.Invitacion;
 import com.cadena.MensajeASala;
 import com.cadena.NuevoClienteConectado;
-
 import com.mensajes.Mensaje;
 import com.salas.Sala;
 
@@ -30,7 +30,7 @@ import com.salas.Sala;
  */
 public class ControladorCliente implements Runnable {
 	
-	private final boolean corriendo=true;
+	private boolean corriendo=true;
 	
 	// Solo se usa para mostrar clientes en el lobby o cuando quiero agregar gente a
 	// una conversacion.
@@ -69,17 +69,18 @@ public class ControladorCliente implements Runnable {
 	}
 
 	private ChainCliente ensamblarChain() {
-		CrearSala crearSala = new CrearSala(copiaSalasDisponibles, modeloListaClientes);
+		CrearSala crearSala = new CrearSala(copiaSalasDisponibles, modeloListaClientes, modeloListaSalas);
 		MensajeASala mensajeASala = new MensajeASala(copiaSalasDisponibles, this);
-		NuevoClienteConectado nuevoClienteConectado = new NuevoClienteConectado(lobbyGui, modeloListaClientes,
-				copiaClientesEnLobby);
+		NuevoClienteConectado nuevoClienteConectado = new NuevoClienteConectado(modeloListaClientes, copiaClientesEnLobby);
 		Invitacion invitacion = new Invitacion();
 		AgregarASala agregarASala = new AgregarASala(copiaSalasDisponibles, modeloListaClientes);
+		ClienteSaliendo clienteSaliendo= new ClienteSaliendo(copiaClientesEnLobby,modeloListaClientes,copiaSalasDisponibles,modeloListaSalas,entradaSalida );
 
 		crearSala.enlazarSiguiente(mensajeASala);
 		mensajeASala.enlazarSiguiente(nuevoClienteConectado);
 		nuevoClienteConectado.enlazarSiguiente(invitacion);
 		invitacion.enlazarSiguiente(agregarASala);
+		agregarASala.enlazarSiguiente(clienteSaliendo);
 
 		return crearSala;
 	}
@@ -88,12 +89,10 @@ public class ControladorCliente implements Runnable {
 	public void run() {
 		try {
 			while (corriendo) {
-				if (entradaSalida != null && entradaSalida.entradaSalidaAbierta()) {
 					Mensaje mensajeRecibido = entradaSalida.recibirMensaje();
 					manejarMensaje(mensajeRecibido);
-				}
 			}
-		} catch (Exception s) {}
+		} catch (Exception s) {corriendo=false;}
 
 	}
 

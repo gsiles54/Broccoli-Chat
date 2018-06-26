@@ -52,14 +52,12 @@ public class ControladorServidor {
 
 	private Chain ensamblarChain() {
 		AgregarClienteASala  agregarClienteASala = new AgregarClienteASala(salas,clientesEnLobby);
-		//ClienteNuevo clienteNuevo=new ClienteNuevo(salas);
 		CrearSala crearSala = new CrearSala(salas, clientesEnLobby);
 		DesconectarCliente desconectarCliente = new DesconectarCliente(salas, clientesEnLobby);
 		EnviarMsjASala enviarMensaje = new EnviarMsjASala(salas);
 		InvitarUsuario invitarUsuario = new InvitarUsuario(clientesEnLobby);
 	
 		agregarClienteASala.enlazarSiguiente(crearSala);
-		//clienteNuevo.enlazarSiguiente(crearSala);
 		crearSala.enlazarSiguiente(desconectarCliente);
 		desconectarCliente.enlazarSiguiente(enviarMensaje);
 		enviarMensaje.enlazarSiguiente(invitarUsuario);

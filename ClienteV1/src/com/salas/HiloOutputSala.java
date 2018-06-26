@@ -19,7 +19,6 @@ public class HiloOutputSala implements Runnable{
 	}
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
 		boolean flag = true;
 		StringBuilder texto;
 		while(flag) {
@@ -32,6 +31,11 @@ public class HiloOutputSala implements Runnable{
 				
 				entradaSalida.escribirMensaje(new Mensaje(Comandos.MensajeASala,texto.toString(),sala.getSalaID()));
 				salaGUI.getChatTextBoxSala().setText("");
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 	}

@@ -44,12 +44,16 @@ public class GUI_Lobby extends JFrame {
 
 	private JList<String> listaClientesConectados;
 	private DefaultListModel<String> modeloListaCliente;
+	private DefaultListModel<String> modeloListaSala;
+	private JList<String> listaSalas;
 	EntradaSalida entradaSalida;
 	private JTextPane chatLobby=null;
 	private JTextField chatTextBoxLobby;
 	private boolean chatBox=false;
 
 	private JScrollPane scrollPane_1;
+	private JScrollPane scrollPaneSalas;
+	private JPanel panelListaSalas;
 	
 	public GUI_Lobby() {
 		setResizable(false);
@@ -57,6 +61,7 @@ public class GUI_Lobby extends JFrame {
 		
 		configurarGUI();
 		configurarJListClientes();
+		configurarJListSalas();
 		
 		entradaSalida=EntradaSalida.getInstance();
 		
@@ -69,6 +74,10 @@ public class GUI_Lobby extends JFrame {
 				if(confirma==0) {
 				entradaSalida.escribirMensaje(new Mensaje(Comandos.LOGOUT, nombreCliente));
 				entradaSalida.cerrarEntradaSalida();
+				
+				//Mensaje mensaje= new Mensaje(Comandos.);
+				//EntradaSalida.getInstance().escribirMensaje(mensaje);
+				
 				dispose();
 				} 
 				
@@ -133,24 +142,6 @@ public class GUI_Lobby extends JFrame {
 		scrollPane_1.setBounds(0, 0, 179, 637);
 		panel.add(scrollPane_1);
 		
-		
-		
-	
-		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(575, 83, 212, 427);
-		contentPane.add(panel_1);
-		panel_1.setLayout(null);
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 0, 212, 637);
-		panel_1.add(scrollPane);
-		
-		JList<String> listaSalas = new JList<String>();
-		listaSalas.setFont(new Font("Source Sans Pro Semibold", Font.PLAIN, 16));
-		listaSalas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		scrollPane.setViewportView(listaSalas);
-		
 		JScrollPane scrollPane_2 = new JScrollPane();
 		scrollPane_2.setBounds(199, 83, 366, 427);
 		contentPane.add(scrollPane_2);
@@ -178,6 +169,26 @@ public class GUI_Lobby extends JFrame {
 		
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
+	}
+
+
+
+	private void configurarJListSalas() {
+		panelListaSalas = new JPanel();
+		panelListaSalas.setBounds(575, 83, 212, 427);
+		contentPane.add(panelListaSalas);
+		panelListaSalas.setLayout(null);
+		
+		scrollPaneSalas = new JScrollPane();
+		scrollPaneSalas.setBounds(0, 0, 212, 637);
+		panelListaSalas.add(scrollPaneSalas);
+		
+		listaSalas = new JList<String>();
+		listaSalas.setFont(new Font("Source Sans Pro Semibold", Font.PLAIN, 16));
+		listaSalas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		modeloListaSala= new DefaultListModel<String>();
+		listaSalas.setModel(modeloListaSala);
+		scrollPaneSalas.setViewportView(listaSalas);
 	}
 
 

@@ -10,16 +10,14 @@ import com.vista.GUI_Lobby;
 
 public class NuevoClienteConectado extends ChainCliente {
 	
-	GUI_Lobby lobbyGui;
-	DefaultListModel<String> modeloLista;
+	DefaultListModel<String> modeloListaClientes;
 	ArrayList<String> copiaClientesEnLobby; 
 
 
-	public NuevoClienteConectado(GUI_Lobby lobbyGui, DefaultListModel<String> modeloLista, ArrayList<String> _copiaClientesEnLobby) {
+	public NuevoClienteConectado(DefaultListModel<String> modeloLista, ArrayList<String> _copiaClientesEnLobby) {
 		super();
-		this.lobbyGui = lobbyGui;
 		copiaClientesEnLobby=_copiaClientesEnLobby;
-		this.modeloLista = modeloLista;
+		this.modeloListaClientes = modeloLista;
 	}
 
 
@@ -27,10 +25,11 @@ public class NuevoClienteConectado extends ChainCliente {
 	public void manejarPeticion(Mensaje mensaje) {
 		
 		if(mensaje.getComando().equals(Comandos.ClienteNuevo)) {
+			System.out.println("NuevoClienteConectado Recibio: " + mensaje.getComando());
+			
 			String usuarioEntrante= mensaje.getInformacion();
 			copiaClientesEnLobby.add(usuarioEntrante);
-			modeloLista.addElement(usuarioEntrante);
-			lobbyGui.getListaClientesConectados().setModel(modeloLista);
+			modeloListaClientes.addElement(usuarioEntrante);
 		}
 		else {siguiente.manejarPeticion(mensaje);}
 	}

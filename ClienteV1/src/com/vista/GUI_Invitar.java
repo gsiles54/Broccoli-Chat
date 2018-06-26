@@ -81,9 +81,13 @@ public class GUI_Invitar extends JFrame{
 						
 					}
 					}
-				JButton s=(JButton)arg0.getSource(); 
-				JFrame jf= (JFrame) SwingUtilities.getRoot(s);
-				jf.setVisible(false);
+				ocultarEsteJFrame(arg0);
+			}
+
+			private void ocultarEsteJFrame(ActionEvent arg0) {
+				JButton boton=(JButton)arg0.getSource(); 
+				JFrame jframe= (JFrame) SwingUtilities.getRoot(boton);
+				jframe.setVisible(false);
 			}
 			
 			
