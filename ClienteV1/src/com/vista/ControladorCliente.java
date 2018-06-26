@@ -69,9 +69,9 @@ public class ControladorCliente implements Runnable {
 	}
 
 	private ChainCliente ensamblarChain() {
-		CrearSala crearSala = new CrearSala(copiaSalasDisponibles, modeloListaClientes);
+		CrearSala crearSala = new CrearSala(copiaSalasDisponibles, modeloListaClientes, modeloListaSalas);
 		MensajeASala mensajeASala = new MensajeASala(copiaSalasDisponibles, this);
-		NuevoClienteConectado nuevoClienteConectado = new NuevoClienteConectado(lobbyGui, modeloListaClientes,copiaClientesEnLobby);
+		NuevoClienteConectado nuevoClienteConectado = new NuevoClienteConectado(modeloListaClientes, copiaClientesEnLobby);
 		Invitacion invitacion = new Invitacion();
 		AgregarASala agregarASala = new AgregarASala(copiaSalasDisponibles, modeloListaClientes);
 		ClienteSaliendo clienteSaliendo= new ClienteSaliendo(copiaClientesEnLobby,modeloListaClientes,copiaSalasDisponibles,modeloListaSalas,entradaSalida );

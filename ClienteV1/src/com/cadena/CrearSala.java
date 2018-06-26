@@ -17,9 +17,10 @@ public class CrearSala extends ChainCliente{
 
 	ArrayList<Sala> copiaSalasDisponibles;
 	DefaultListModel<String> modeloListaClientes;
+	DefaultListModel<String> modeloListaSalas;
 	
-	public CrearSala( ArrayList<Sala> copiaSalasDisponibles,DefaultListModel<String> modeloListaClientes) {
-	
+	public CrearSala( ArrayList<Sala> copiaSalasDisponibles,DefaultListModel<String> modeloListaClientes,DefaultListModel<String> modeloListaSalas) {
+		this.modeloListaSalas=modeloListaSalas;
 		this.copiaSalasDisponibles=copiaSalasDisponibles;
 		this.modeloListaClientes = modeloListaClientes;
 	}
@@ -42,10 +43,11 @@ public class CrearSala extends ChainCliente{
 			boolean esPrivada = mensaje.getComando().equals(Comandos.SalaPrivCreadaExitosamente)?true:false;
 			Sala nuevaSala = new Sala(idSala,nombreSala,esPrivada,guiSala);
 			copiaSalasDisponibles.add(nuevaSala);
+			modeloListaSalas.addElement(nombreSala);
 			guiSala.setSala(nuevaSala);
 			nuevaSala.meterCliente(nombreCliente);
 			HiloOutputSala hiloSala = new HiloOutputSala(guiSala,nuevaSala);
-			Thread thSala = new Thread(hiloSala);
+			Thread thSala = new Thread(hiloSala,"Hilo-Sala");
 			thSala.start();
 		}
 		else {siguiente.manejarPeticion(mensaje);}
