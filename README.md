@@ -1,5 +1,5 @@
 # Broccoli-Chat
-V0.0.1
+V1.0
 
 Reglas de estandarizacion.
 
