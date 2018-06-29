@@ -1,7 +1,7 @@
 package com.utilitarios;
 
 
-import java.io.IOException;
+
 
 import java.net.Socket;
 
@@ -85,6 +85,8 @@ public class LoginHandler implements Runnable {
 							output= new HiloOutputLobby(lobbyGui);
 							hiloOutput = new Thread(output);
 							hiloOutput.start();
+							hiloOutput.setName("Hilo output Lobby");
+							lobbyGui.setOutputLobby(output);;
 							lobbyGui.setVisible(true);
 							styledDocument=lobbyGui.getChatLobby().getStyledDocument();
 							

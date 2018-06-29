@@ -4,10 +4,10 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.net.SocketException;
+
 
 import com.mensajes.Mensaje;
-import com.vista.ControladorCliente;
+
 
 public class EntradaSalida {
 	Socket socket;
@@ -50,7 +50,7 @@ public class EntradaSalida {
 		try {
 			devuelve= (Mensaje) objectIn.readObject();
 		} catch (ClassNotFoundException | IOException e) {
-			//e.printStackTrace();
+			e.printStackTrace();
 		}
 		return devuelve;
 	}

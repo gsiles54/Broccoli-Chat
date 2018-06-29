@@ -1,6 +1,6 @@
 package com.vista;
 
-import java.awt.BorderLayout;
+
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
@@ -14,6 +14,10 @@ import javax.swing.JButton;
 
 public class GUI_ConfigurarIP extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1218498309310645564L;
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_1;

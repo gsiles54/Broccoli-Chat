@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.Chain.AgregarClienteASala;
 import com.Chain.Chain;
+import com.Chain.ClienteDejandoSala;
 import com.Chain.CrearSala;
 import com.Chain.DesconectarCliente;
 import com.Chain.EnviarMsjASala;
@@ -56,10 +57,12 @@ public class ControladorServidor {
 		DesconectarCliente desconectarCliente = new DesconectarCliente(salas, clientesEnLobby);
 		EnviarMsjASala enviarMensaje = new EnviarMsjASala(salas);
 		InvitarUsuario invitarUsuario = new InvitarUsuario(clientesEnLobby);
+		ClienteDejandoSala clienteDejandoSala = new ClienteDejandoSala(salas,clientesEnLobby);
 	
 		agregarClienteASala.enlazarSiguiente(crearSala);
 		crearSala.enlazarSiguiente(desconectarCliente);
-		desconectarCliente.enlazarSiguiente(enviarMensaje);
+		desconectarCliente.enlazarSiguiente(clienteDejandoSala);
+		clienteDejandoSala.enlazarSiguiente(enviarMensaje);
 		enviarMensaje.enlazarSiguiente(invitarUsuario);
 		return agregarClienteASala;
 	}
@@ -104,5 +107,13 @@ public class ControladorServidor {
 				elNuevoEntrante.enviarMensaje(new Mensaje(Comandos.ClienteNuevo, c.getNombre()));
 		}
 		LoggerCliente.enviarLog("Se envio a todos el nuevo usuario.");
+	}
+
+	public ArrayList<Sala> getSalas() {
+		return salas;
+	}
+
+	public void setSalas(ArrayList<Sala> salas) {
+		this.salas = salas;
 	}
 }

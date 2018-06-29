@@ -45,7 +45,15 @@ public class Sala {
 		return 1;
 	}
 	
-
+	public void sacarCliente(String cliente){
+		for(int i  = 0, sizeClientes = clientesEnSala.size(); i<sizeClientes ;i++){
+			Cliente clienteActual =  clientesEnSala.get(i);
+			if(clienteActual.getNombre().equals(cliente)){
+				clientesEnSala.remove(i);
+				break;
+			}
+		}
+	}
 	
 	public void enviarMensaje(Mensaje mensaje) {
 		for(Cliente c:clientesEnSala) {
@@ -92,6 +100,12 @@ public class Sala {
 
 	public ArrayList<Cliente> getClientesEnSala() {
 		return clientesEnSala;
+	}
+	public boolean isEsPrivada() {
+		return esPrivada;
+	}
+	public void setEsPrivada(boolean esPrivada) {
+		this.esPrivada = esPrivada;
 	}
 	
 }

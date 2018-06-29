@@ -27,6 +27,7 @@ import com.Cliente.EntradaSalida;
 
 import com.mensajes.Comandos;
 import com.mensajes.Mensaje;
+import com.salas.HiloOutputLobby;
 
 import javax.swing.JTextPane;
 import javax.swing.ListSelectionModel;
@@ -36,6 +37,7 @@ import java.awt.Font;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.SwingConstants;
+import javax.swing.JLabel;
 
 public class GUI_Lobby extends JFrame {
 
@@ -49,8 +51,8 @@ public class GUI_Lobby extends JFrame {
 	EntradaSalida entradaSalida;
 	private JTextPane chatLobby=null;
 	private JTextField chatTextBoxLobby;
-	private boolean chatBox=false;
-
+	
+	private HiloOutputLobby outputLobby;
 	private JScrollPane scrollPane_1;
 	private JScrollPane scrollPaneSalas;
 	private JPanel panelListaSalas;
@@ -75,9 +77,6 @@ public class GUI_Lobby extends JFrame {
 				entradaSalida.escribirMensaje(new Mensaje(Comandos.LOGOUT, nombreCliente));
 				entradaSalida.cerrarEntradaSalida();
 				
-				//Mensaje mensaje= new Mensaje(Comandos.);
-				//EntradaSalida.getInstance().escribirMensaje(mensaje);
-				
 				dispose();
 				} 
 				
@@ -87,8 +86,6 @@ public class GUI_Lobby extends JFrame {
 		
 		
 	}
-	
-	
 	
 	//------CONFIGURACIONES GUI---------------------
 	private void configurarGUI() {
@@ -159,7 +156,7 @@ public class GUI_Lobby extends JFrame {
 		
 		chatTextBoxLobby.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				setChatBox(true);
+				outputLobby.mandarMensaje();
 			}
 		});
 		
@@ -171,8 +168,6 @@ public class GUI_Lobby extends JFrame {
 		this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
 	}
 
-
-
 	private void configurarJListSalas() {
 		panelListaSalas = new JPanel();
 		panelListaSalas.setBounds(575, 83, 212, 427);
@@ -183,15 +178,19 @@ public class GUI_Lobby extends JFrame {
 		scrollPaneSalas.setBounds(0, 0, 212, 637);
 		panelListaSalas.add(scrollPaneSalas);
 		
-		listaSalas = new JList<String>();
+		modeloListaSala= new DefaultListModel<String>();
+		
+		listaSalas = new JList<String>(modeloListaSala);
+		
 		listaSalas.setFont(new Font("Source Sans Pro Semibold", Font.PLAIN, 16));
 		listaSalas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		modeloListaSala= new DefaultListModel<String>();
-		listaSalas.setModel(modeloListaSala);
+		
 		scrollPaneSalas.setViewportView(listaSalas);
+		
+		JLabel lblUsuario = new JLabel("USUARIO: " + nombreCliente);
+		lblUsuario.setBounds(10, 26, 90, 14);
+		contentPane.add(lblUsuario);
 	}
-
-
 
 	private void configurarJListClientes() {
 		modeloListaCliente = new DefaultListModel<>();
@@ -205,24 +204,41 @@ public class GUI_Lobby extends JFrame {
 		return chatLobby;
 	}
 
-
 	public synchronized JTextField getChatTextBoxLobby() {
 		return chatTextBoxLobby;
 	}
 
-
-
-	public synchronized boolean isChatBox() {
-		return chatBox;
+	public void setOutputLobby( HiloOutputLobby outputLobby){
+		this.outputLobby = outputLobby;
 	}
-
-	public void setChatBox(boolean set) {
-		this.chatBox=set;
+	
+	public HiloOutputLobby getOutputLobby(){
+		return outputLobby;
 	}
-
 	public synchronized JList<String> getListaClientesConectados() {
 		return listaClientesConectados;
 	}
 
 
+	public void agregarSala(String salaNueva){
+		
+			if(!modeloListaSala.contains(salaNueva))
+			modeloListaSala.addElement(salaNueva);	
+			
+	}
+	
+	public void quitarSala(String salaRemovida){
+		modeloListaSala.removeElement(salaRemovida);
+	}
+	
+	public JList<String> getListaSalasDisp(){
+		return listaSalas;
+	}
+
+	public void agregarCliente(String usuarioEntrante) {
+		modeloListaCliente.addElement(usuarioEntrante);	
+	}
+	public void quitarCliente(String usuarioSaliendo){
+		modeloListaCliente.removeElement(usuarioSaliendo);
+	}
 }

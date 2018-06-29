@@ -1,26 +1,25 @@
 package com.cadena;
 
 import java.util.ArrayList;
-import static com.Cliente.Cliente.nombreCliente;
 import javax.swing.DefaultListModel;
 
 import com.mensajes.Comandos;
 import com.mensajes.Mensaje;
 import com.salas.HiloOutputSala;
 import com.salas.Sala;
+import com.vista.GUI_Lobby;
 import com.vista.GUI_Sala;
 
 public class AgregarASala extends ChainCliente{
 	
 	ArrayList<Sala> copiaSalasDisponibles;
 
-	private DefaultListModel<String> modeloListaClientes;
+
+	private GUI_Lobby lobbyGUI;
 	
-	
-	public AgregarASala(ArrayList<Sala> copiaSalasDisponibles, DefaultListModel<String> modeloListaClientes) {
+	public AgregarASala(ArrayList<Sala> copiaSalasDisponibles, GUI_Lobby lobbyGui) {
 		this.copiaSalasDisponibles=copiaSalasDisponibles;
-	
-		this.modeloListaClientes = modeloListaClientes;
+		this.lobbyGUI = lobbyGui;
 	}
 
 	@Override
@@ -30,38 +29,48 @@ public class AgregarASala extends ChainCliente{
 		System.out.println("AgregarASala Recibio: " + mensaje.getComando());
 			String[] valores = mensaje.getInformacion().split(";");
 			String clienteNuevo = valores[0];
-			String idSala = valores[1];
+			Integer idSala = Integer.valueOf(valores[1]);
 			String nombreSala = valores[2];
-			
-			boolean crearSala=true;
+			Sala salaModificada = null;
+			GUI_Sala guiSala = null;
+			boolean crearGUISala=true;
 			for(Sala salaActual : copiaSalasDisponibles) {
-				if(salaActual.getSalaID().equals(Integer.valueOf(idSala))) {
+				if(salaActual.getSalaID().equals(idSala)) {
 					if(salaActual.meterCliente(clienteNuevo)) {
-						salaActual.getSalaGui().agregarCliente(clienteNuevo);
-						crearSala=false;
+						salaModificada = salaActual;
+						crearGUISala=salaActual.getSalaGui()==null?true:false;
+						System.out.println("PARECE QUE LA SALA SIGUE CREADA");
 						break;
 					}
 					
 				}
 			}
 			
-			if(crearSala) {
-				boolean esPrivada = mensaje.getComando().equals(Comandos.InvitacionASalaPublicaAceptada)?false:true;
-				
-				GUI_Sala guiSala = new GUI_Sala(modeloListaClientes);
-				Sala nuevaSala = new Sala(Integer.valueOf(idSala),nombreSala,esPrivada,guiSala);
-				copiaSalasDisponibles.add(nuevaSala);
+			if(crearGUISala) {
+				DefaultListModel<String> modeloListaClientes = (DefaultListModel<String>) lobbyGUI.getListaClientesConectados().getModel();
+				guiSala = new GUI_Sala(modeloListaClientes);
+	
+
 				guiSala.setTitleSala(nombreSala);
-				guiSala.setSalaID(Integer.valueOf(idSala));
-				for(int i=3 ;i<valores.length;i++) {
-					guiSala.agregarCliente(valores[i]);
-				}
-				HiloOutputSala hiloSala = new HiloOutputSala(guiSala,nuevaSala);
+				guiSala.setSala(salaModificada);
+				guiSala.setSalaID(idSala);
+				
+				HiloOutputSala hiloSala = new HiloOutputSala(guiSala,salaModificada);
 				Thread thSala = new Thread(hiloSala);
 				thSala.start();
-			
+				thSala.setName("Output Sala: "+ nombreSala);
+				lobbyGUI.agregarSala(nombreSala);
+				salaModificada.setHilo(hiloSala);
+				salaModificada.setSalaGui(guiSala);
 				guiSala.setVisible(true);
 			}
+				guiSala = salaModificada.getSalaGui();
+				guiSala.limpiarListaClientes();
+				for(int i=3 ;i<valores.length;i++) {
+				guiSala.agregarCliente(valores[i]);
+				}
+			
+			
 		}
 		else {this.siguiente.manejarPeticion(mensaje);}
 	}

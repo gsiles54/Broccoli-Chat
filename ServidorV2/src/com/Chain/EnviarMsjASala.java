@@ -2,11 +2,11 @@ package com.Chain;
 
 import java.util.ArrayList;
 
-import com.cliente.Cliente;
+
 import com.mensajes.Comandos;
 import com.mensajes.Mensaje;
 import com.sala.Sala;
-import com.servidor.ControladorServidor;
+
 
 /*Si el mensaje es un simple texto dirigido a la sala, llama al metodo que 
  * manda el mensaje a la sala que corresponda*/

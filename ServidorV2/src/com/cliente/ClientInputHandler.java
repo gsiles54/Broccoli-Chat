@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
 
-import javax.swing.JOptionPane;
 
 import com.mensajes.Mensaje;
 import com.servidor.ControladorServidor;
@@ -50,5 +49,14 @@ public class ClientInputHandler implements Runnable {
 		return (Mensaje) objectIn.readObject();
 	}
 	
-
+	public void cerrarConexion(){
+		conectado = false;
+		try{
+			objectIn.close();
+		socket.close();
+		}catch(IOException e){
+			e.printStackTrace();
+		}
+		
+	}
 }

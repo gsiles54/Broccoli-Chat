@@ -1,7 +1,7 @@
 package com.cadena;
 
 import com.mensajes.Mensaje;
-import com.vista.ControladorCliente;
+
 
 public abstract class ChainCliente {
 	protected ChainCliente siguiente;
