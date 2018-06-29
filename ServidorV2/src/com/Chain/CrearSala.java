@@ -7,7 +7,7 @@ import com.logs.LoggerCliente;
 import com.mensajes.Comandos;
 import com.mensajes.Mensaje;
 import com.sala.Sala;
-import com.servidor.ControladorServidor;
+
 
 public class CrearSala extends Chain{
 
@@ -27,25 +27,34 @@ public class CrearSala extends Chain{
 			System.out.println("CrearSala Recibio: "+mensaje.getComando());
 			boolean esPrivada = mensaje.getComando().equals(Comandos.CrearSalaPublica)?false:true;
 			String nombreSala = mensaje.getInformacion();
-			Cliente cliente = getClientePorNombre(mensaje.getEmisor());
+			Cliente clienteEmisor = getClientePorNombre(mensaje.getEmisor());
 			if(nombreSalaYaExistente(nombreSala)) {
 				LoggerCliente.enviarLog("Se intenta crear una sala de nombre repetido: "+nombreSala);
-				if(cliente!=null) {
+				if(clienteEmisor!=null) {
 						String error="Nombre de sala ya existente, elija otro nombre.";
-						cliente.enviarMensaje(new Mensaje(Comandos.SalaNoCreadaNombreDuplicado,error));
+						clienteEmisor.enviarMensaje(new Mensaje(Comandos.SalaNoCreadaNombreDuplicado,error));
 					}
 				return;
 			}
 
 			Sala nuevaSala=new Sala(nombreSala,esPrivada);
 			
-			nuevaSala.meterCliente(cliente);
+			nuevaSala.meterCliente(clienteEmisor);
 			salas.add(nuevaSala);
-								
+			StringBuilder informacion = new StringBuilder();
+			informacion.append(nombreSala);
+			informacion.append(";");
+			informacion.append(nuevaSala.getSalaID());
+			informacion.append(";");
+			informacion.append(clienteEmisor.getNombre());
 			if(esPrivada) 
-				cliente.enviarMensaje(new Mensaje(Comandos.SalaPrivCreadaExitosamente,nombreSala+";"+nuevaSala.getSalaID()));
+				for(Cliente clienteActual : clientesEnLobby){
+					clienteActual.enviarMensaje(new Mensaje(Comandos.SalaPrivCreadaExitosamente,informacion.toString()));
+				}
 			else 
-				cliente.enviarMensaje(new Mensaje(Comandos.SalaPubCreadaExitosamente,nombreSala+";"+nuevaSala.getSalaID()));
+				for(Cliente clienteActual : clientesEnLobby){
+					clienteActual.enviarMensaje(new Mensaje(Comandos.SalaPubCreadaExitosamente,informacion.toString()));
+				}
 					
 			LoggerCliente.enviarLog("Sala creada Exitosamente: "+nombreSala);
 		}

@@ -1,7 +1,7 @@
 package com.salas;
 
 import java.util.ArrayList;
-
+import static com.Cliente.Cliente.nombreCliente;
 import com.vista.GUI_Lobby;
 import com.vista.GUI_Sala;
 
@@ -13,6 +13,7 @@ public class Sala {
 	GUI_Sala salaGUI; //¿?
 	GUI_Lobby lobby;
 	Integer salaID;
+	HiloOutputSala outputSala;
 	
 	public Sala(Integer salaID,String nombre, boolean esPrivada){
 		this.nombreSala=nombre;
@@ -27,8 +28,12 @@ public class Sala {
 		this.salaGUI=salaGUI;
 		clientesEnSala= new ArrayList<String>();
 	}
-
-
+	public void setHilo(HiloOutputSala as){
+		this.outputSala =as;
+	}
+	public HiloOutputSala getHilo(){
+		return outputSala;
+	}
 	public String getNombreSala() {
 		return nombreSala;
 	}
@@ -47,7 +52,12 @@ public class Sala {
 	
 	public void sacarCliente(String cliente) {
 		if(clientesEnSala.contains(cliente)) {
+			System.out.println("SE REMOVIO " + cliente);
 			clientesEnSala.remove(cliente);
+			salaGUI.quitarCliente(cliente);
+		}
+		if(cliente.equals(nombreCliente)){
+			salaGUI=null;
 		}
 	}
 
@@ -62,8 +72,12 @@ public class Sala {
 	public GUI_Sala getSalaGui() {
 		return salaGUI;
 	}
+	public void setSalaGui(GUI_Sala nuevoGui){
+		this.salaGUI = nuevoGui;
+	}
 	
 	public int getCantidadConectados() {return clientesEnSala.size();}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

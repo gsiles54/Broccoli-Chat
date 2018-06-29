@@ -34,6 +34,7 @@ public class AgregarClienteASala extends Chain{
 			for(Cliente clienteActual :  clientesEnLobby) {
 				if(clienteActual.getNombre().equals(nombreCliente)) {
 					nuevoEnSala = clienteActual;
+					break;
 				}
 			}
 			
@@ -50,16 +51,16 @@ public class AgregarClienteASala extends Chain{
 				infoNueva.append(mensaje.getInformacion());
 				infoNueva.append(";");
 				infoNueva.append(salaModificada.getNombre());
-				infoNueva.append(";");
+				
 				List<Cliente> listaClientes = salaModificada.getClientesEnSala();
 				for(Cliente clienteActual : listaClientes) {
-					
-						infoNueva.append(clienteActual.getNombre());
 						infoNueva.append(";");
+						infoNueva.append(clienteActual.getNombre());
+						
 					
 					
 				}
-				infoNueva.deleteCharAt(infoNueva.length()-1);
+
 				salaModificada.enviarMensaje(new Mensaje(mensaje.getComando(),infoNueva.toString()));
 			}else {
 				LoggerCliente.enviarLog("Problema en Servidor:AgregarCLiente");

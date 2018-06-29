@@ -1,7 +1,7 @@
 package com.salas;
 
 import static com.Cliente.Cliente.nombreCliente;
-import com.Cliente.Cliente;
+
 import com.Cliente.EntradaSalida;
 import com.mensajes.Comandos;
 import com.mensajes.Mensaje;
@@ -12,7 +12,7 @@ public class HiloOutputLobby implements Runnable{
 	GUI_Lobby lobbyGui;
 	
 	EntradaSalida entradaSalida;
-	
+	boolean sigueCorriendo;
 	public HiloOutputLobby(GUI_Lobby lobby_Gui){
 	
 		this.lobbyGui=lobby_Gui;
@@ -32,13 +32,17 @@ public class HiloOutputLobby implements Runnable{
 	
 	@Override
 	public void run() {
-		boolean flag = true;
+		sigueCorriendo = true;
 		StringBuilder texto;
 			
-		while(flag) {
-		
-			if(lobbyGui.isChatBox()) { // tengo en cuenta todos los GUI? o hago hilos separados?
-				lobbyGui.setChatBox(false);
+		while(sigueCorriendo) {
+		synchronized(this){
+			try {
+				
+				wait();
+			
+			 // tengo en cuenta todos los GUI? o hago hilos separados?
+			
 				texto = new StringBuilder();
 				texto.append('\n');
 				texto.append(nombreCliente + " : " );
@@ -47,13 +51,22 @@ public class HiloOutputLobby implements Runnable{
 				entradaSalida.escribirMensaje(new Mensaje(Comandos.MensajeASala,texto.toString(),-1));
 				lobbyGui.getChatTextBoxLobby().setText("");
 				
-				try {
-					Thread.sleep(500);
-				} catch (InterruptedException e) {
+				
+			}catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 			}
 		}
+			
+		}
+	
+	public void mandarMensaje(){
+		synchronized(this){
+			notify();
+		}
 	}
-
+	
+	public void setSigueCorriendo(boolean valor){
+		this.sigueCorriendo = valor;
+	}
 }

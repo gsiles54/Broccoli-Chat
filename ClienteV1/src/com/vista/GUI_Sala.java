@@ -11,11 +11,15 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import com.Cliente.EntradaSalida;
+import com.mensajes.Comandos;
+import com.mensajes.Mensaje;
+import com.salas.HiloOutputSala;
 import com.salas.Sala;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
-import javax.swing.ListModel;
+
 import javax.swing.ListSelectionModel;
 import javax.swing.JTextField;
 import javax.swing.DefaultListModel;
@@ -24,13 +28,16 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JList;
 import javax.swing.JLabel;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import static com.Cliente.Cliente.nombreCliente;
 
 public class GUI_Sala extends JFrame {
 
 	private static final long serialVersionUID = 5818745717722164373L;
 	private JPanel contentPane;
 	private JTextField chatTextBoxSala;
-	private boolean chatBox=false;
+	
 	private JTextPane chatSala;
 
 	JList<String> list;
@@ -44,6 +51,21 @@ public class GUI_Sala extends JFrame {
 	
 
 	public GUI_Sala(DefaultListModel<String> modeloListaClientes)  {
+		addWindowListener(new WindowAdapter() {
+		
+			@Override
+			public void windowClosing(WindowEvent e) {
+				StringBuilder informacion = new StringBuilder();
+				informacion.append(nombreCliente);
+				informacion.append(';');
+				informacion.append(nombreSala);
+				informacion.append(';');
+				informacion.append(salaID);
+				EntradaSalida.getInstance().escribirMensaje(new Mensaje(Comandos.ClienteDejandoSala,informacion.toString()));
+				sala.getHilo().setSigueCorriendo(false);
+				System.out.println("SE CERROOOOOOOOOOOOOOOOOO");
+			}
+		});
 		
 		this.modeloClientesEnLobby = modeloListaClientes;
 		setResizable(true);
@@ -60,7 +82,8 @@ public class GUI_Sala extends JFrame {
 		chatTextBoxSala = new JTextField();
 		chatTextBoxSala.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setChatBox(true);
+			HiloOutputSala outputSala = sala.getHilo();
+			outputSala.mandarMensaje();
 			}
 		});
 		chatTextBoxSala.setBounds(10, 282, 386, 26);
@@ -87,12 +110,16 @@ public class GUI_Sala extends JFrame {
 		getContentPane().add(textPane_1);
 		
 		labelSalaID= new JLabel();
-		labelSalaID.setBounds(624, 11, 106, 14);
+		labelSalaID.setBounds(499, 11, 106, 14);
 		getContentPane().add(labelSalaID);
 		
 		JLabel lblUsuarios = new JLabel("Usuarios: ");
 		lblUsuarios.setBounds(492, 39, 78, 14);
 		getContentPane().add(lblUsuarios);
+		
+		JLabel lblUsuario = new JLabel("USUARIO: "+ nombreCliente);
+		lblUsuario.setBounds(10, 11, 78, 14);
+		getContentPane().add(lblUsuario);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -146,14 +173,7 @@ public class GUI_Sala extends JFrame {
 	}
 
 
-	public synchronized boolean isChatBox() {
-		return chatBox;
-	}
 
-
-	public synchronized void setChatBox(boolean chatBox) {
-		this.chatBox = chatBox;
-	}
 	
 	public JTextField getChatTextBoxSala() {
 		return chatTextBoxSala;
@@ -186,7 +206,7 @@ public class GUI_Sala extends JFrame {
 	 * @param nombre
 	 */
 	public void quitarCliente(String nombre) {
-		
+		modeloClientesEnSala.removeElement(nombre);
 	}
 	public void setTitleSala(String nombre) {
 		this.nombreSala=nombre;
@@ -198,5 +218,8 @@ public class GUI_Sala extends JFrame {
 	}
 	public void setSala(Sala sala) {
 		this.sala=sala;
+	}
+	public void limpiarListaClientes(){
+		modeloClientesEnSala.removeAllElements();
 	}
 }

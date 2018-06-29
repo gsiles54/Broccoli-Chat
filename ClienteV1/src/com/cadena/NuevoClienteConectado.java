@@ -2,7 +2,6 @@ package com.cadena;
 
 import java.util.ArrayList;
 
-import javax.swing.DefaultListModel;
 
 import com.mensajes.Comandos;
 import com.mensajes.Mensaje;
@@ -10,14 +9,14 @@ import com.vista.GUI_Lobby;
 
 public class NuevoClienteConectado extends ChainCliente {
 	
-	DefaultListModel<String> modeloListaClientes;
+	GUI_Lobby lobbyGui;
 	ArrayList<String> copiaClientesEnLobby; 
 
 
-	public NuevoClienteConectado(DefaultListModel<String> modeloLista, ArrayList<String> _copiaClientesEnLobby) {
+	public NuevoClienteConectado(GUI_Lobby lobbyGui, ArrayList<String> _copiaClientesEnLobby) {
 		super();
 		copiaClientesEnLobby=_copiaClientesEnLobby;
-		this.modeloListaClientes = modeloLista;
+		this.lobbyGui = lobbyGui;
 	}
 
 
@@ -29,7 +28,7 @@ public class NuevoClienteConectado extends ChainCliente {
 			
 			String usuarioEntrante= mensaje.getInformacion();
 			copiaClientesEnLobby.add(usuarioEntrante);
-			modeloListaClientes.addElement(usuarioEntrante);
+			lobbyGui.agregarCliente(usuarioEntrante);
 		}
 		else {siguiente.manejarPeticion(mensaje);}
 	}

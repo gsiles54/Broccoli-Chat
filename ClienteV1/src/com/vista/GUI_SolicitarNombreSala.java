@@ -1,7 +1,7 @@
 package com.vista;
 
 import static com.Cliente.Cliente.nombreCliente;
-import java.awt.EventQueue;
+
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -27,19 +27,6 @@ public class GUI_SolicitarNombreSala extends JFrame {
 	private JTextField tfNombreSala;
 
 
-	/*public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					GUI_SolicitarNombreSala frame = new GUI_SolicitarNombreSala();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-*/
 	public GUI_SolicitarNombreSala() {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

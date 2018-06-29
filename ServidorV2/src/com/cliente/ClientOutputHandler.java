@@ -37,7 +37,12 @@ public class ClientOutputHandler implements Runnable{
 	
 	public synchronized void enviarMensajeAlCliente(Mensaje mensaje) {
 		try {
-			objectOut.writeObject(mensaje);
+			if(socket.isConnected()){
+				objectOut.writeObject(mensaje);
+			}else{
+				// se cayo la conexion con el cliente. hacer algo(?)
+			}
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -54,7 +59,7 @@ public class ClientOutputHandler implements Runnable{
 				System.out.println("Se envio el msj " + msj);
 				
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
+
 				e.printStackTrace();
 				
 			}
@@ -68,6 +73,7 @@ public class ClientOutputHandler implements Runnable{
 	public void cerrarConexion() {
 		flag=false;
 		try {
+			objectOut.close();
 			socket.close();
 		} catch (IOException e) {
 			System.out.println("Socket cerrado , ver cerrar tambien OIS OOS");

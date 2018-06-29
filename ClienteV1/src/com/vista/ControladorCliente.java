@@ -4,15 +4,17 @@ import static com.Cliente.Cliente.nombreCliente;
 
 import java.util.ArrayList;
 
-import javax.swing.DefaultListModel;
+
 import javax.swing.text.BadLocationException;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
 import com.Cliente.EntradaSalida;
+import com.cadena.ActualizarSalas;
 import com.cadena.AgregarASala;
 import com.cadena.ChainCliente;
+import com.cadena.ClienteDejandoSala;
 import com.cadena.ClienteSaliendo;
 import com.cadena.CrearSala;
 import com.cadena.Invitacion;
@@ -35,11 +37,11 @@ public class ControladorCliente implements Runnable {
 	// Solo se usa para mostrar clientes en el lobby o cuando quiero agregar gente a
 	// una conversacion.
 	ArrayList<String> copiaClientesEnLobby;
-	DefaultListModel<String> modeloListaClientes;
+
 
 	ArrayList<Sala> copiaSalasDisponibles;
 
-	DefaultListModel<String> modeloListaSalas;
+
 
 	EntradaSalida entradaSalida;
 
@@ -51,14 +53,10 @@ public class ControladorCliente implements Runnable {
 
 		entradaSalida = EntradaSalida.getInstance();
 
-		modeloListaClientes = new DefaultListModel<String>();
-		modeloListaSalas = new DefaultListModel<String>();
-
 		copiaClientesEnLobby = new ArrayList<>();
 		copiaSalasDisponibles = new ArrayList<>();
 
 		this.lobbyGui = lobbyGui;
-		lobbyGui.getListaClientesConectados().setModel(modeloListaClientes);
 
 		manejador = ensamblarChain();
 	}
@@ -69,17 +67,21 @@ public class ControladorCliente implements Runnable {
 	}
 
 	private ChainCliente ensamblarChain() {
-		CrearSala crearSala = new CrearSala(copiaSalasDisponibles, modeloListaClientes, modeloListaSalas);
+		CrearSala crearSala = new CrearSala(copiaSalasDisponibles,lobbyGui);
 		MensajeASala mensajeASala = new MensajeASala(copiaSalasDisponibles, this);
-		NuevoClienteConectado nuevoClienteConectado = new NuevoClienteConectado(modeloListaClientes, copiaClientesEnLobby);
+		NuevoClienteConectado nuevoClienteConectado = new NuevoClienteConectado(lobbyGui, copiaClientesEnLobby);
 		Invitacion invitacion = new Invitacion();
-		AgregarASala agregarASala = new AgregarASala(copiaSalasDisponibles, modeloListaClientes);
-		ClienteSaliendo clienteSaliendo= new ClienteSaliendo(copiaClientesEnLobby,modeloListaClientes,copiaSalasDisponibles,modeloListaSalas,entradaSalida );
-
+		AgregarASala agregarASala = new AgregarASala(copiaSalasDisponibles,lobbyGui);
+		ClienteSaliendo clienteSaliendo= new ClienteSaliendo(copiaClientesEnLobby,copiaSalasDisponibles,lobbyGui );
+		ClienteDejandoSala clienteDejandoSala = new ClienteDejandoSala(lobbyGui,copiaSalasDisponibles);
+		ActualizarSalas actualizarSala = new ActualizarSalas(lobbyGui,copiaSalasDisponibles);
+		
 		crearSala.enlazarSiguiente(mensajeASala);
 		mensajeASala.enlazarSiguiente(nuevoClienteConectado);
 		nuevoClienteConectado.enlazarSiguiente(invitacion);
-		invitacion.enlazarSiguiente(agregarASala);
+		invitacion.enlazarSiguiente(actualizarSala);
+		actualizarSala.enlazarSiguiente(clienteDejandoSala);
+		clienteDejandoSala.enlazarSiguiente(agregarASala);
 		agregarASala.enlazarSiguiente(clienteSaliendo);
 
 		return crearSala;
@@ -90,9 +92,16 @@ public class ControladorCliente implements Runnable {
 		try {
 			while (corriendo) {
 					Mensaje mensajeRecibido = entradaSalida.recibirMensaje();
-					manejarMensaje(mensajeRecibido);
+					if(mensajeRecibido!=null){
+						manejarMensaje(mensajeRecibido);
+					}else{
+						corriendo=false;
+					}
+					
 			}
-		} catch (Exception s) {corriendo=false;}
+		} catch (Exception s) {
+			s.printStackTrace();
+			corriendo=false;}
 
 	}
 
@@ -182,5 +191,9 @@ public class ControladorCliente implements Runnable {
 
 	public EntradaSalida getEntradaSalida() {
 		return entradaSalida;
+	}
+	
+	public void setCorriendo(boolean valor){
+		this.corriendo = valor;
 	}
 }

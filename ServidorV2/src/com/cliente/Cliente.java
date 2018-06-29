@@ -94,6 +94,7 @@ public class Cliente {
 	
 	public void cerrarSockets() {
 		salida.cerrarConexion();
+		entrada.cerrarConexion();
 	}
 	
 	
