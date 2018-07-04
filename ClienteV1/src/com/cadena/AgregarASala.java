@@ -52,8 +52,7 @@ public class AgregarASala extends ChainCliente{
 				DefaultListModel<String> modeloListaClientes = (DefaultListModel<String>) lobbyGUI.getListaClientesConectados().getModel();
 				guiSala = new GUI_Sala(modeloListaClientes);
 
-				if(salaModificada ==null)
-					System.out.println("NOOOOOOOOOOOOOOO");
+
 				guiSala.setTitleSala(nombreSala);
 				guiSala.setSala(salaModificada);
 				guiSala.setSalaID(idSala);
@@ -62,6 +61,7 @@ public class AgregarASala extends ChainCliente{
 				Thread thSala = new Thread(hiloSala);
 				thSala.start();
 				thSala.setName("Output Sala: "+ nombreSala);
+				if(!salaModificada.esPrivada())
 				lobbyGUI.agregarSala(nombreSala);
 				salaModificada.setHilo(hiloSala);
 				salaModificada.setSalaGui(guiSala);

@@ -5,6 +5,10 @@ import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -198,6 +202,25 @@ public class GUI_Lobby extends JFrame {
 		listaClientesConectados.setFont(new Font("Source Sans Pro Semibold", Font.PLAIN, 16));
 		listaClientesConectados.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane_1.setViewportView(listaClientesConectados);
+
+		listaClientesConectados.addKeyListener(new KeyAdapter() {
+	        public void keyPressed(KeyEvent e) {
+	            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+	            	 String clienteSeleccionado = (String) listaClientesConectados.getSelectedValue();
+	            	 Mensaje crearMP = new Mensaje(Comandos.CrearSalaPrivada,"Conversacion con :"+clienteSeleccionado,nombreCliente);
+	            	 EntradaSalida.getInstance().escribirMensaje(crearMP);
+	            }
+	        }
+	    });
+
+		listaClientesConectados.addMouseListener(new MouseAdapter() {
+	        public void mouseClicked(MouseEvent e) {
+	            if (e.getClickCount() == 2) {
+	               
+	            }
+	        }
+	    });
+
 	}
 
 	public synchronized JTextPane getChatLobby() {
