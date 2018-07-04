@@ -22,6 +22,7 @@ import com.Cliente.EntradaSalida;
 import com.mensajes.Comandos;
 import com.mensajes.Mensaje;
 import com.salas.Sala;
+import java.awt.Insets;
 
 public class GUI_Invitar extends JFrame{
 	/**
@@ -45,8 +46,10 @@ public class GUI_Invitar extends JFrame{
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(21, 23, 163, 202);
 		entradaSalida = EntradaSalida.getInstance();
-	
+		
 	    modelList = modeloListaClientes;
+	    EntradaSalida.getInstance().escribirMensaje(new Mensaje(Comandos.RefrescarClientes,nombreCliente));
+	   
 	    this.listaUsuarios = new JList<>(modelList);
 	    this.listaUsuarios.setFont(new Font("Source Sans Pro Semibold", Font.PLAIN, 16));
 	    this.listaUsuarios.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -96,6 +99,13 @@ public class GUI_Invitar extends JFrame{
 		contentPane.add(btnNewButton);
 		
 		JButton btnRefrescar = new JButton("Refrescar");
+		btnRefrescar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				 EntradaSalida.getInstance().escribirMensaje(new Mensaje(Comandos.RefrescarClientes,nombreCliente));
+				   
+			}
+		});
+		btnRefrescar.setMargin(new Insets(2, 10, 2, 10));
 		btnRefrescar.setBounds(194, 60, 89, 23);
 		contentPane.add(btnRefrescar);
 		

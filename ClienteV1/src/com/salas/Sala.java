@@ -107,6 +107,9 @@ public class Sala {
 			return false;
 		return true;
 	}
+	public ArrayList<String> getClientesEnSala() {
+		return clientesEnSala;
+	}
 	
 	
 	

@@ -20,6 +20,7 @@ import com.cadena.CrearSala;
 import com.cadena.Invitacion;
 import com.cadena.MensajeASala;
 import com.cadena.NuevoClienteConectado;
+import com.cadena.RefrescarCliente;
 import com.mensajes.Mensaje;
 import com.salas.Sala;
 
@@ -75,12 +76,14 @@ public class ControladorCliente implements Runnable {
 		ClienteSaliendo clienteSaliendo= new ClienteSaliendo(copiaClientesEnLobby,copiaSalasDisponibles,lobbyGui );
 		ClienteDejandoSala clienteDejandoSala = new ClienteDejandoSala(lobbyGui,copiaSalasDisponibles);
 		ActualizarSalas actualizarSala = new ActualizarSalas(lobbyGui,copiaSalasDisponibles);
+		RefrescarCliente refrescar = new RefrescarCliente(copiaSalasDisponibles);
 		
 		crearSala.enlazarSiguiente(mensajeASala);
 		mensajeASala.enlazarSiguiente(nuevoClienteConectado);
 		nuevoClienteConectado.enlazarSiguiente(invitacion);
 		invitacion.enlazarSiguiente(actualizarSala);
-		actualizarSala.enlazarSiguiente(clienteDejandoSala);
+		actualizarSala.enlazarSiguiente(refrescar);
+		refrescar.enlazarSiguiente(clienteDejandoSala);
 		clienteDejandoSala.enlazarSiguiente(agregarASala);
 		agregarASala.enlazarSiguiente(clienteSaliendo);
 

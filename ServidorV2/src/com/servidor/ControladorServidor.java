@@ -9,6 +9,7 @@ import com.Chain.CrearSala;
 import com.Chain.DesconectarCliente;
 import com.Chain.EnviarMsjASala;
 import com.Chain.InvitarUsuario;
+import com.Chain.RefrescarListaClientes;
 import com.cliente.Cliente;
 import com.logs.LoggerCliente;
 import com.mensajes.Comandos;
@@ -58,11 +59,13 @@ public class ControladorServidor {
 		EnviarMsjASala enviarMensaje = new EnviarMsjASala(salas);
 		InvitarUsuario invitarUsuario = new InvitarUsuario(clientesEnLobby);
 		ClienteDejandoSala clienteDejandoSala = new ClienteDejandoSala(salas,clientesEnLobby);
+		RefrescarListaClientes refrescar = new RefrescarListaClientes(clientesEnLobby);
 	
 		agregarClienteASala.enlazarSiguiente(crearSala);
 		crearSala.enlazarSiguiente(desconectarCliente);
 		desconectarCliente.enlazarSiguiente(clienteDejandoSala);
-		clienteDejandoSala.enlazarSiguiente(enviarMensaje);
+		clienteDejandoSala.enlazarSiguiente(refrescar);
+		refrescar.enlazarSiguiente(enviarMensaje);
 		enviarMensaje.enlazarSiguiente(invitarUsuario);
 		return agregarClienteASala;
 	}
