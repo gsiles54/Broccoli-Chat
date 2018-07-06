@@ -5,10 +5,13 @@ import java.util.ArrayList;
 import com.Chain.AgregarClienteASala;
 import com.Chain.Chain;
 import com.Chain.ClienteDejandoSala;
+import com.Chain.CrearMP;
 import com.Chain.CrearSala;
 import com.Chain.DesconectarCliente;
+import com.Chain.EliminarConversacion;
 import com.Chain.EnviarMsjASala;
 import com.Chain.InvitarUsuario;
+import com.Chain.RefrescarListaClientes;
 import com.cliente.Cliente;
 import com.logs.LoggerCliente;
 import com.mensajes.Comandos;
@@ -58,11 +61,17 @@ public class ControladorServidor {
 		EnviarMsjASala enviarMensaje = new EnviarMsjASala(salas);
 		InvitarUsuario invitarUsuario = new InvitarUsuario(clientesEnLobby);
 		ClienteDejandoSala clienteDejandoSala = new ClienteDejandoSala(salas,clientesEnLobby);
+		RefrescarListaClientes refrescar = new RefrescarListaClientes(clientesEnLobby);
+		CrearMP conversacionPrivada = new CrearMP(salas,clientesEnLobby);
+		EliminarConversacion eliminarConver = new EliminarConversacion(salas);
 	
 		agregarClienteASala.enlazarSiguiente(crearSala);
 		crearSala.enlazarSiguiente(desconectarCliente);
 		desconectarCliente.enlazarSiguiente(clienteDejandoSala);
-		clienteDejandoSala.enlazarSiguiente(enviarMensaje);
+		clienteDejandoSala.enlazarSiguiente(refrescar);
+		refrescar.enlazarSiguiente(eliminarConver);
+		eliminarConver.enlazarSiguiente(conversacionPrivada);
+		conversacionPrivada.enlazarSiguiente(enviarMensaje);
 		enviarMensaje.enlazarSiguiente(invitarUsuario);
 		return agregarClienteASala;
 	}

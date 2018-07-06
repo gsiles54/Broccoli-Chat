@@ -42,7 +42,7 @@ public class CrearSala extends ChainCliente {
 
 				guiSala.setTitleSala(nombreSala);
 				guiSala.setSalaID(idSala);
-				guiSala.setVisible(true);
+				guiSala.setVisible(true); 
 				guiSala.agregarCliente(nombreCliente);
 				nuevaSala = new Sala(idSala, nombreSala, esPrivada, guiSala);
 
@@ -54,18 +54,20 @@ public class CrearSala extends ChainCliente {
 				nuevaSala.setHilo(hiloSala);
 				thSala.start();
 
-			} else {
+			} else {	
 				nuevaSala = new Sala(idSala,nombreSala,esPrivada);
-				
+			
 			}	
 			nuevaSala.meterCliente(clienteEmisor);
 			copiaSalasDisponibles.add(nuevaSala);
 			if(!esPrivada){
-
 			lobbyGUI.agregarSala(nombreSala);
 			}
 			
-
+			if(valores.length>3){
+				nuevaSala.meterCliente(valores[3]);
+				nuevaSala.setConversacion(true);
+			}
 		} else {
 			siguiente.manejarPeticion(mensaje);
 		}

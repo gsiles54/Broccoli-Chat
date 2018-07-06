@@ -30,6 +30,8 @@ import javax.swing.JList;
 import javax.swing.JLabel;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Collections;
+
 import static com.Cliente.Cliente.nombreCliente;
 
 public class GUI_Sala extends JFrame {
@@ -42,7 +44,10 @@ public class GUI_Sala extends JFrame {
 
 	JList<String> list;
 	DefaultListModel<String> modeloClientesEnSala;
-	DefaultListModel<String> modeloClientesEnLobby;
+	private DefaultListModel<String> modeloClientesEnLobby;
+	public DefaultListModel<String> getModeloClientesEnLobby() {
+		return modeloClientesEnLobby;
+	}
 	private String nombreSala;
 	private Integer salaID;
 	JLabel labelSalaID;
@@ -55,19 +60,31 @@ public class GUI_Sala extends JFrame {
 		
 			@Override
 			public void windowClosing(WindowEvent e) {
+				sala.getHilo().setSigueCorriendo(false);
 				StringBuilder informacion = new StringBuilder();
 				informacion.append(nombreCliente);
 				informacion.append(';');
 				informacion.append(nombreSala);
 				informacion.append(';');
 				informacion.append(salaID);
+				informacion.append(';');
+				informacion.append(-1);
+				if(!sala.isConversacion()){
 				EntradaSalida.getInstance().escribirMensaje(new Mensaje(Comandos.ClienteDejandoSala,informacion.toString()));
-				sala.getHilo().setSigueCorriendo(false);
+				
+				sala.sacarCliente(nombreCliente);
 				System.out.println("SE CERROOOOOOOOOOOOOOOOOO");
+				}else{
+					
+					EntradaSalida.getInstance().escribirMensaje(new Mensaje(Comandos.ClienteDejandoConver,informacion.toString()));
+					
+					sala.setSalaGui(null);
+				}
+				
 			}
 		});
 		
-		this.modeloClientesEnLobby = modeloListaClientes;
+		copiarClientes(modeloListaClientes);
 		setResizable(true);
 		getContentPane().setLayout(null);
 		setBounds(100, 100, 631, 373);
@@ -141,6 +158,15 @@ public class GUI_Sala extends JFrame {
 			}
 		});
 		mnAbout.add(mntmInvitarUsuario);
+	}
+
+
+	private void copiarClientes(DefaultListModel<String> modeloListaClientes) {
+		this.modeloClientesEnLobby = new DefaultListModel<String>();
+		for(int i = 0 ; i<modeloListaClientes.size(); i++){
+			modeloClientesEnLobby.addElement(modeloListaClientes.getElementAt(i));
+		}
+		modeloClientesEnLobby.removeElement(nombreCliente);
 	}
 
 	

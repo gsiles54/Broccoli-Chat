@@ -5,6 +5,10 @@ import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -198,6 +202,43 @@ public class GUI_Lobby extends JFrame {
 		listaClientesConectados.setFont(new Font("Source Sans Pro Semibold", Font.PLAIN, 16));
 		listaClientesConectados.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane_1.setViewportView(listaClientesConectados);
+
+		listaClientesConectados.addKeyListener(new KeyAdapter() {
+	        public void keyPressed(KeyEvent e) {
+	            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+	            	StringBuilder informacion = new StringBuilder();
+	            	 String clienteSeleccionado = (String) listaClientesConectados.getSelectedValue();
+	            	 if(!clienteSeleccionado.equals(nombreCliente)){
+	            		 informacion.append(nombreCliente);
+	            	 informacion.append(";");
+	            	 informacion.append(clienteSeleccionado);
+	            	 Mensaje crearMP = new Mensaje(Comandos.CrearMP,informacion.toString(),nombreCliente);
+	            	 EntradaSalida.getInstance().escribirMensaje(crearMP);
+	            	 }
+	            	 
+	            }
+	        }
+	    });
+
+		listaClientesConectados.addMouseListener(new MouseAdapter() {
+	        public void mouseClicked(MouseEvent e) {
+	            if (e.getClickCount() == 2) {
+	            	
+	   	            	StringBuilder informacion = new StringBuilder();
+	   	            	 String clienteSeleccionado = (String) listaClientesConectados.getSelectedValue();
+	   	            	 if(!clienteSeleccionado.equals(nombreCliente)){
+	   	            		 informacion.append(nombreCliente);
+	   	            	 informacion.append(";");
+	   	            	 informacion.append(clienteSeleccionado);
+	   	            	 Mensaje crearMP = new Mensaje(Comandos.CrearMP,informacion.toString(),nombreCliente);
+	   	            	 EntradaSalida.getInstance().escribirMensaje(crearMP);
+	   	            	 }
+	   	            	 
+	   	            
+	            }
+	        }
+	    });
+
 	}
 
 	public synchronized JTextPane getChatLobby() {
