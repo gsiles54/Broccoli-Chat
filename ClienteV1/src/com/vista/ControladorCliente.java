@@ -69,7 +69,7 @@ public class ControladorCliente implements Runnable {
 
 	private ChainCliente ensamblarChain() {
 		CrearSala crearSala = new CrearSala(copiaSalasDisponibles,lobbyGui);
-		MensajeASala mensajeASala = new MensajeASala(copiaSalasDisponibles, this);
+		MensajeASala mensajeASala = new MensajeASala(copiaSalasDisponibles, this,lobbyGui);
 		NuevoClienteConectado nuevoClienteConectado = new NuevoClienteConectado(lobbyGui, copiaClientesEnLobby);
 		Invitacion invitacion = new Invitacion();
 		AgregarASala agregarASala = new AgregarASala(copiaSalasDisponibles,lobbyGui);
@@ -77,6 +77,7 @@ public class ControladorCliente implements Runnable {
 		ClienteDejandoSala clienteDejandoSala = new ClienteDejandoSala(lobbyGui,copiaSalasDisponibles);
 		ActualizarSalas actualizarSala = new ActualizarSalas(lobbyGui,copiaSalasDisponibles);
 		RefrescarCliente refrescar = new RefrescarCliente(copiaSalasDisponibles);
+		
 		
 		crearSala.enlazarSiguiente(mensajeASala);
 		mensajeASala.enlazarSiguiente(nuevoClienteConectado);

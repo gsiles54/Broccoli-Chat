@@ -206,8 +206,12 @@ public class GUI_Lobby extends JFrame {
 		listaClientesConectados.addKeyListener(new KeyAdapter() {
 	        public void keyPressed(KeyEvent e) {
 	            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+	            	StringBuilder informacion = new StringBuilder();
 	            	 String clienteSeleccionado = (String) listaClientesConectados.getSelectedValue();
-	            	 Mensaje crearMP = new Mensaje(Comandos.CrearSalaPrivada,"Conversacion con :"+clienteSeleccionado,nombreCliente);
+	            	 informacion.append(nombreCliente);
+	            	 informacion.append(";");
+	            	 informacion.append(clienteSeleccionado);
+	            	 Mensaje crearMP = new Mensaje(Comandos.CrearMP,informacion.toString(),nombreCliente);
 	            	 EntradaSalida.getInstance().escribirMensaje(crearMP);
 	            }
 	        }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.Chain.AgregarClienteASala;
 import com.Chain.Chain;
 import com.Chain.ClienteDejandoSala;
+import com.Chain.CrearMP;
 import com.Chain.CrearSala;
 import com.Chain.DesconectarCliente;
 import com.Chain.EnviarMsjASala;
@@ -60,12 +61,14 @@ public class ControladorServidor {
 		InvitarUsuario invitarUsuario = new InvitarUsuario(clientesEnLobby);
 		ClienteDejandoSala clienteDejandoSala = new ClienteDejandoSala(salas,clientesEnLobby);
 		RefrescarListaClientes refrescar = new RefrescarListaClientes(clientesEnLobby);
+		CrearMP conversacionPrivada = new CrearMP(salas,clientesEnLobby);
 	
 		agregarClienteASala.enlazarSiguiente(crearSala);
 		crearSala.enlazarSiguiente(desconectarCliente);
 		desconectarCliente.enlazarSiguiente(clienteDejandoSala);
 		clienteDejandoSala.enlazarSiguiente(refrescar);
-		refrescar.enlazarSiguiente(enviarMensaje);
+		refrescar.enlazarSiguiente(conversacionPrivada);
+		conversacionPrivada.enlazarSiguiente(enviarMensaje);
 		enviarMensaje.enlazarSiguiente(invitarUsuario);
 		return agregarClienteASala;
 	}
