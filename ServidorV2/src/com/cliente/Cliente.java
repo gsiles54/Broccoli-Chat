@@ -29,6 +29,7 @@ public class Cliente {
 		this.nombre=_nombre;
 		this.salida=salida;
 	}
+	
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
