@@ -208,11 +208,14 @@ public class GUI_Lobby extends JFrame {
 	            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 	            	StringBuilder informacion = new StringBuilder();
 	            	 String clienteSeleccionado = (String) listaClientesConectados.getSelectedValue();
-	            	 informacion.append(nombreCliente);
+	            	 if(!clienteSeleccionado.equals(nombreCliente)){
+	            		 informacion.append(nombreCliente);
 	            	 informacion.append(";");
 	            	 informacion.append(clienteSeleccionado);
 	            	 Mensaje crearMP = new Mensaje(Comandos.CrearMP,informacion.toString(),nombreCliente);
 	            	 EntradaSalida.getInstance().escribirMensaje(crearMP);
+	            	 }
+	            	 
 	            }
 	        }
 	    });
@@ -220,7 +223,18 @@ public class GUI_Lobby extends JFrame {
 		listaClientesConectados.addMouseListener(new MouseAdapter() {
 	        public void mouseClicked(MouseEvent e) {
 	            if (e.getClickCount() == 2) {
-	               
+	            	
+	   	            	StringBuilder informacion = new StringBuilder();
+	   	            	 String clienteSeleccionado = (String) listaClientesConectados.getSelectedValue();
+	   	            	 if(!clienteSeleccionado.equals(nombreCliente)){
+	   	            		 informacion.append(nombreCliente);
+	   	            	 informacion.append(";");
+	   	            	 informacion.append(clienteSeleccionado);
+	   	            	 Mensaje crearMP = new Mensaje(Comandos.CrearMP,informacion.toString(),nombreCliente);
+	   	            	 EntradaSalida.getInstance().escribirMensaje(crearMP);
+	   	            	 }
+	   	            	 
+	   	            
 	            }
 	        }
 	    });

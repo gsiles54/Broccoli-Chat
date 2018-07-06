@@ -56,7 +56,7 @@ public class CrearSala extends ChainCliente {
 
 			} else {	
 				nuevaSala = new Sala(idSala,nombreSala,esPrivada);
-				
+			
 			}	
 			nuevaSala.meterCliente(clienteEmisor);
 			copiaSalasDisponibles.add(nuevaSala);
@@ -66,6 +66,7 @@ public class CrearSala extends ChainCliente {
 			
 			if(valores.length>3){
 				nuevaSala.meterCliente(valores[3]);
+				nuevaSala.setConversacion(true);
 			}
 		} else {
 			siguiente.manejarPeticion(mensaje);

@@ -60,16 +60,27 @@ public class GUI_Sala extends JFrame {
 		
 			@Override
 			public void windowClosing(WindowEvent e) {
+				sala.getHilo().setSigueCorriendo(false);
 				StringBuilder informacion = new StringBuilder();
 				informacion.append(nombreCliente);
 				informacion.append(';');
 				informacion.append(nombreSala);
 				informacion.append(';');
 				informacion.append(salaID);
+				informacion.append(';');
+				informacion.append(-1);
+				if(!sala.isConversacion()){
 				EntradaSalida.getInstance().escribirMensaje(new Mensaje(Comandos.ClienteDejandoSala,informacion.toString()));
-				sala.getHilo().setSigueCorriendo(false);
+				
 				sala.sacarCliente(nombreCliente);
 				System.out.println("SE CERROOOOOOOOOOOOOOOOOO");
+				}else{
+					
+					EntradaSalida.getInstance().escribirMensaje(new Mensaje(Comandos.ClienteDejandoConver,informacion.toString()));
+					
+					sala.setSalaGui(null);
+				}
+				
 			}
 		});
 		

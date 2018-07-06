@@ -13,7 +13,7 @@ public class CrearMP extends Chain{
 	
 	private ArrayList<Cliente> clientesEnLobby;
 	private ArrayList<Sala> salas;
-
+	
 	public CrearMP(ArrayList<Sala> salas, ArrayList<Cliente> clientesEnLobby) {
 		this.salas =salas;
 		this.clientesEnLobby = clientesEnLobby;
@@ -26,7 +26,8 @@ public class CrearMP extends Chain{
 			String valores[] = mensaje.getInformacion().split(";");
 			String nombreEmisor = valores[0];
 			String nombreDestinatario = valores[1];
-			Sala nuevaSala = new Sala("Conversacion",true);
+			if(!existeConversacion(nombreEmisor, nombreDestinatario)){
+				Sala nuevaSala = new Sala("Conversacion",true);
 			salas.add(nuevaSala);
 			Cliente emisor = null;
 			Cliente destinatario = null;
@@ -38,7 +39,7 @@ public class CrearMP extends Chain{
 			}
 			nuevaSala.meterCliente(emisor);
 			nuevaSala.meterCliente(destinatario);
-			
+			nuevaSala.setConversacion(true);
 			StringBuilder informacion = new StringBuilder();
 			
 			informacion.append(nuevaSala.getNombre());
@@ -51,11 +52,33 @@ public class CrearMP extends Chain{
 			nuevaSala.enviarMensaje(new Mensaje(Comandos.SalaPrivCreadaExitosamente,informacion.toString()));
 	
 			}
+			
+			
+			}
 		else
 		{
 			siguiente.manejarPeticion(mensaje);
 		}
 		
+	}
+	
+	public boolean existeConversacion(String emisor,String destinatario){
+		boolean existeEmisor=false;
+		boolean existeDestinatario=false;
+		for(Sala salaActual:salas){
+			if(salaActual.isConversacion())
+			for(Cliente clienteActual:salaActual.getClientesEnSala()){
+				if(clienteActual.getNombre().equals(emisor))
+					existeEmisor=true;
+				if(clienteActual.getNombre().equals(destinatario))
+					existeDestinatario=true;
+			}
+			if(existeEmisor&&existeDestinatario)
+				return true;
+			existeEmisor=false;
+			existeDestinatario=false;
+		}
+		return false;
 	}
 
 }

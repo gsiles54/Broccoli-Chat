@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
 
+import com.Cliente.EntradaSalida;
 import com.mensajes.Comandos;
 import com.mensajes.Mensaje;
 import com.salas.HiloOutputSala;
@@ -43,8 +44,19 @@ public class MensajeASala extends ChainCliente{
 				controladorCliente.imprimirEnLobby(mensaje);
 			}else {
 				if(s.getSalaID().equals(mensaje.getIDSala())){
-					if(s.getSalaGui()==null)
-					crearGUISala(s);
+					if(s.getSalaGui()==null&&s.isConversacion()){
+						crearGUISala(s);
+						StringBuilder informacion = new StringBuilder();
+						informacion.append(nombreCliente);
+						informacion.append(';');
+						informacion.append(s.getNombreSala());
+						informacion.append(';');
+						informacion.append(s.getSalaID());
+						informacion.append(';');
+						informacion.append(1);
+						EntradaSalida.getInstance().escribirMensaje(new Mensaje(Comandos.ClienteDejandoConver,informacion.toString()));
+					}
+					
 					controladorCliente.imprimirEnSala(mensaje,s.getSalaGui());
 				}
 					

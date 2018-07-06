@@ -14,6 +14,7 @@ public class Sala {
 	GUI_Lobby lobby;
 	Integer salaID;
 	HiloOutputSala outputSala;
+	boolean conversacion=false;
 	
 	public Sala(Integer salaID,String nombre, boolean esPrivada){
 		this.nombreSala=nombre;
@@ -30,6 +31,12 @@ public class Sala {
 	}
 	public void setHilo(HiloOutputSala as){
 		this.outputSala =as;
+	}
+	public void setConversacion(boolean valor){
+		this.conversacion = valor;
+	}
+	public boolean isConversacion(){
+		return this.conversacion;
 	}
 	public HiloOutputSala getHilo(){
 		return outputSala;

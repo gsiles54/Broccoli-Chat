@@ -18,6 +18,8 @@ public class Sala {
 	boolean esPrivada=false; //Todas las salas son publicas por defecto
 	private static final AtomicInteger salaIDGenerator = new AtomicInteger(100);
 	private Integer salaID;
+	private boolean conversacion=false;
+	private int cantUsuariosEnConver;
 	
 	public Sala(String _nombreSala, boolean _esPrivada) {
 		nombre=_nombreSala;
@@ -59,6 +61,15 @@ public class Sala {
 		for(Cliente c:clientesEnSala) {
 			c.enviarMensaje(mensaje);
 		}
+	}
+	
+	public void setConversacion(boolean valor){
+		cantUsuariosEnConver=2;
+		this.conversacion = valor;
+	}
+	
+	public boolean isConversacion(){
+		return this.conversacion;
 	}
 	
 	@Override
@@ -106,6 +117,18 @@ public class Sala {
 	}
 	public void setEsPrivada(boolean esPrivada) {
 		this.esPrivada = esPrivada;
+	}
+	public int getCantUsuariosEnConver() {
+		return cantUsuariosEnConver;
+	}
+	public void setCantUsuariosEnConver(int valor) {
+		if(valor==-1){
+			cantUsuariosEnConver-=1;
+		}else{
+			if(!(cantUsuariosEnConver>=2))
+				cantUsuariosEnConver+=1;
+		}
+		
 	}
 	
 }
