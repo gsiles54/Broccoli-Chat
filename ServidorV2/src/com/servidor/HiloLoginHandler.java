@@ -77,9 +77,12 @@ public class HiloLoginHandler implements Runnable {
 							}
 
 						}
-						informacion.deleteCharAt(informacion.length() - 1);
+						if(informacion.length()>0){
+									informacion.deleteCharAt(informacion.length() - 1);
 
-						clienteNuevo.enviarMensaje(new Mensaje(Comandos.AgregarSalaGUI, informacion.toString()));
+									clienteNuevo.enviarMensaje(new Mensaje(Comandos.AgregarSalaGUI, informacion.toString()));
+				
+						}
 					}
 
 				} catch (Exception e) {

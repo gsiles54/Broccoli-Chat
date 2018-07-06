@@ -27,6 +27,9 @@ public class Comandos {
 	public static final String ClienteDejandoSala="ClienteDejandoSala";
 	public static final String BorrarSalaGUI="SeborraSaladeLISTA";
 	public static final String AgregarSalaGUI="SeAgreganSalasAlGUI";
+	public static final String RefrescarClientes="RefrescarClientes";
+	public static final String CrearMP="Crear mensaje privado";
+	public static final String ClienteDejandoConver="Cliente dejando conversacion";
 	
 	
 }

@@ -26,7 +26,8 @@ public class CrearSala extends Chain{
 			
 			System.out.println("CrearSala Recibio: "+mensaje.getComando());
 			boolean esPrivada = mensaje.getComando().equals(Comandos.CrearSalaPublica)?false:true;
-			String nombreSala = mensaje.getInformacion();
+			String[] valores = mensaje.getInformacion().split(":");
+			String nombreSala = valores[0];
 			Cliente clienteEmisor = getClientePorNombre(mensaje.getEmisor());
 			if(nombreSalaYaExistente(nombreSala)) {
 				LoggerCliente.enviarLog("Se intenta crear una sala de nombre repetido: "+nombreSala);
@@ -40,14 +41,20 @@ public class CrearSala extends Chain{
 			Sala nuevaSala=new Sala(nombreSala,esPrivada);
 			
 			nuevaSala.meterCliente(clienteEmisor);
-			salas.add(nuevaSala);
+			
 			StringBuilder informacion = new StringBuilder();
 			informacion.append(nombreSala);
 			informacion.append(";");
 			informacion.append(nuevaSala.getSalaID());
 			informacion.append(";");
 			informacion.append(clienteEmisor.getNombre());
-			if(esPrivada) 
+			if(valores.length>1){
+				String clienteAdicional = valores[1];
+				
+			}
+				
+			salas.add(nuevaSala);
+			if(esPrivada)
 				for(Cliente clienteActual : clientesEnLobby){
 					clienteActual.enviarMensaje(new Mensaje(Comandos.SalaPrivCreadaExitosamente,informacion.toString()));
 				}

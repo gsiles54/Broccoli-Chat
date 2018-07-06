@@ -34,10 +34,12 @@ public class AgregarASala extends ChainCliente{
 			Sala salaModificada = null;
 			GUI_Sala guiSala = null;
 			boolean crearGUISala=true;
+			
 			for(Sala salaActual : copiaSalasDisponibles) {
 				if(salaActual.getSalaID().equals(idSala)) {
+					salaModificada = salaActual;
 					if(salaActual.meterCliente(clienteNuevo)) {
-						salaModificada = salaActual;
+						
 						crearGUISala=salaActual.getSalaGui()==null?true:false;
 						System.out.println("PARECE QUE LA SALA SIGUE CREADA");
 						break;
@@ -49,7 +51,7 @@ public class AgregarASala extends ChainCliente{
 			if(crearGUISala) {
 				DefaultListModel<String> modeloListaClientes = (DefaultListModel<String>) lobbyGUI.getListaClientesConectados().getModel();
 				guiSala = new GUI_Sala(modeloListaClientes);
-	
+
 
 				guiSala.setTitleSala(nombreSala);
 				guiSala.setSala(salaModificada);
@@ -59,10 +61,12 @@ public class AgregarASala extends ChainCliente{
 				Thread thSala = new Thread(hiloSala);
 				thSala.start();
 				thSala.setName("Output Sala: "+ nombreSala);
+				if(!salaModificada.esPrivada())
 				lobbyGUI.agregarSala(nombreSala);
 				salaModificada.setHilo(hiloSala);
 				salaModificada.setSalaGui(guiSala);
 				guiSala.setVisible(true);
+				crearGUISala=false;
 			}
 				guiSala = salaModificada.getSalaGui();
 				guiSala.limpiarListaClientes();
