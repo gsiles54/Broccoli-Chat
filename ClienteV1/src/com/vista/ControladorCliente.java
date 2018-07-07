@@ -17,6 +17,7 @@ import com.cadena.ChainCliente;
 import com.cadena.ClienteDejandoSala;
 import com.cadena.ClienteSaliendo;
 import com.cadena.CrearSala;
+import com.cadena.ExisteSala;
 import com.cadena.Invitacion;
 import com.cadena.MensajeASala;
 import com.cadena.NuevoClienteConectado;
@@ -77,6 +78,7 @@ public class ControladorCliente implements Runnable {
 		ClienteDejandoSala clienteDejandoSala = new ClienteDejandoSala(lobbyGui,copiaSalasDisponibles);
 		ActualizarSalas actualizarSala = new ActualizarSalas(lobbyGui,copiaSalasDisponibles);
 		RefrescarCliente refrescar = new RefrescarCliente(copiaSalasDisponibles);
+		ExisteSala existeSala = new ExisteSala(copiaSalasDisponibles,lobbyGui);
 		
 		
 		crearSala.enlazarSiguiente(mensajeASala);
@@ -84,7 +86,8 @@ public class ControladorCliente implements Runnable {
 		nuevoClienteConectado.enlazarSiguiente(invitacion);
 		invitacion.enlazarSiguiente(actualizarSala);
 		actualizarSala.enlazarSiguiente(refrescar);
-		refrescar.enlazarSiguiente(clienteDejandoSala);
+		refrescar.enlazarSiguiente(existeSala);
+		existeSala.enlazarSiguiente(clienteDejandoSala);
 		clienteDejandoSala.enlazarSiguiente(agregarASala);
 		agregarASala.enlazarSiguiente(clienteSaliendo);
 
