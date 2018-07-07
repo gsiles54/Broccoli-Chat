@@ -61,6 +61,7 @@ public class Sala {
 		if(clientesEnSala.contains(cliente)) {
 			System.out.println("SE REMOVIO " + cliente);
 			clientesEnSala.remove(cliente);
+			if(salaGUI!=null)
 			salaGUI.quitarCliente(cliente);
 		}
 		if(cliente.equals(nombreCliente)){
