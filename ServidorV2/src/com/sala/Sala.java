@@ -64,7 +64,7 @@ public class Sala {
 	}
 	
 	public void setConversacion(boolean valor){
-		cantUsuariosEnConver=2;
+		cantUsuariosEnConver=1;
 		this.conversacion = valor;
 	}
 	

@@ -36,6 +36,7 @@ public class ActualizarSalas extends ChainCliente{
 					nuevaSala.meterCliente(datosSala[i]);
 				}
 				copiaSalas.add(nuevaSala);
+				if(!esPriv)
 				lobbyGui.agregarSala(nuevaSala.getNombreSala());
 			}
 				
