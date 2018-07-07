@@ -78,7 +78,8 @@ public class AgregarClienteASala extends Chain{
 					if(valores.length>2&&salaActual.getNombre().equals(valores[2])) {
 						return true;
 					}else {
-						if(salaActual.getSalaID().equals(valores[1]))
+						Integer idSala = Integer.valueOf(valores[1]);
+						if(salaActual.getSalaID().equals(idSala))
 							return true;
 					}
 					

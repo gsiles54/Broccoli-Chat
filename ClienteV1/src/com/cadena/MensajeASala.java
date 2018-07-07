@@ -32,6 +32,7 @@ public class MensajeASala extends ChainCliente{
 		
 		if(msj.getComando().equals(Comandos.MensajeASala)) {
 			System.out.println("MensajeASala Recibio: " + msj.getComando());
+
 			imprimirMsj(msj);
 		}
 		else {siguiente.manejarPeticion(msj);}

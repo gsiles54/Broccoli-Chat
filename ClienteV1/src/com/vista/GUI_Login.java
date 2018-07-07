@@ -70,7 +70,7 @@ public class GUI_Login extends JFrame {
 	protected Socket actualizarLabelEstadoConexion() {
 		Socket socket=null;
 		try {
-			socket = new Socket("localhost",1234); //PARAMETRIZAR ESTO			
+			socket = new Socket("192.168.0.4",1234); //PARAMETRIZAR ESTO			
 			if(socket.isConnected()) {
 				lblEstado.setText("");
 				lblEstado.setText("Estado: Servidor Online");

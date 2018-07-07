@@ -30,4 +30,5 @@ public class Comandos {
 	public static final String RefrescarClientes="RefrescarClientes";
 	public static final String CrearMP="Crear mensaje privado";
 	public static final String ClienteDejandoConver="Cliente dejando conversacion";
+	public static final String ExisteSala="ExisteSala";
 }

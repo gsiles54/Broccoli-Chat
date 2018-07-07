@@ -5,8 +5,11 @@ import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
@@ -150,7 +153,7 @@ public class GUI_Lobby extends JFrame {
 		chatLobby = new JTextPane();
 		chatLobby.setToolTipText("Sala publica. Todos podran leer lo que escribes aqui.");
 		chatLobby.setFont(new Font("Source Sans Pro Semibold", Font.PLAIN, 16));
-		
+		desactivarEdicionChatLobby();
 		scrollPane_2.setViewportView(chatLobby);
 		
 		chatTextBoxLobby = new JTextField();
@@ -163,6 +166,33 @@ public class GUI_Lobby extends JFrame {
 				outputLobby.mandarMensaje();
 			}
 		});
+		chatTextBoxLobby.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {
+			    int max = 500;
+			    if(chatTextBoxLobby.getText().length() > max+1) {
+			        e.consume();
+			        String shortened = chatTextBoxLobby.getText().substring(0, max);
+			        chatTextBoxLobby.setText(shortened);
+			    }else if(chatTextBoxLobby.getText().length() > max) {
+			        e.consume();
+			    }
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+		});
 		
 		
 		contentPane.add(chatTextBoxLobby);
@@ -170,6 +200,23 @@ public class GUI_Lobby extends JFrame {
 		
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
+	}
+
+	private void desactivarEdicionChatLobby() {
+		chatLobby.addFocusListener(new FocusListener() {
+
+	        @Override
+	        public void focusLost(FocusEvent e) {
+	        	chatLobby.setEditable(true);
+
+	        }
+
+	        @Override
+	        public void focusGained(FocusEvent e) {
+	        	chatLobby.setEditable(false);
+
+	        }
+	    });
 	}
 
 	private void configurarJListSalas() {

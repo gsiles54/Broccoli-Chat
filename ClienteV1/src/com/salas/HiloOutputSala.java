@@ -32,15 +32,32 @@ public class HiloOutputSala implements Runnable {
 					 // tengo en cuenta todos los GUI?
 												// o
 												// hago hilos separados?
+					
 						
+						
+						String textoIngresado =salaGUI.getChatTextBoxSala().getText().trim();
+						if(!textoIngresado.equals("")) {
 						texto = new StringBuilder();
 						texto.append('\n');
 						texto.append(nombreCliente + " : ");
-						texto.append(salaGUI.getChatTextBoxSala().getText());
-
+						
+						StringBuilder textoAEnviar = new StringBuilder(textoIngresado);
+						
+						   int  i = 30;
+						   if(textoAEnviar.length()>30) {
+							   while (i<textoAEnviar.length()) {
+								  
+					        	textoAEnviar.insert(i, '\n'); 
+					        	i+=30;
+					        }
+						   }
+					      
+					     texto.append(textoAEnviar.toString());  
 						entradaSalida.escribirMensaje(
 								new Mensaje(Comandos.MensajeASala, texto.toString(), sala.getSalaID()));
 						salaGUI.getChatTextBoxSala().setText("");
+						}
+						
 
 					
 				} catch (InterruptedException e) {

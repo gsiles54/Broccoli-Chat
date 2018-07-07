@@ -42,16 +42,16 @@ public class HiloOutputLobby implements Runnable{
 				wait();
 			
 			 // tengo en cuenta todos los GUI? o hago hilos separados?
-			
-				texto = new StringBuilder();
+				String textoAEnviar = lobbyGui.getChatTextBoxLobby().getText();
+				if(!textoAEnviar.trim().equals("")) {
+					texto = new StringBuilder();
 				texto.append('\n');
 				texto.append(nombreCliente + " : " );
-				texto.append(lobbyGui.getChatTextBoxLobby().getText());
-		
+				texto.append(textoAEnviar.trim());
 				entradaSalida.escribirMensaje(new Mensaje(Comandos.MensajeASala,texto.toString(),-1));
 				lobbyGui.getChatTextBoxLobby().setText("");
-				
-				
+				}
+					
 			}catch (InterruptedException e) {
 					e.printStackTrace();
 				}
