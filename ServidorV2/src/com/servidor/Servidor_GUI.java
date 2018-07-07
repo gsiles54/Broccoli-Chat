@@ -1,5 +1,4 @@
 package com.servidor;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
@@ -9,6 +8,11 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -38,10 +42,40 @@ public class Servidor_GUI extends JFrame {
 
 			public void run() {
 				Servidor_GUI frame = new Servidor_GUI();
+				try {
+					testBaseDeDatos();
+				} catch (ClassNotFoundException | SQLException e) {
+					e.printStackTrace();
+				}
+				
 				frame.setVisible(true);
 			}
 		});
 	}
+	
+	public static void testBaseDeDatos() throws SQLException, ClassNotFoundException {
+		    final String JDBC_DRIVER = "org.h2.Driver";   
+		    final String DB_URL = "jdbc:h2:~/test";  
+			 final String USER = "sa"; 
+		    final String PASS = ""; 
+
+		    Class.forName("org.h2.Driver");
+		    	  Connection conn = DriverManager.getConnection("jdbc:h2:~/ChatDB",USER,PASS); 
+		    	//  Connection conn = DriverManager.getConnection("jdbc:h2:~/ChatDB"); 
+		          Statement stat = conn.createStatement();
+		          //stat.execute("insert into test values(1, 'Hello')");
+		    	  ResultSet rs = stat.executeQuery("select * from CHUCK"); 
+		    		
+	              while (rs.next()) 
+	                System.out.println(rs.getString("FACT"));
+	              
+	              conn.commit();
+	              
+	              rs.close();
+	              stat.close();
+	              conn.close();
+	}
+
 
 	public Servidor_GUI() {
 		crearUI();
