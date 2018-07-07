@@ -8,12 +8,10 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -24,8 +22,14 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 
-import com.logs.LoggerServidor;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
+import com.DB.Usuario;
 import com.logs.LoggerCliente;
+import com.logs.LoggerServidor;
 
 public class Servidor_GUI extends JFrame {
 
@@ -42,17 +46,13 @@ public class Servidor_GUI extends JFrame {
 
 			public void run() {
 				Servidor_GUI frame = new Servidor_GUI();
-				try {
-					testBaseDeDatos();
-				} catch (ClassNotFoundException | SQLException e) {
-					e.printStackTrace();
-				}
+				testDB();
 				
 				frame.setVisible(true);
 			}
 		});
 	}
-	
+	/*
 	public static void testBaseDeDatos() throws SQLException, ClassNotFoundException {
 		    final String JDBC_DRIVER = "org.h2.Driver";   
 		    final String DB_URL = "jdbc:h2:~/test";  
@@ -75,7 +75,33 @@ public class Servidor_GUI extends JFrame {
 	              stat.close();
 	              conn.close();
 	}
+*/
+	//ATENCION, REESTABLECER LO COMENTADO EN COM.DB.DAO.
+	public static void testDB() {
+		EntityManagerFactory emf= Persistence.createEntityManagerFactory("Persistencia");
+		EntityManager em= emf.createEntityManager();
+		em.persist(new Usuario(9,"Pedro","Pedro"));
+	}
+	/*
+	public static void testBaseDeDatosHibernate() {
 
+		Usuario user = new Usuario(7, "Cristian", "Cristian");
+		EntityManager a;
+
+		SessionFactory sessionFactory = new Configuration().configure()
+				.buildSessionFactory();
+		Session session = sessionFactory.openSession();
+		
+		Transaction transaction = session.beginTransaction();
+		
+		session.save(user);
+		
+		session.getTransaction().commit();
+		
+		session.close();
+		sessionFactory.close();
+	}
+	*/
 
 	public Servidor_GUI() {
 		crearUI();

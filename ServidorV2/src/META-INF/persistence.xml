@@ -5,6 +5,9 @@
              version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
 
   <persistence-unit name="Persistencia">
+  
+  	<class>com.DB.Usuario</class>
+  	
     <properties>
         <property name="javax.persistence.jdbc.driver" value="org.h2.driver" />
         <property name="javax.persistence.jdbc.url" value="jdbc:h2:~/ChatDB;AUTO_SERVER=TRUE" />

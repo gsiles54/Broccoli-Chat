@@ -3,6 +3,8 @@ package com.DB;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.Column;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
@@ -16,10 +18,17 @@ import javax.persistence.Table;
 public class Usuario implements Serializable{
 
 	private static final long serialVersionUID = -575048319413665627L;
+	
+	@Id
+	@Column(name = "USUARIO_ID")
+	int ID;
+	@Column(name = "Nombre")
 	String usuario;
+	@Column(name = "Password")
 	String password;
 
-	public Usuario(String usuario, String password) {
+	
+	public Usuario(int t, String usuario, String password) {
 		this.usuario = usuario;
 		this.password = password;
 	}
