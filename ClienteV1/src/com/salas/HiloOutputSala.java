@@ -33,14 +33,20 @@ public class HiloOutputSala implements Runnable {
 												// o
 												// hago hilos separados?
 					
+						
+						
+						String textoAEnviar =salaGUI.getChatTextBoxSala().getText();
+						if(!textoAEnviar.trim().equals("")) {
 						texto = new StringBuilder();
 						texto.append('\n');
 						texto.append(nombreCliente + " : ");
-						texto.append(salaGUI.getChatTextBoxSala().getText());
-
+						texto.append(textoAEnviar.trim());
+					
 						entradaSalida.escribirMensaje(
 								new Mensaje(Comandos.MensajeASala, texto.toString(), sala.getSalaID()));
 						salaGUI.getChatTextBoxSala().setText("");
+						}
+						
 
 					
 				} catch (InterruptedException e) {
