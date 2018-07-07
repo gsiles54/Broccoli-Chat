@@ -5,7 +5,6 @@
 	<groupId>Servidor_BroccoliV2</groupId>
 	<artifactId>ServidorV2</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-
 	<name>Servidor_Broccoli</name>
 	<description>Servidor Broccoli maven</description>
 
@@ -15,6 +14,12 @@
 			<groupId>javax.persistence</groupId>
 			<artifactId>persistence-api</artifactId>
 			<version>1.0.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>5.3.2.Final</version>
 		</dependency>
 
 		<dependency>
@@ -51,8 +56,8 @@
 
 
 	<build>
-		<sourceDirectory>src</sourceDirectory>
-		<testSourceDirectory>Tests</testSourceDirectory>
+		<sourceDirectory>src/main/java</sourceDirectory>
+		<testSourceDirectory>src/test/java</testSourceDirectory>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -64,4 +69,6 @@
 			</plugin>
 		</plugins>
 	</build>
+
+
 </project>

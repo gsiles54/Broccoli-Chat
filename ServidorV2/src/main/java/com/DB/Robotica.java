@@ -2,18 +2,27 @@ package com.DB;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "CHUCK")
-public class ChuckNorris implements Serializable {
+@Table(name = "Robotica")
+public class Robotica implements Serializable {
 
-	private static final long serialVersionUID = -5153794647898719855L;
+	private static final long serialVersionUID = -371128921165058773L;
+	
+	@Id
+	@Column(name="Robotica_ID")
 	private int ID;
+	
+	@Column(name="Fact")
 	private String frase;
+	
+	public Robotica() {}
 
-	public ChuckNorris(int iD, String frase) {
+	public Robotica(int iD, String frase) {
 		super();
 		ID = iD;
 		this.frase = frase;
@@ -34,4 +43,5 @@ public class ChuckNorris implements Serializable {
 	public void setFrase(String frase) {
 		this.frase = frase;
 	}
+
 }
