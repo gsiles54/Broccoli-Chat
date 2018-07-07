@@ -27,6 +27,8 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JList;
 import javax.swing.JLabel;
@@ -105,6 +107,46 @@ public class GUI_Sala extends JFrame {
 			HiloOutputSala outputSala = sala.getHilo();
 			outputSala.mandarMensaje();
 			}
+		});
+		
+		chatTextBoxSala.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {
+			    int max = 500;
+			    if(chatTextBoxSala.getText().length() > max+1) {
+			        e.consume();
+			        String shortened = chatTextBoxSala.getText().substring(0, max);
+			        chatTextBoxSala.setText(shortened);
+			    }
+			    if(chatTextBoxSala.getText().length() > max) {
+			        e.consume();
+			    }else {
+			        
+			        StringBuilder textoIngresado = new StringBuilder(chatTextBoxSala.getText());
+			        
+			 
+			    	   int  i = 0;
+				        while ((i = textoIngresado.indexOf(" ", i + 30)) != -1) {
+				        	textoIngresado.replace(i, i + 1, "\n");
+				        }
+				        chatTextBoxSala.setText(textoIngresado.toString());
+			    }
+			    
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
 		});
 		chatTextBoxSala.setBounds(10, 282, 386, 26);
 		getContentPane().add(chatTextBoxSala);

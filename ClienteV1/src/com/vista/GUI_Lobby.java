@@ -9,6 +9,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
@@ -164,6 +165,33 @@ public class GUI_Lobby extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				outputLobby.mandarMensaje();
 			}
+		});
+		chatTextBoxLobby.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {
+			    int max = 500;
+			    if(chatTextBoxLobby.getText().length() > max+1) {
+			        e.consume();
+			        String shortened = chatTextBoxLobby.getText().substring(0, max);
+			        chatTextBoxLobby.setText(shortened);
+			    }else if(chatTextBoxLobby.getText().length() > max) {
+			        e.consume();
+			    }
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
 		});
 		
 		
