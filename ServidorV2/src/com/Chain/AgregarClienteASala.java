@@ -13,6 +13,9 @@ public class AgregarClienteASala extends Chain{
 	
 	ArrayList<Sala> salas;
 	ArrayList<Cliente> clientesEnLobby;
+	boolean existeSala=false;
+	Cliente nuevoEnSala =null;
+	Sala salaModificada=null;
 	
 	public AgregarClienteASala(ArrayList<Sala> salas,ArrayList<Cliente> clientesEnLobby) {
 		this.salas=salas;
@@ -24,13 +27,13 @@ public class AgregarClienteASala extends Chain{
 		
 		if (mensaje.getComando().equals(Comandos.InvitacionASalaPublicaAceptada)||mensaje.getComando().equals(Comandos.InvitacionASalaPrivadaAceptada)) {
 			System.out.println("AgregarCLienteASala Recibio: "+mensaje.getComando());
-			boolean existeSala=false;
+			
 			String[] valores = mensaje.getInformacion().split(";");
 			String nombreCliente = valores[0];
-			Integer idSala = Integer.valueOf(valores[1]);
+		
+			if(!existeClienteEnSala(valores)) {
+				
 			
-			Cliente nuevoEnSala =null;
-			Sala salaModificada=null;
 			for(Cliente clienteActual :  clientesEnLobby) {
 				if(clienteActual.getNombre().equals(nombreCliente)) {
 					nuevoEnSala = clienteActual;
@@ -38,17 +41,13 @@ public class AgregarClienteASala extends Chain{
 				}
 			}
 			
-			for(Sala salaActual : salas) {
-			if(salaActual.getSalaID().equals(idSala)) {
-				salaModificada=salaActual;
-				salaModificada.meterCliente(nuevoEnSala);
-				existeSala=true;
-				}		
-			}
+			buscarSala(valores);
 			
 			if(existeSala) {
 				StringBuilder infoNueva = new StringBuilder();
-				infoNueva.append(mensaje.getInformacion());
+				infoNueva.append(nombreCliente);
+				infoNueva.append(";");
+				infoNueva.append(salaModificada.getSalaID());
 				infoNueva.append(";");
 				infoNueva.append(salaModificada.getNombre());
 				
@@ -64,10 +63,56 @@ public class AgregarClienteASala extends Chain{
 				salaModificada.enviarMensaje(new Mensaje(mensaje.getComando(),infoNueva.toString()));
 			}else {
 				LoggerCliente.enviarLog("Problema en Servidor:AgregarCLiente");
-			}
+			}}
 			
 		}
 		else{siguiente.manejarPeticion(mensaje);}
 	}
 
+	
+	private boolean existeClienteEnSala(String[] valores) {
+		String nombreCliente = valores[0];
+		for(Sala salaActual : salas) {
+			for(Cliente clienteActual : salaActual.getClientesEnSala()) {
+				if(clienteActual.getNombre().equals(nombreCliente)) {
+					if(valores.length>2&&salaActual.getNombre().equals(valores[2])) {
+						return true;
+					}else {
+						if(salaActual.getSalaID().equals(valores[1]))
+							return true;
+					}
+					
+				}
+					
+			}
+		}
+		return false;
+	}
+
+	public void buscarSala(String[] valores) {
+		int len = valores.length;
+		
+		
+		
+		if(len>2) {
+			String nombreSala = valores[2];
+		
+				for(Sala salaActual : salas) {
+					if(salaActual.getNombre().equals(nombreSala)) {
+						salaModificada=salaActual;
+						salaModificada.meterCliente(nuevoEnSala);
+						existeSala=true;
+					}
+				}
+		}else {
+			Integer idSala = Integer.valueOf(valores[1]);
+			for(Sala salaActual : salas) {
+				if(salaActual.getSalaID().equals(idSala)) {
+					salaModificada=salaActual;
+					salaModificada.meterCliente(nuevoEnSala);
+					existeSala=true;
+					}		
+				}
+		}
+	}
 }

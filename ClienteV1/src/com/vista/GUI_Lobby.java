@@ -191,6 +191,45 @@ public class GUI_Lobby extends JFrame {
 		
 		scrollPaneSalas.setViewportView(listaSalas);
 		
+		listaSalas.addKeyListener(new KeyAdapter() {
+	        public void keyPressed(KeyEvent e) {
+	            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+	            	StringBuilder informacion = new StringBuilder();
+	            	 String salaSeleccionada = (String) listaSalas.getSelectedValue();
+	            	 informacion.append(nombreCliente);
+		                informacion.append(";");
+		                informacion.append(0);
+		                informacion.append(";");
+		            	informacion.append(salaSeleccionada);
+	            	 Mensaje crearMP = new Mensaje(Comandos.InvitacionASalaPublicaAceptada,informacion.toString(),nombreCliente);
+	            	 EntradaSalida.getInstance().escribirMensaje(crearMP);
+	            	 
+	            	 
+	            }
+	        }
+	    });
+
+		listaSalas.addMouseListener(new MouseAdapter() {
+	        public void mouseClicked(MouseEvent e) {
+	            if (e.getClickCount() == 2) {
+	            	
+	            	StringBuilder informacion = new StringBuilder();
+	            	 String salaSeleccionada = (String) listaSalas.getSelectedValue();
+	            	informacion.append(nombreCliente);
+	                informacion.append(";");
+	                informacion.append(0);
+	                informacion.append(";");
+	            	informacion.append(salaSeleccionada);
+	            	 Mensaje crearMP = new Mensaje(Comandos.InvitacionASalaPublicaAceptada,informacion.toString(),nombreCliente);
+	            	 EntradaSalida.getInstance().escribirMensaje(crearMP);
+	            	 
+	   	            	 
+	   	            	 
+	   	            
+	            }
+	        }
+	    });
+		
 		JLabel lblUsuario = new JLabel("USUARIO: " + nombreCliente);
 		lblUsuario.setBounds(10, 26, 90, 14);
 		contentPane.add(lblUsuario);

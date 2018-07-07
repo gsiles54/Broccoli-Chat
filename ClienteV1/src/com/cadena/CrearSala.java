@@ -44,6 +44,8 @@ public class CrearSala extends ChainCliente {
 				guiSala.setSalaID(idSala);
 				guiSala.setVisible(true); 
 				guiSala.agregarCliente(nombreCliente);
+				if(valores.length>3)
+					guiSala.agregarCliente(valores[3]);
 				nuevaSala = new Sala(idSala, nombreSala, esPrivada, guiSala);
 
 				guiSala.setSala(nuevaSala);
@@ -67,6 +69,7 @@ public class CrearSala extends ChainCliente {
 			if(valores.length>3){
 				nuevaSala.meterCliente(valores[3]);
 				nuevaSala.setConversacion(true);
+			
 			}
 		} else {
 			siguiente.manejarPeticion(mensaje);
