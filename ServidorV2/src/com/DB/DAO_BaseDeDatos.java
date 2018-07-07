@@ -11,7 +11,7 @@ public class DAO_BaseDeDatos {
 		private ArrayList<Usuario> listaUsuarios;
 		
 		protected DAO_BaseDeDatos() {
-			listaUsuarios=new ArrayList<Usuario>();
+			/*listaUsuarios=new ArrayList<Usuario>();
 			listaUsuarios.add(new Usuario("aa","aa"));
 			listaUsuarios.add(new Usuario("bb","bb"));
 			listaUsuarios.add(new Usuario("cc","cc"));
@@ -19,6 +19,7 @@ public class DAO_BaseDeDatos {
 			listaUsuarios.add(new Usuario("ff","ff"));
 			listaUsuarios.add(new Usuario("dd","dd"));
 			listaUsuarios.add(new Usuario("gg","gg"));
+			*/
 		}
 		
 		public static DAO_BaseDeDatos getInstance() {
@@ -29,7 +30,8 @@ public class DAO_BaseDeDatos {
 		}
 		// SACAR ESTO DE ACA, Rompe Principio de responsabilidad Unica.
 		public boolean validarUsuario(String nombre, String pass) {
-			return listaUsuarios.contains(new Usuario(nombre,pass));
+			//return listaUsuarios.contains(new Usuario(nombre,pass));
+			return true;
 		}
 		
 }
