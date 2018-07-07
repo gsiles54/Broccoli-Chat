@@ -14,14 +14,21 @@ import com.mensajes.Mensaje;
 public class Cliente {
 
 	String nombre;
+	Socket socket;
 	ClientOutputHandler salida;
 	ClientInputHandler entrada;
 	
 	public Cliente(String _nombre, Socket socket) throws IOException {
 		nombre = _nombre; 
-		
+		this.socket=socket;
+		crearHandlers();
+	}
+
+	private void crearHandlers() throws IOException {
+		if(socket!=null) {
 		entrada= new ClientInputHandler(socket);
 		salida = new ClientOutputHandler(socket);
+		} 
 	}
 	
 	public Cliente(String _nombre, ClientOutputHandler salida, ClientInputHandler entrada) {
@@ -29,6 +36,7 @@ public class Cliente {
 		this.nombre=_nombre;
 		this.salida=salida;
 	}
+	
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
@@ -38,13 +46,13 @@ public class Cliente {
 	}
 	
 	public void iniciarEscucha() {
-		Thread t1 = new Thread(entrada);
-		t1.start();
+		Thread threadEscucha = new Thread(entrada);
+		threadEscucha.start();
 	}
 	
 	public void iniciarRespuesta() {
-		Thread t1 = new Thread(salida);
-		t1.start();
+		Thread threadRespuesta = new Thread(salida);
+		threadRespuesta.start();
 	}
 	
 	public void enviarMensaje(Mensaje mensaje) {

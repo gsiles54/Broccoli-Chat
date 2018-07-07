@@ -19,8 +19,6 @@ public class DAO_BaseDeDatos {
 			listaUsuarios.add(new Usuario("ff","ff"));
 			listaUsuarios.add(new Usuario("dd","dd"));
 			listaUsuarios.add(new Usuario("gg","gg"));
-	
-			
 		}
 		
 		public static DAO_BaseDeDatos getInstance() {
