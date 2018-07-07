@@ -32,7 +32,7 @@ public class HiloOutputSala implements Runnable {
 					 // tengo en cuenta todos los GUI?
 												// o
 												// hago hilos separados?
-						
+					
 						texto = new StringBuilder();
 						texto.append('\n');
 						texto.append(nombreCliente + " : ");
