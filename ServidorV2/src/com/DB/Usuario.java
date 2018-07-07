@@ -1,17 +1,25 @@
 package com.DB;
+
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 /**
  * El Usuario es con lo que cada persona se registra. Nombre y Password. No sabe nada de Sockets. <b>Solo se usa para Login</b>.
  * Este Usuario luego se convierte en Cliente del chat.
  * @author Maxi
  *
  */
-public class Usuario {
+@Entity
+@Table(name = "USUARIO")
+public class Usuario implements Serializable{
 
+	private static final long serialVersionUID = -575048319413665627L;
 	String usuario;
 	String password;
 
 	public Usuario(String usuario, String password) {
-		super();
 		this.usuario = usuario;
 		this.password = password;
 	}
@@ -54,4 +62,13 @@ public class Usuario {
 	public String getPassword() {
 		return password;
 	}
+	
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 }
