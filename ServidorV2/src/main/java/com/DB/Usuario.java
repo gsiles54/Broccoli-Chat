@@ -20,19 +20,31 @@ public class Usuario implements Serializable{
 	private static final long serialVersionUID = -575048319413665627L;
 	
 	@Id
-	@Column(name = "USUARIO_ID")
+	@Column(name = "Usuario_ID")
 	int ID;
+	
 	@Column(name = "Nombre")
 	String usuario;
+	
 	@Column(name = "Password")
 	String password;
+	
+	public Usuario() {}
 
 	
-	public Usuario(int t, String usuario, String password) {
+	public Usuario(int _ID, String usuario, String password) {
+		ID=_ID;
 		this.usuario = usuario;
 		this.password = password;
 	}
 
+	public Usuario(String usuario, String password) {
+		this.usuario = usuario;
+		this.password = password;
+		ID=-1;
+	}
+
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

@@ -46,62 +46,11 @@ public class Servidor_GUI extends JFrame {
 
 			public void run() {
 				Servidor_GUI frame = new Servidor_GUI();
-				testDB();
-				
 				frame.setVisible(true);
 			}
 		});
 	}
-	/*
-	public static void testBaseDeDatos() throws SQLException, ClassNotFoundException {
-		    final String JDBC_DRIVER = "org.h2.Driver";   
-		    final String DB_URL = "jdbc:h2:~/test";  
-			 final String USER = "sa"; 
-		    final String PASS = ""; 
 
-		    Class.forName("org.h2.Driver");
-		    	  Connection conn = DriverManager.getConnection("jdbc:h2:~/ChatDB",USER,PASS); 
-		    	//  Connection conn = DriverManager.getConnection("jdbc:h2:~/ChatDB"); 
-		          Statement stat = conn.createStatement();
-		          //stat.execute("insert into test values(1, 'Hello')");
-		    	  ResultSet rs = stat.executeQuery("select * from CHUCK"); 
-		    		
-	              while (rs.next()) 
-	                System.out.println(rs.getString("FACT"));
-	              
-	              conn.commit();
-	              
-	              rs.close();
-	              stat.close();
-	              conn.close();
-	}
-*/
-	//ATENCION, REESTABLECER LO COMENTADO EN COM.DB.DAO.
-	public static void testDB() {
-		EntityManagerFactory emf= Persistence.createEntityManagerFactory("Persistencia");
-		EntityManager em= emf.createEntityManager();
-		em.persist(new Usuario(9,"Pedro","Pedro"));
-	}
-	/*
-	public static void testBaseDeDatosHibernate() {
-
-		Usuario user = new Usuario(7, "Cristian", "Cristian");
-		EntityManager a;
-
-		SessionFactory sessionFactory = new Configuration().configure()
-				.buildSessionFactory();
-		Session session = sessionFactory.openSession();
-		
-		Transaction transaction = session.beginTransaction();
-		
-		session.save(user);
-		
-		session.getTransaction().commit();
-		
-		session.close();
-		sessionFactory.close();
-	}
-	*/
 
 	public Servidor_GUI() {
 		crearUI();

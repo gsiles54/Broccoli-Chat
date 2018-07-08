@@ -6,6 +6,8 @@
 
   <persistence-unit name="Persistencia">
   
+  	<class>com.DB.ChuckNorris</class>
+  	<class>com.DB.Robotica</class>
   	<class>com.DB.Usuario</class>
   	
     <properties>
