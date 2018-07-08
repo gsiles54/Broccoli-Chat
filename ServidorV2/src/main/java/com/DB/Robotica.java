@@ -43,5 +43,4 @@ public class Robotica implements Serializable {
 	public void setFrase(String frase) {
 		this.frase = frase;
 	}
-
 }

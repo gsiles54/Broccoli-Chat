@@ -9,7 +9,7 @@ import com.DB.Usuario;
 public class TestHibernate {
 
 	public static void main(String[] args) {
-		//testDB();
+		testDB();
 	}
 	
 	/*
@@ -45,7 +45,7 @@ public class TestHibernate {
 		em.getTransaction().begin();
 		em.persist(new Usuario(9,"Pedro","Pedro"));
 		em.getTransaction().commit();
-		}catch(Exception e) {
+		}catch(NoClassDefFoundError e) {
 			e.printStackTrace();
 			}
 	}
