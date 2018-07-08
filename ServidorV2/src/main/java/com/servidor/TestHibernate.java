@@ -4,12 +4,29 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
 import com.DB.Usuario;
 
 public class TestHibernate {
 
 	public static void main(String[] args) {
-		testDB();
+		 SessionFactory factory = new Configuration().configure().buildSessionFactory();
+		 Session  session = factory.openSession();
+        
+		Usuario a = new Usuario();
+		a.setID(95);
+		a.setUsuario("Pedro");
+		a.setPassword("Pedro");
+		
+		session.beginTransaction();
+		session.save(a);
+		session.getTransaction().commit();
+		
+		factory.close();
+		session.close();
 	}
 	
 	/*
@@ -37,7 +54,7 @@ public class TestHibernate {
 	}
 */
 	//ATENCION, REESTABLECER LO COMENTADO EN COM.DB.DAO.
-	public static void testDB() {
+	/*public static void testDB() {
 		try{
 		EntityManagerFactory emf= Persistence.createEntityManagerFactory("Persistencia");
 		
@@ -48,7 +65,7 @@ public class TestHibernate {
 		}catch(NoClassDefFoundError e) {
 			e.printStackTrace();
 			}
-	}
+	}*/
 	/*
 	public static void testBaseDeDatosHibernate() {
 
