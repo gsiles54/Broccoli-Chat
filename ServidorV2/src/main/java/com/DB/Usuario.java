@@ -2,11 +2,6 @@ package com.DB;
 
 import java.io.Serializable;
 
-import javax.persistence.Entity;
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
 /**
  * El Usuario es con lo que cada persona se registra. Nombre y Password. No sabe nada de Sockets. <b>Solo se usa para Login</b>.
  * Este Usuario luego se convierte en Cliente del chat.

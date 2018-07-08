@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+      "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.DB.Usuario" table="PUBLIC.USUARIO">
+        <id column="USUARIO_ID" name="ID" type="int" />
+        <property column="NOMBRE" name="usuario" type="string" />
+        <property column="PASSWORD" name="password" type="string" />
+    </class>
+</hibernate-mapping>

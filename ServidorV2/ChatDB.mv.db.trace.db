@@ -1,0 +1,53 @@
+2018-07-08 16:48:07 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabla "USUARIO" no encontrada
+Table "USUARIO" not found; SQL statement:
+insert into Usuario (NOMBRE, PASSWORD, USUARIO_ID) values (?, ?, ?) [42102-197]
+2018-07-08 16:50:25 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabla "USUARIO" no encontrada
+Table "USUARIO" not found; SQL statement:
+insert into USUARIO (NOMBRE, PASSWORD, USUARIO_ID) values (?, ?, ?) [42102-197]
+2018-07-08 16:50:42 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabla "USUARIO" no encontrada
+Table "USUARIO" not found; SQL statement:
+insert into PUBLIC.USUARIO (NOMBRE, PASSWORD, USUARIO_ID) values (?, ?, ?) [42102-197]
+2018-07-08 16:51:18 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Schema "CHATDB" no encontrado
+Schema "CHATDB" not found; SQL statement:
+insert into CHATDB.USUARIO (NOMBRE, PASSWORD, USUARIO_ID) values (?, ?, ?) [90079-197]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:357)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.command.Parser.getSchema(Parser.java:701)
+	at org.h2.command.Parser.getSchema(Parser.java:707)
+	at org.h2.command.Parser.readTableOrView(Parser.java:5903)
+	at org.h2.command.Parser.readTableOrView(Parser.java:5897)
+	at org.h2.command.Parser.parseInsert(Parser.java:1220)
+	at org.h2.command.Parser.parsePrepared(Parser.java:431)
+	at org.h2.command.Parser.parse(Parser.java:335)
+	at org.h2.command.Parser.parse(Parser.java:307)
+	at org.h2.command.Parser.prepareCommand(Parser.java:278)
+	at org.h2.engine.Session.prepareLocal(Session.java:611)
+	at org.h2.engine.Session.prepareCommand(Session.java:549)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1247)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:76)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:304)
+	at org.hibernate.jdbc.AbstractBatcher.getPreparedStatement(AbstractBatcher.java:505)
+	at org.hibernate.jdbc.AbstractBatcher.prepareStatement(AbstractBatcher.java:94)
+	at org.hibernate.jdbc.AbstractBatcher.prepareStatement(AbstractBatcher.java:87)
+	at org.hibernate.jdbc.AbstractBatcher.prepareBatchStatement(AbstractBatcher.java:222)
+	at org.hibernate.persister.entity.AbstractEntityPersister.insert(AbstractEntityPersister.java:2229)
+	at org.hibernate.persister.entity.AbstractEntityPersister.insert(AbstractEntityPersister.java:2665)
+	at org.hibernate.action.EntityInsertAction.execute(EntityInsertAction.java:60)
+	at org.hibernate.engine.ActionQueue.execute(ActionQueue.java:279)
+	at org.hibernate.engine.ActionQueue.executeActions(ActionQueue.java:263)
+	at org.hibernate.engine.ActionQueue.executeActions(ActionQueue.java:167)
+	at org.hibernate.event.def.AbstractFlushingEventListener.performExecutions(AbstractFlushingEventListener.java:298)
+	at org.hibernate.event.def.DefaultFlushEventListener.onFlush(DefaultFlushEventListener.java:27)
+	at org.hibernate.impl.SessionImpl.flush(SessionImpl.java:1000)
+	at org.hibernate.impl.SessionImpl.managedFlush(SessionImpl.java:338)
+	at org.hibernate.transaction.JDBCTransaction.commit(JDBCTransaction.java:106)
+	at com.servidor.TestHibernate.main(TestHibernate.java:23)
+2018-07-08 16:52:34 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabla "USUARIO" no encontrada
+Table "USUARIO" not found; SQL statement:
+insert into PUBLIC.USUARIO (NOMBRE, PASSWORD, USUARIO_ID) values (?, ?, ?) [42102-197]

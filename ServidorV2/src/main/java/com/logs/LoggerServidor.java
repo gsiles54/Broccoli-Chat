@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Calendar;
+
 import javax.swing.JTextArea;
 /**
  * Servidor de Logs, se queda a la escucha de mensajes de logs entrantes.
