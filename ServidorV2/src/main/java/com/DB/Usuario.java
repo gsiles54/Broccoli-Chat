@@ -13,20 +13,16 @@ import javax.persistence.Table;
  * @author Maxi
  *
  */
-@Entity
-@Table(name = "USUARIO")
 public class Usuario implements Serializable{
+
+
 
 	private static final long serialVersionUID = -575048319413665627L;
 	
-	@Id
-	@Column(name = "Usuario_ID")
 	int ID;
 	
-	@Column(name = "Nombre")
 	String usuario;
 	
-	@Column(name = "Password")
 	String password;
 	
 	public Usuario() {}
@@ -90,6 +86,15 @@ public class Usuario implements Serializable{
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public int getID() {
+		return ID;
+	}
+
+
+	public void setID(int iD) {
+		ID = iD;
 	}
 
 }
